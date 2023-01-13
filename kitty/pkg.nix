@@ -1,12 +1,8 @@
 withGUI: {
-    enable = withGUI;
-    font = {
-        name = "Iosevka";
-        size = 10.5;
+    programs.kitty = {
+        enable = withGUI;
     };
-    keybindings = {
-        "ctrl+tab" = "no_op";
-        "ctrl+shift+tab" = "no_op";
+    xdg.configFile."kitty/kitty.conf" = {
+        source = ./kitty.conf;
     };
-    extraConfig = (import "kitty.conf");
 }

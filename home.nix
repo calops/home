@@ -20,7 +20,9 @@ in {
     services.gpg-agent.enableSshSupport = true;
 
     # Terminal emulator
-    programs.kitty = (import "kitty/pkg.nix") withGUI;
+    imports = [
+        (import "kitty/pkg.nix") withGUI
+    ];
 
     # Interactive shell
     programs.fish = {
