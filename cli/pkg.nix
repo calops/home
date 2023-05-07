@@ -3,6 +3,7 @@
     ./btop.nix
     ./fish.nix
     ./git.nix
+    ./zellij.nix
   ];
 
   home.packages = [

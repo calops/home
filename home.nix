@@ -1,6 +1,5 @@
 {
   pkgs,
-  extraSpecialArgs,
   config,
   lib,
   ...
