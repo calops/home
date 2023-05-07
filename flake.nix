@@ -38,7 +38,11 @@
               } // args.home or {};
             }
           ];
-          extraSpecialArgs = args.extraSpecialArgs or {};
+          extraSpecialArgs = {
+            withGui = false;
+            isLaptop = false;
+            monitors = {};
+          } // args.extraSpecialArgs or {};
         }
       );
   in {
@@ -47,7 +51,11 @@
       "calops@tocardstation" = mkHomeConfiguration {
         extraSpecialArgs = {
           withGui = true;
-          isLaptop = false;
+          monitors = {
+            "DP-1" = {
+              primary = true;
+            };
+          };
         };
       };
     };

@@ -2,6 +2,7 @@
   pkgs,
   extraSpecialArgs,
   config,
+  lib,
   ...
 }: {
   programs.home-manager.enable = true;
@@ -18,5 +19,6 @@
 
   imports = [
     ./cli/pkg.nix
+    ./gui/pkg.nix
   ];
 }
