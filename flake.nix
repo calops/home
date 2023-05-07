@@ -8,6 +8,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     alejandra.url = "github:kamadorueda/alejandra/3.0.0";
     alejandra.inputs.nixpkgs.follows = "nixpkgs";
+    nur.url = "github:nix-community/NUR";
   };
 
   outputs = {
@@ -16,6 +17,7 @@
     nixpkgs,
     utils,
     alejandra,
+    nur,
   }: let
     pkgsForSystem = system:
       import nixpkgs {

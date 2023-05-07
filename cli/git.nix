@@ -42,6 +42,10 @@
       "typings"
     ];
     extraConfig = {
+      user = {
+        name = "Rémi Labeyrie";
+        email = "rlabeyrie@gmail.com";
+      };
       diff = {
         renames = true;
         mnemonicPrefix = true;

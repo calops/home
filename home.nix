@@ -1,23 +1,14 @@
 {
   pkgs,
   extraSpecialArgs,
-  homeDirectory,
+  config,
   ...
 }: {
   programs.home-manager.enable = true;
 
-  home.packages = [
-    pkgs.bash
-    pkgs.fd
-    pkgs.ripgrep
-    pkgs.rm-improved
-    pkgs.rustup
-    pkgs.xcp
-  ];
-
   home.sessionVariables = {
     EDITOR = "nvim";
-    #STOCKLY_MAIN = "${homeDirectory}/stockly/Main";
+    STOCKLY_MAIN = "${config.home.homeDirectory}/stockly/Main";
   };
 
   home.file.scripts = {
@@ -26,8 +17,6 @@
   };
 
   imports = [
-    ./btop.nix
-    ./git.nix
-    ./fish.nix
+    ./cli/pkg.nix
   ];
 }
