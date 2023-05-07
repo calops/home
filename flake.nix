@@ -32,10 +32,10 @@
             ./home.nix
             {
               home = {
-                username = args.username or "calops";
-                homeDirectory = args.homeDirectory or "/home/calops";
+                username = "calops";
+                homeDirectory = "/home/calops";
                 stateVersion = "23.05";
-              };
+              } // args.home or {};
             }
           ];
           extraSpecialArgs = args.extraSpecialArgs or {};
@@ -44,7 +44,7 @@
   in {
     defaultPackage.x86_64-linux = home-manager.defaultPackage.x86_64-linux;
     homeConfigurations = {
-      calops = mkHomeConfiguration {
+      "calops@tocardstation" = mkHomeConfiguration {
         extraSpecialArgs = {
           withGui = true;
           isLaptop = false;
