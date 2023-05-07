@@ -23,17 +23,12 @@
     nixpkgs,
     ...
   } @ inputs: let
-    pkgsForSystem = system:
-      import nixpkgs {
-        inherit system;
-        config = {
-          allowUnfree = true;
-        };
-      };
-
     mkHomeConfiguration = args:
       home-manager.lib.homeManagerConfiguration {
-        pkgs = pkgsForSystem args.system or "x86_64-linux";
+        pkgs = import nixpkgs {
+          system = args.system or "x86_64-linux";
+          config.allowUnfree = true;
+        };
         modules = [
           ./home.nix
           {
@@ -56,9 +51,6 @@
           // args.extraSpecialArgs or {};
       };
   in {
-    nixpkgs.config = {
-      allowUnfree = true;
-    };
     defaultPackage.x86_64-linux = home-manager.defaultPackage.x86_64-linux;
     homeConfigurations = {
       "calops@tocardstation" = mkHomeConfiguration {

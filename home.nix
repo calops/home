@@ -6,6 +6,12 @@
 }: {
   programs.home-manager.enable = true;
 
+  xdg.configFile."nixpkgs/config.nix".text = ''
+    {
+      allowUnfree = true;
+    }
+  '';
+
   home.sessionVariables = {
     EDITOR = "nvim";
     STOCKLY_MAIN = "${config.home.homeDirectory}/stockly/Main";
