@@ -98,7 +98,7 @@
                   "#40a02b"
                 ]
               }
-            },
+            }
           ]
         },
         "show_labs_settings": true

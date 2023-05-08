@@ -14,6 +14,6 @@
   imports = [
     ./kitty.nix
     ./element.nix
-    ./firefox.nix
+    #./firefox.nix
   ];
 }
