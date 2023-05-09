@@ -63,6 +63,15 @@
           };
         };
       };
+      "rlabeyrie@charybdis" = mkHomeConfiguration {
+        home = {
+          username = "rlabeyrie";
+          homeDirectory = "/home/rlabeyrie";
+        };
+        extraSpecialArgs = {
+          withGui = false;
+        };
+      };
     };
   };
 }

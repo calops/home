@@ -6,13 +6,14 @@
     ./zellij.nix
   ];
 
-  home.packages = [
-    pkgs.bash
-    pkgs.fd
-    pkgs.ripgrep
-    pkgs.rm-improved
-    pkgs.rustup
-    pkgs.xcp
+  home.packages = with pkgs; [
+    bash
+    fd
+    ripgrep
+    rm-improved
+    rustup
+    xcp
+    neovim
   ];
 
   programs.zoxide = {
