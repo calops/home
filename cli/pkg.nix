@@ -69,4 +69,11 @@
     icons = true;
     git = true;
   };
+
+  programs.helix = {
+    enable = true;
+    settings = {
+      theme = "catppuccin_mocha";
+    };
+  };
 }

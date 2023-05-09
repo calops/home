@@ -1,4 +1,4 @@
-{ ... }: {
+{...}: {
   programs.fish = {
     enable = true;
     shellAbbrs = {
@@ -31,18 +31,17 @@
           cd $STOCKLY_MAIN
         end
       '';
+      s = ''
+        cargo run --manifest-path "$STOCKLY_MAIN/.cargo/workspace/Cargo.toml" -p "stockly_cli" --release -- $argv
+      '';
+      eol = ''
+        echo "adding missing EOLs"
+        git status --short | choose 1 | rargs sed -i '$a\\' {0}
+      '';
     };
     interactiveShellInit = ''
       set fish_greeting
-
-      function cdr_complete
-        set arg (commandline -ct)
-        set saved_pwd $PWD
-        builtin cd $STOCKLY_MAIN 2>/dev/null
-        and complete -C"cd $arg"
-        builtin cd $saved_pwd
-      end
-      complete --command cdr -f --arguments '(cdr_complete)'
+      set -gx PATH ~/.cargo/bin $PATH
 
       if test -e ~/.nix-profile/etc/profile.d/nix.fish
         source ~/.nix-profile/etc/profile.d/nix.fish

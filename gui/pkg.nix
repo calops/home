@@ -16,4 +16,9 @@
     ./element.nix
     #./firefox.nix
   ];
+
+  programs.eww = {
+    enable = true;
+    configDir = ./eww;
+  };
 }
