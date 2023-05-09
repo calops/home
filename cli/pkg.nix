@@ -13,7 +13,7 @@
     rm-improved
     rustup
     xcp
-    neovim
+    neovim-nightly
   ];
 
   programs.zoxide = {

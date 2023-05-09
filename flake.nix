@@ -15,6 +15,7 @@
     nur.url = "github:nix-community/NUR";
     hyprland.url = "github:hyprwm/Hyprland";
     firefox-addons.url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
   };
 
   outputs = {
@@ -23,11 +24,15 @@
     nixpkgs,
     ...
   } @ inputs: let
+    overlays = [
+      inputs.neovim-nightly-overlay.overlay
+    ];
     mkHomeConfiguration = args:
       home-manager.lib.homeManagerConfiguration {
         pkgs = import nixpkgs {
           system = args.system or "x86_64-linux";
           config.allowUnfree = true;
+          overlays = overlays;
         };
         modules = [
           ./home.nix
