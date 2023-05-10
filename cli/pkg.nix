@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   imports = [
     ./btop.nix
     ./fish.nix
@@ -14,6 +14,7 @@
     rustup
     xcp
     neovim-nightly
+    alejandra
   ];
 
   programs.zoxide = {
@@ -24,9 +25,9 @@
   programs.skim = {
     enable = true;
     defaultCommand = "fd --color=always";
-    defaultOptions = [ "--ansi" ];
+    defaultOptions = ["--ansi"];
     fileWidgetCommand = "fd --color=always";
-    fileWidgetOptions = [ "--ansi" "--preview '~/scripts/preview.sh {}'" ];
+    fileWidgetOptions = ["--ansi" "--preview '~/scripts/preview.sh {}'"];
     changeDirWidgetCommand = "fd --type d --color=always";
   };
 
@@ -61,7 +62,7 @@
           rev = "ba4d16880d63e656acced2b7d4e034e4a93f74b1";
           sha256 = "sha256-6WVKQErGdaqb++oaXnY3i6/GuH2FhTgK0v4TN4Y0Wbw=";
         }
-      + "/Catppuccin-mocha.tmTheme");
+        + "/Catppuccin-mocha.tmTheme");
     };
   };
 

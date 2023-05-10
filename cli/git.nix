@@ -1,7 +1,12 @@
-{...}: {
+{pkgs, ...}: {
+  home.packages = [pkgs.git-crypt];
   programs.git = {
     enable = true;
     lfs.enable = true;
+    signing = {
+      signByDefault = true;
+      key = "";
+    };
     delta = {
       enable = true;
       options = {
@@ -77,5 +82,17 @@
       pull.rebase = "true";
       push.default = "upstream";
     };
+    includes = [
+      {
+        condition = "gitdir:~/stockly/Main";
+        contents = {
+          user = {
+            name = "Remi Labeyrie";
+            email = "remi.labeyrie@stockly.ai";
+            signingKey = "0C4A765BBFDA280C47C173EE876975DF58900393";
+          };
+        };
+      }
+    ];
   };
 }

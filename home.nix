@@ -26,4 +26,8 @@
     ./cli/pkg.nix
     ./gui/pkg.nix
   ];
+
+  programs.gpg = {
+    enable = true;
+  };
 }
