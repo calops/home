@@ -15,6 +15,8 @@
     xcp
     neovim-nightly
     alejandra
+    choose
+    rargs
   ];
 
   programs.zoxide = {

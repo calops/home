@@ -2,17 +2,11 @@
   description = "Home-manager configuration";
 
   inputs = {
-    utils.url = "github:numtide/flake-utils";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    alejandra = {
-      url = "github:kamadorueda/alejandra/3.0.0";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    nur.url = "github:nix-community/NUR";
     hyprland.url = "github:hyprwm/Hyprland";
     firefox-addons.url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
@@ -38,12 +32,11 @@
           ./home.nix
           {
             home =
-              {
-                username = "calops";
-                homeDirectory = "/home/calops";
+              rec {
+                username = args.username or "calops";
+                homeDirectory = args.homeDirectory or "/home/${username}";
                 stateVersion = "23.05";
-              }
-              // args.home or {};
+              };
           }
         ];
         extraSpecialArgs =
@@ -68,14 +61,16 @@
           };
         };
       };
-      "rlabeyrie@charybdis" = mkHomeConfiguration {
-        home = {
-          username = "rlabeyrie";
-          homeDirectory = "/home/rlabeyrie";
-        };
+      "user@stockly-409" = mkHomeConfiguration {
+        username = "user";
         extraSpecialArgs = {
-          withGui = false;
+          withGui = true;
+          isLaptop = true;
         };
+      };
+      "rlabeyrie@charybdis" = mkHomeConfiguration {
+        username = "rlabeyrie";
+        extraSpecialArgs.withGui = false;
       };
     };
   };

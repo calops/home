@@ -18,7 +18,7 @@
   ];
 
   programs.eww = {
-    enable = true;
+    enable = false;
     configDir = ./eww;
   };
 }

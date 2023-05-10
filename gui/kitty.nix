@@ -1,4 +1,4 @@
-{withGui, ...}: {
+{lib, withGui, pkgs, ...}: {
   programs.kitty = {
     enable = withGui;
     settings = {
