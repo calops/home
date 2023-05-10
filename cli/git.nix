@@ -5,7 +5,7 @@
     lfs.enable = true;
     signing = {
       signByDefault = true;
-      key = "";
+      key = "1FAB C23C 7766 D833 7C4D  C502 5357 919C 06FD 9147";
     };
     delta = {
       enable = true;
@@ -49,7 +49,7 @@
     extraConfig = {
       user = {
         name = "Rémi Labeyrie";
-        email = "rlabeyrie@gmail.com";
+        email = "calops@tocards.net";
       };
       diff = {
         renames = true;
@@ -84,12 +84,12 @@
     };
     includes = [
       {
-        condition = "gitdir:~/stockly/Main";
+        condition = "gitdir:stockly";
         contents = {
           user = {
             name = "Remi Labeyrie";
             email = "remi.labeyrie@stockly.ai";
-            signingKey = "0C4A765BBFDA280C47C173EE876975DF58900393";
+            signingKey = "0C4A 765B BFDA 280C 47C1  73EE 8769 75DF 5890 0393";
           };
         };
       }
