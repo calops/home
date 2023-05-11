@@ -1,12 +1,12 @@
-{ lib
-, pkgs
-, withGui
-, withGLHack
-, ...
-} @ args:
-let
+{
+  lib,
+  pkgs,
+  withGui,
+  withGLHack,
+  ...
+} @ args: let
   nixGLWrap = pkg:
-    pkgs.runCommand "${pkg.name}-nixgl-wrapper" { } ''
+    pkgs.runCommand "${pkg.name}-nixgl-wrapper" {} ''
       mkdir $out
       ln -s ${pkg}/* $out
       rm $out/bin
@@ -17,8 +17,7 @@ let
        chmod +x $wrapped_bin
       done
     '';
-in
-{
+in {
   fonts.fontconfig.enable = withGui;
 
   home.packages =
@@ -26,7 +25,7 @@ in
     ++ lib.optional withGLHack pkgs.nixgl.nixGLIntel;
 
   imports = [
-    (import ./kitty.nix (args // { inherit nixGLWrap; }))
+    (import ./kitty.nix (args // {inherit nixGLWrap;}))
     ./element.nix
   ];
 
