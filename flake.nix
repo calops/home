@@ -10,6 +10,7 @@
     hyprland.url = "github:hyprwm/Hyprland";
     firefox-addons.url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+    nixgl.url = "github:guibou/nixGL";
   };
 
   outputs = {
@@ -20,6 +21,7 @@
   } @ inputs: let
     overlays = [
       inputs.neovim-nightly-overlay.overlay
+      inputs.nixgl.overlay
     ];
     mkHomeConfiguration = args:
       home-manager.lib.homeManagerConfiguration {
@@ -31,12 +33,11 @@
         modules = [
           ./home.nix
           {
-            home =
-              rec {
-                username = args.username or "calops";
-                homeDirectory = args.homeDirectory or "/home/${username}";
-                stateVersion = "23.05";
-              };
+            home = rec {
+              username = args.username or "calops";
+              homeDirectory = args.homeDirectory or "/home/${username}";
+              stateVersion = "23.05";
+            };
           }
         ];
         extraSpecialArgs =
@@ -44,6 +45,7 @@
             inherit inputs;
             withGui = false;
             isLaptop = false;
+            withGLHack = false;
             monitors = {};
           }
           // args.extraSpecialArgs or {};
@@ -65,6 +67,7 @@
         username = "user";
         extraSpecialArgs = {
           withGui = true;
+          withGLHack = true;
           isLaptop = true;
         };
       };

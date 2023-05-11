@@ -17,6 +17,7 @@
     alejandra
     choose
     rargs
+    python3Full
   ];
 
   programs.zoxide = {

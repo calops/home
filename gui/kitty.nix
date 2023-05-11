@@ -1,6 +1,17 @@
-{lib, withGui, pkgs, ...}: {
+{
+  lib,
+  withGui,
+  withGLHack,
+  nixGLWrap,
+  pkgs,
+  ...
+}: {
   programs.kitty = {
     enable = withGui;
+    package =
+      if withGLHack
+      then nixGLWrap pkgs.alacritty
+      else pkgs.alacritty;
     settings = {
       undercurl_style = "thick-sparse";
       font_size = 10;

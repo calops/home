@@ -1,13 +1,14 @@
-{ hyprland
-, withGui
-, pkgs
-, lib
-, config
-, ...
+{
+  hyprland,
+  withGui,
+  pkgs,
+  lib,
+  config,
+  ...
 }: {
-#  imports = [
-#    inputs.hyprland.homeManagerModules.default
-#  ];
+  #  imports = [
+  #    inputs.hyprland.homeManagerModules.default
+  #  ];
 
   programs = {
     fish.loginShellInit = ''
