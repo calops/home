@@ -6,6 +6,10 @@
       cat = "bat";
       hm = "home-manager";
       hs = "home-manager switch";
+      ga = "git add";
+      gu = "git add -u";
+      gp = "git push";
+      st = "git status";
     };
     shellAliases = {
       copy = "xclip -selection clipboard";
@@ -37,6 +41,10 @@
       eol = ''
         echo "adding missing EOLs"
         git status --short | choose 1 | rargs sed -i '$a\\' {0}
+        git status --short
+      '';
+      gc = ''
+        git commit -m "$argv"
       '';
     };
     interactiveShellInit = ''
