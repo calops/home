@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   home.packages = [pkgs.git-crypt];
   programs.git = {
     enable = true;
@@ -12,13 +16,7 @@
       options = {
         side-by-side = true;
         line-numbers = true;
-        decorations = {
-          commit-decoration-style = "bold yellow box ul";
-          file-decoration-style = "bold yellow ul";
-          file-style = "bold yellow";
-          hunk-header-decoration-style = "omit";
-        };
-        features = "decorations";
+        features = "catppuccin";
       };
     };
     aliases = {
@@ -83,6 +81,7 @@
       push.default = "upstream";
     };
     includes = [
+      {path = config.xdg.configHome + "/git/delta/themes.gitconfig";}
       {
         condition = "gitdir:stockly";
         contents = {
@@ -95,4 +94,28 @@
       }
     ];
   };
+
+  xdg.configFile."git/delta/themes.gitconfig".text = ''
+    [delta "catppuccin"]
+      dark = true
+      commit-decoration-style = bold yellow box ul;
+      file-decoration-style = "bold yellow ul";
+      file-style = "bold yellow";
+      hunk-header-decoration-style = "omit";
+
+      hunk-header-file-style = "#999999"
+      hunk-header-line-number-style = bold "#003300"
+      hunk-header-style = file line-number syntax
+      line-numbers = true
+      line-numbers-left-style = "#45475a"
+      line-numbers-right-style = "#45475a"
+      line-numbers-minus-style = "#f38ba8"
+      line-numbers-plus-style = "#a6e3a1"
+      line-numbers-zero-style = "#999999"
+      minus-emph-style = syntax "#5b435b"
+      minus-style = syntax "#302330"
+      plus-emph-style = syntax "#475659"
+      plus-style = syntax "#2b3436"
+      syntax-theme = catppuccin
+  '';
 }
