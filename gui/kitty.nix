@@ -10,8 +10,8 @@
     enable = withGui;
     package =
       if withGLHack
-      then nixGLWrap pkgs.alacritty
-      else pkgs.alacritty;
+      then nixGLWrap pkgs.kitty
+      else pkgs.kitty;
     settings = {
       undercurl_style = "thick-sparse";
       font_size = 10;
