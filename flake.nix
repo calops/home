@@ -17,11 +17,15 @@
     self,
     home-manager,
     nixpkgs,
+    hyprland,
     ...
   } @ inputs: let
     overlays = [
       inputs.neovim-nightly-overlay.overlay
       inputs.nixgl.overlay
+    ];
+    modules = [
+      hyprland.homeManagerModules.default
     ];
     mkHomeConfiguration = args:
       home-manager.lib.homeManagerConfiguration {
@@ -30,16 +34,18 @@
           config.allowUnfree = true;
           overlays = overlays;
         };
-        modules = [
-          ./home.nix
-          {
-            home = rec {
-              username = args.username or "calops";
-              homeDirectory = args.homeDirectory or "/home/${username}";
-              stateVersion = "23.05";
-            };
-          }
-        ];
+        modules =
+          modules
+          ++ [
+            ./home.nix
+            {
+              home = rec {
+                username = args.username or "calops";
+                homeDirectory = args.homeDirectory or "/home/${username}";
+                stateVersion = "23.05";
+              };
+            }
+          ];
         extraSpecialArgs =
           {
             inherit inputs;
@@ -51,7 +57,6 @@
           // args.extraSpecialArgs or {};
       };
   in {
-    defaultPackage.x86_64-linux = home-manager.defaultPackage.x86_64-linux;
     homeConfigurations = {
       "calops@tocardstation" = mkHomeConfiguration {
         extraSpecialArgs = {

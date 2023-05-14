@@ -27,6 +27,7 @@ in {
   imports = [
     (import ./kitty.nix (args // {inherit nixGLWrap;}))
     ./element.nix
+    #./hyprland.nix
   ];
 
   programs.eww = {
