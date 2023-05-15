@@ -98,24 +98,27 @@
   xdg.configFile."git/delta/themes.gitconfig".text = ''
     [delta "catppuccin"]
       dark = true
-      commit-decoration-style = bold yellow box ul;
-      file-decoration-style = "bold yellow ul";
-      file-style = "bold yellow";
-      hunk-header-decoration-style = "omit";
+      true-color = always
 
-      hunk-header-file-style = "#999999"
-      hunk-header-line-number-style = bold "#003300"
-      hunk-header-style = file line-number syntax
+      commit-decoration-style = omit;
+      file-decoration-style = omit;
+      file-style = bold yellow;
+      hunk-header-style = omit
+
       line-numbers = true
-      line-numbers-left-style = "#45475a"
+      line-numbers-left-format = "{nm:^5}"
+      line-numbers-right-format = "┃{np:^5}"
       line-numbers-right-style = "#45475a"
-      line-numbers-minus-style = "#f38ba8"
-      line-numbers-plus-style = "#a6e3a1"
-      line-numbers-zero-style = "#999999"
+      line-numbers-minus-style = "#f38ba8" "#302330"
+      line-numbers-plus-style = "#a6e3a1" "#2b3436"
+      line-numbers-zero-style = "#45475a"
+
       minus-emph-style = syntax "#5b435b"
       minus-style = syntax "#302330"
+
       plus-emph-style = syntax "#475659"
       plus-style = syntax "#2b3436"
+
       syntax-theme = catppuccin
   '';
 }

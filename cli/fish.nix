@@ -6,10 +6,11 @@
       cat = "bat";
       hm = "home-manager";
       hs = "home-manager switch";
-      ga = "git add";
-      gu = "git add -u";
+      ga = "git add -v";
+      gu = "git add -vu";
       gp = "git push";
       st = "git status";
+      cc = "cargo check";
     };
     shellAliases = {
       copy = "xclip -selection clipboard";
