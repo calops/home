@@ -83,7 +83,7 @@
     includes = [
       {path = config.xdg.configHome + "/git/delta/themes.gitconfig";}
       {
-        condition = "gitdir:stockly";
+        condition = "gitdir:~/stockly/";
         contents = {
           user = {
             name = "Remi Labeyrie";
