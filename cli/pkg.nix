@@ -13,7 +13,7 @@
     rm-improved
     rustup
     xcp
-    neovim-nightly
+    neovim
     alejandra
     choose
     rargs
