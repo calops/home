@@ -46,6 +46,11 @@
       			mods = "CTRL|SHIFT",
       			action = act.SendKey { key = "Tab", mods = "CTRL|SHIFT" },
       		},
+      		{
+      			key = "Enter",
+      			mods = "ALT",
+      			action = act.SendKey { key = "Enter", mods = "ALT" },
+      		},
       	},
       	unix_domains = {
       		{
