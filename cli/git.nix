@@ -106,7 +106,8 @@
       hunk-header-style = omit
 
       line-numbers = true
-      line-numbers-left-format = "{nm:^5}"
+      line-numbers-left-format = "┃{nm:^5}"
+      line-numbers-left-style = "#45475a"
       line-numbers-right-format = "┃{np:^5}"
       line-numbers-right-style = "#45475a"
       line-numbers-minus-style = "#f38ba8" "#302330"
