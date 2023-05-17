@@ -8,10 +8,7 @@
 }: {
   programs.kitty = {
     enable = withGui;
-    package =
-      if withGLHack
-      then nixGLWrap pkgs.kitty
-      else pkgs.kitty;
+    package = nixGLWrap pkgs.kitty;
     settings = {
       undercurl_style = "thick-sparse";
       font_size = 10;
