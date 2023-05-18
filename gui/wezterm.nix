@@ -12,6 +12,7 @@
       local act = wezterm.action
 
       return {
+        enable_wayland = true,
       	term = "wezterm",
       	font = wezterm.font("Iosevka Comfy"),
       	font_size = 10,

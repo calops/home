@@ -52,6 +52,7 @@
             withGui = false;
             isLaptop = false;
             withGLHack = false;
+            withNvidia = false;
             monitors = {};
           }
           // args.extraSpecialArgs or {};
@@ -61,6 +62,8 @@
       "calops@tocardstation" = mkHomeConfiguration {
         extraSpecialArgs = {
           withGui = true;
+          withGLHack = true;
+          withNvidia = true;
           monitors = {
             "DP-1" = {
               primary = true;

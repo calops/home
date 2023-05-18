@@ -3,8 +3,17 @@
   pkgs,
   withGui,
   withGLHack,
+  withNvidia,
   ...
 } @ args: let
+  nixGlPkg =
+    if withNvidia
+    then pkgs.nixgl.auto.nixGLNvidia
+    else pkgs.nixgl.nixGLIntel;
+  nixGlBin =
+    if withNvidia
+    then "nixGLNvidia-530.41.03"
+    else "nixGLIntel";
   nixGLWrap = pkg:
     if withGLHack
     then
@@ -15,7 +24,7 @@
         mkdir $out/bin
         for bin in ${pkg}/bin/*; do
          wrapped_bin=$out/bin/$(basename $bin)
-         echo "exec ${lib.getExe pkgs.nixgl.nixGLIntel} $bin \$@" > $wrapped_bin
+         echo "exec ${nixGlBin} $bin \$@" > $wrapped_bin
          chmod +x $wrapped_bin
         done
       ''
@@ -25,7 +34,7 @@ in {
 
   home.packages =
     lib.optional withGui pkgs.iosevka-comfy.comfy
-    ++ lib.optional withGLHack pkgs.nixgl.nixGLIntel;
+    ++ lib.optional withGLHack nixGlPkg;
 
   imports = [
     (import ./kitty.nix (args // {inherit nixGLWrap;}))
