@@ -2,22 +2,54 @@
   config,
   lib,
   pkgs,
+  ...
 }: let
   cfg = config.my.roles.graphical;
-in {
-  options = {
-    my.roles.graphical.enable = mkOptionEnable {
-      default = false;
-      description = "Enable graphical environment";
+  nixGlPkg =
+    if cfg.nvidia.enable
+    then pkgs.nixgl.auto.nixGLNvidia
+    else pkgs.nixgl.nixGLIntel;
+  include = prg: import prg {inherit config lib pkgs;};
+in
+  with lib; {
+    options = {
+      my.roles.graphical = {
+        enable = mkEnableOption "Graphical environment";
+        nvidia.enable = mkEnableOption "Nvidia tweaks";
+        font = {
+          name = mkOption {
+            type = types.str;
+            default = "Iosevka Comfy";
+            description = "Font name";
+          };
+          size = mkOption {
+            type = types.int;
+            default = 10;
+            description = "Font size";
+          };
+          pkg = mkOption {
+            type = types.package;
+            default = pkgs.iosevka-comfy.comfy;
+            description = "Font package";
+          };
+        };
+        terminal = mkOption {
+          type = types.enum ["kitty" "wezterm"];
+          default = "wezterm";
+          description = "Terminal emulator";
+        };
+      };
     };
-    my.roles.graphical.glHack.enable = mkOptionEnable {
-      default = false;
-      description = "Enable GL wrapper for troublesome programs";
-    };
-  };
-  config = lib.mkIf cfg.enable {
     imports = [
-      ./kitty.nix
+      ./element.nix
     ];
-  };
-}
+    config = mkIf cfg.enable {
+      programs.kitty = mkIf (cfg.terminal == "kitty") (include ./kitty.nix);
+      programs.wezterm = mkIf (cfg.terminal == "wezterm") (include ./wezterm.nix);
+      fonts.fontconfig.enable = true;
+      home.packages = [
+        cfg.font.pkg
+        nixGlPkg
+      ];
+    };
+  }

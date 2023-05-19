@@ -1,14 +1,16 @@
 {
   pkgs,
+  config,
   lib,
-  withGui,
   ...
-}: {
-  home.packages = lib.mkIf withGui [
+}: let
+  cfg = config.my.roles.graphical;
+in {
+  home.packages = lib.mkIf cfg.enable [
     pkgs.element-desktop-wayland
   ];
 
-  xdg.configFile."Element/config.json" = {
+  xdg.configFile."Element/config.json" = lib.mkIf cfg.enable {
     text = ''
       {
         "settingDefaults": {

@@ -24,65 +24,50 @@
       inputs.neovim-nightly-overlay.overlay
       inputs.nixgl.overlay
     ];
+
     modules = [
       hyprland.homeManagerModules.default
     ];
-    mkHomeConfiguration = args:
+
+    mkLib = nixpkgs:
+      nixpkgs.lib.extend
+      (self: super:
+        {
+          my = import ./lib {
+            lib = self;
+          };
+        }
+        // home-manager.lib);
+    lib = mkLib inputs.nixpkgs;
+
+    mkHomeConfiguration = machine:
       home-manager.lib.homeManagerConfiguration {
         pkgs = import nixpkgs {
-          system = args.system or "x86_64-linux";
+          system = "x86_64-linux";
           config.allowUnfree = true;
           overlays = overlays;
         };
         modules =
           modules
           ++ [
-            ./home.nix
+            ./roles
+            ./machines/${machine}.nix
             {
-              home = rec {
-                username = args.username or "calops";
-                homeDirectory = args.homeDirectory or "/home/${username}";
+              home = {
                 stateVersion = "23.05";
               };
             }
           ];
-        extraSpecialArgs =
-          {
-            inherit inputs;
-            withGui = false;
-            isLaptop = false;
-            withGLHack = false;
-            withNvidia = false;
-            monitors = {};
-          }
-          // args.extraSpecialArgs or {};
+        extraSpecialArgs = {
+          inherit inputs;
+          inherit lib;
+        };
       };
   in {
     homeConfigurations = {
-      "calops@tocardstation" = mkHomeConfiguration {
-        extraSpecialArgs = {
-          withGui = true;
-          withGLHack = true;
-          withNvidia = true;
-          monitors = {
-            "DP-1" = {
-              primary = true;
-            };
-          };
-        };
-      };
-      "user@stockly-409" = mkHomeConfiguration {
-        username = "user";
-        extraSpecialArgs = {
-          withGui = true;
-          withGLHack = true;
-          isLaptop = true;
-        };
-      };
-      "rlabeyrie@charybdis" = mkHomeConfiguration {
-        username = "rlabeyrie";
-        extraSpecialArgs.withGui = false;
-      };
+      "calops@tocardstation" = mkHomeConfiguration "tocardland";
+      #"user@stockly-409" = mkHomeConfiguration "stockly-laptop";
+      #"rlabeyrie@charybdis" = mkHomeConfiguration "stockly-charybdis";
     };
   };
 }
