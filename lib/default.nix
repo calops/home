@@ -1,5 +1,5 @@
 {lib, ...}: let
-  addLib = l: import l {inherit lib;};
+  include = l: import l {inherit lib;};
 in {
-  gl = addLib ./gl.nix;
+  gl = include ./gl.nix;
 }

@@ -4,21 +4,22 @@
   pkgs,
   ...
 }: let
-  cfg = config.my.roles.graphical;
+  gfx = config.my.roles.graphical;
+  cfg = config.my.roles.graphical.terminal.kitty;
 in {
   programs.kitty = {
-    enable = true;
+    enable = gfx.enable && gfx.terminal == "kitty";
     package = lib.my.gl.nixGlWrap {
       inherit config;
       inherit pkgs;
       pkg = pkgs.kitty;
     };
     settings = {
-      font_size = cfg.font.size;
-      font_family = cfg.font.name;
-      bold_font = "${cfg.font.name} Bold";
-      italic_font = "${cfg.font.name} Italic";
-      bold_italic_font = "${cfg.font.name} Bold Italic";
+      font_size = gfx.font.size;
+      font_family = gfx.font.name;
+      bold_font = "${gfx.font.name} Bold";
+      italic_font = "${gfx.font.name} Italic";
+      bold_italic_font = "${gfx.font.name} Bold Italic";
 
       undercurl_style = "thick-sparse";
       foreground = "#CDD6F4";

@@ -40,18 +40,16 @@ in
         };
       };
     };
-    config = mkIf cfg.enable (
-      (include ./element.nix)
-      // (include ./kitty.nix)
-      // (include ./wezterm.nix)
-      // {
-        fonts.fontconfig.enable = true;
-        programs.kitty.enable = cfg.terminal == "kitty";
-        programs.wezterm.enable = cfg.terminal == "wezterm";
-        home.packages = [
-          cfg.font.pkg
-          nixGlPkg
-        ];
-      }
-    );
+    imports = [
+      ./element.nix
+      ./wezterm.nix
+      ./kitty.nix
+    ];
+    config = mkIf cfg.enable {
+      fonts.fontconfig.enable = true;
+      home.packages = [
+        cfg.font.pkg
+        nixGlPkg
+      ];
+    };
   }

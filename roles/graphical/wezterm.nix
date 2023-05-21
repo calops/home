@@ -7,7 +7,7 @@
   cfg = config.my.roles.graphical;
 in {
   programs.wezterm = {
-    enable = true;
+    enable = cfg.enable && cfg.terminal == "wezterm";
     package = lib.my.gl.nixGlWrap {
       inherit config;
       inherit pkgs;

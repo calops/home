@@ -1,6 +1,12 @@
-{...}: {
+{
+  config,
+  lib,
+  ...
+}: let
+  cfg = config.my.roles.terminal;
+in {
   programs.zellij = {
-    enable = true;
+    enable = cfg.enable;
     settings = {
       ui.pane_frames.rounded_corners = true;
       mouse_mode = true;
