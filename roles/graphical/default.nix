@@ -41,7 +41,7 @@ in
     };
     imports = [
       ./element.nix
-      ./wezterm.nix
+      ./wezterm
       ./kitty.nix
     ];
     config = mkIf cfg.enable {
