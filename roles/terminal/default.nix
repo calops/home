@@ -5,7 +5,6 @@
   ...
 }: let
   cfg = config.my.roles.terminal;
-  include = prg: import prg {inherit config lib pkgs;};
 in {
   options = {
     my.roles.terminal.enable = lib.mkEnableOption "Terminal utilities";

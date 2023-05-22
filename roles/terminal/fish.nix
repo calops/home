@@ -17,6 +17,7 @@ in {
       gp = "git push";
       st = "git status";
       cc = "cargo check";
+      di = "git diff";
     };
     shellAliases = {
       copy = "xclip -selection clipboard";
