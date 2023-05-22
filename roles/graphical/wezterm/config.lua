@@ -1,4 +1,4 @@
-local nix = require("nix_cfg")
+local nix = require("nix")
 local wezterm = require("wezterm")
 local act = wezterm.action
 

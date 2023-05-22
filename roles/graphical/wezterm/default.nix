@@ -16,12 +16,12 @@ in {
     extraConfig = builtins.readFile ./config.lua;
   };
 
-  xdg.configFile."wezterm/nix_config.lua" = lib.mkIf cfg.enable {
+  xdg.configFile."wezterm/nix.lua" = lib.mkIf cfg.enable {
     text = ''
       return {
         font = {
-          name = ${cfg.font.name}
-          size = ${cfg.font.size}
+          name = "${cfg.font.name}",
+          size = ${toString cfg.font.size},
         }
       }
     '';
