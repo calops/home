@@ -13,11 +13,11 @@ in {
   imports = [
     ./git.nix
     ./zellij.nix
+    ./fish.nix
   ];
   config =
     lib.mkIf cfg.enable
     {
-      programs.fish = include ./fish.nix;
       home.packages = with pkgs; [
         bash
         fd
