@@ -1,22 +1,19 @@
 {
-  withGui,
   pkgs,
   lib,
   config,
   inputs,
   ...
-}: {
-  programs = lib.mkIf withGui {
-    fish.loginShellInit = ''
-      if test (tty) = "/dev/tty1"
-        exec Hyprland &> /dev/null
-      end
-    '';
-  };
-
+}: let
+  cfg = config.my.roles.graphical;
+  hyprland-pkg =
+    if cfg.nvidia.enable
+    then "hyprland-nvidia"
+    else "hyprland";
+in {
   wayland.windowManager.hyprland = {
-    enable = withGui;
-    package = inputs.hyprland.packages.${pkgs.system}.hyprland-nvidia;
+    enable = cfg.enable;
+    package = inputs.hyprland.packages.${pkgs.system}.${hyprland-pkg};
     extraConfig = ''
       $wallpaper=~/Pictures/Wallpapers/z-w-gu-canal.jpg
       $term=kitty
