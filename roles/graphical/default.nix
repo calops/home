@@ -9,7 +9,6 @@
     if cfg.nvidia.enable
     then pkgs.nixgl.auto.nixGLNvidia
     else pkgs.nixgl.nixGLIntel;
-  include = prg: import prg {inherit config lib pkgs;};
 in
   with lib; {
     options = {
