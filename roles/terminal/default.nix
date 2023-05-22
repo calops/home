@@ -13,6 +13,7 @@ in {
     ./git.nix
     ./zellij.nix
     ./fish.nix
+    ./neovim
   ];
   config =
     lib.mkIf cfg.enable
@@ -24,7 +25,6 @@ in {
         rm-improved
         rustup
         xcp
-        neovim
         alejandra
         choose
         rargs

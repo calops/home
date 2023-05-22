@@ -4,6 +4,9 @@
     homeDirectory = "/home/rlabeyrie";
   };
 
-  my.roles.terminal.enable = true;
-  my.roles.graphical.enable = false;
+  my.roles = {
+    terminal.enable = true;
+    terminal.neovim.full = true;
+    graphical.enable = false;
+  };
 }
