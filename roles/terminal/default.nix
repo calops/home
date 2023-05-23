@@ -20,16 +20,18 @@ in {
   config =
     lib.mkIf cfg.enable
     {
-      home.packages = with pkgs; [
-        bash
-        fd
-        ripgrep
-        rm-improved
-        rustup
-        xcp
-        choose
-        rargs
-      ];
+      home.packages = with pkgs;
+        [
+          bash
+          fd
+          ripgrep
+          rm-improved
+          rustup
+          xcp
+          choose
+          rargs
+        ]
+        ++ lib.optional cfg.dev pkgs.gcc;
       programs.zoxide = {
         enable = true;
         enableFishIntegration = true;

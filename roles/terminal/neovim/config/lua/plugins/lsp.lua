@@ -201,6 +201,9 @@ return {
 						dismiss = "<C-:>",
 					},
 				},
+				filetypes = {
+					yaml = true;
+				},
 			}
 		end,
 	},
