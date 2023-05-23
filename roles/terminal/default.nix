@@ -8,12 +8,14 @@
 in {
   options = {
     my.roles.terminal.enable = lib.mkEnableOption "Terminal utilities";
+    my.roles.terminal.dev = lib.mkEnableOption "Development tools";
   };
   imports = [
     ./git.nix
     ./zellij.nix
     ./fish.nix
     ./neovim
+    ./podman.nix
   ];
   config =
     lib.mkIf cfg.enable
@@ -25,7 +27,6 @@ in {
         rm-improved
         rustup
         xcp
-        alejandra
         choose
         rargs
       ];

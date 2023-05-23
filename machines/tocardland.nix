@@ -4,10 +4,15 @@
     homeDirectory = "/home/calops";
   };
 
-  my.roles.terminal.enable = true;
-  my.roles.graphical = {
-    enable = true;
-    nvidia.enable = true;
-    terminal = "kitty";
+  my.roles = {
+    terminal = {
+      enable = true;
+      dev = true;
+    };
+    graphical = {
+      enable = true;
+      nvidia.enable = true;
+      terminal = "kitty";
+    };
   };
 }

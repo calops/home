@@ -5,8 +5,9 @@
   };
 
   my.roles = {
-    terminal.enable = true;
-    terminal.neovim.full = true;
-    graphical.enable = false;
+    terminal = {
+      enable = true;
+      dev = true;
+    };
   };
 }
