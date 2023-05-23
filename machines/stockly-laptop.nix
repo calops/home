@@ -4,7 +4,10 @@
     homeDirectory = "/home/user";
   };
 
-  my.roles.terminal.enable = true;
+  my.roles.terminal = {
+    enable = true;
+    neovim.full = true;
+  };
   my.roles.graphical = {
     enable = true;
     terminal = "wezterm";
