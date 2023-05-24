@@ -1,14 +1,16 @@
 {
   pkgs,
-  withGui,
+  config,
   inputs,
   lib,
   ...
 }: let
+  cfg = config.my.roles.graphical;
   addons = inputs.firefox-addons.packages.${pkgs.system};
 in {
   programs.firefox = {
-    enable = true;
+    enable = cfg.enable;
+    package = pkgs.firefox-beta-bin;
     profiles.default = {
       name = "default";
       id = 0;
@@ -16,6 +18,7 @@ in {
       extensions = with addons; [
         ublock-origin
         onepassword-password-manager
+        bitwarden
         tridactyl
         reddit-enhancement-suite
         sidebery

@@ -43,6 +43,7 @@ in
       ./element.nix
       ./wezterm
       ./kitty.nix
+      ./ulauncher
     ];
     config = mkIf cfg.enable {
       fonts.fontconfig.enable = true;
