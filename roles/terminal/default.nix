@@ -16,6 +16,7 @@ in {
     ./fish.nix
     ./neovim
     ./podman.nix
+    ./ssh.nix
   ];
   config =
     lib.mkIf cfg.enable
@@ -32,15 +33,19 @@ in {
           rargs
         ]
         ++ lib.optional cfg.dev pkgs.gcc;
+
+      programs.direnv.enable = true;
+
+      programs.jujutsu = {
+        enable = true;
+        settings = {
+          ui.default-command = "status";
+        };
+      };
+
       programs.zoxide = {
         enable = true;
         enableFishIntegration = true;
-      };
-      programs.direnv = {
-        enable = true;
-      };
-      programs.starship = {
-        enable = true;
       };
       programs.exa = {
         enable = true;
@@ -58,6 +63,16 @@ in {
         settings = {
           color_theme = "Default";
           theme_background = false;
+        };
+      };
+      programs.starship = {
+        enable = true;
+        settings = {
+          right_format = "$time";
+          time = {
+            disabled = false;
+            format = ''\[[$time]($style)\]'';
+          };
         };
       };
       programs.skim = {

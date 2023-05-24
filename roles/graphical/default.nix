@@ -46,6 +46,7 @@ in
     ];
     config = mkIf cfg.enable {
       fonts.fontconfig.enable = true;
+      programs.mpv.enable = true;
       home.packages = [
         cfg.font.pkg
         nixGlPkg

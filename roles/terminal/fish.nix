@@ -51,9 +51,8 @@ in {
         git status --short | choose 1 | rargs sed -i '$a\\' {0}
         git status --short
       '';
-      gc = ''
-        git commit -m "$argv"
-      '';
+      gc = ''git commit -m "$argv"'';
+      starship_transient_rprompt_func = "starship module time";
     };
     interactiveShellInit = ''
       set fish_greeting

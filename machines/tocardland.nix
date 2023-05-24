@@ -14,5 +14,6 @@
       nvidia.enable = true;
       terminal = "kitty";
     };
+    gaming.enable = true;
   };
 }

@@ -10,6 +10,8 @@ in
   with lib; {
     programs.neovim = {
       enable = cfg.enable;
+      package = pkgs.neovim-nightly;
+      defaultEditor = true;
       extraPackages = with pkgs;
         mkIf cfg.dev [
           fzf
