@@ -46,7 +46,7 @@ return {
 				end
 			end
 
-			require("lspconfig").lua_ls.setup {
+			lspconfig.lua_ls.setup {
 				settings = {
 					Lua = {
 						runtime = { version = "LuaJIT" },
@@ -57,6 +57,32 @@ return {
 				},
 			}
 		end,
+	},
+	{
+		"lvimuser/lsp-inlayhints.nvim",
+		branch = "anticonceal",
+		lazy = true,
+		init = function()
+			vim.api.nvim_create_augroup("LspAttach_inlayhints", {})
+			vim.api.nvim_create_autocmd("LspAttach", {
+				group = "LspAttach_inlayhints",
+				callback = function(args)
+					if not (args.data and args.data.client_id) then
+						return
+					end
+
+					local bufnr = args.buf
+					local client = vim.lsp.get_client_by_id(args.data.client_id)
+					require("lsp-inlayhints").on_attach(client, bufnr)
+				end,
+			})
+		end,
+		opts = {
+			inlay_hints = {
+				highlight = "InlayHints",
+			}
+		},
+		config = true,
 	},
 	-- LSP bridge for non-LSP utilities
 	{
@@ -102,6 +128,7 @@ return {
 			rt.setup {
 				tools = {
 					inlay_hints = {
+						auto = false,
 						highlight = "InlayHints",
 					},
 				},
@@ -149,7 +176,7 @@ return {
 
 			-- Auto format on save
 			require("core.autocmd").BufWritePre = {
-				"*.rs,*.nix,*.lua",
+				"*.rs,*.nix",
 				function()
 					for _, client in ipairs(vim.lsp.get_active_clients()) do
 						if client.attached_buffers[vim.api.nvim_get_current_buf()] then
@@ -202,7 +229,7 @@ return {
 					},
 				},
 				filetypes = {
-					yaml = true;
+					yaml = true,
 				},
 			}
 		end,
