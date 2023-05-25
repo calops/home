@@ -10,7 +10,7 @@
       dev = true;
       ssh.hosts = {
         charybdis = {
-          hostname = "FIXME";
+          hostname = "192.168.1.10";
           user = "rlabeyrie";
           port = 23;
         };

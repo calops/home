@@ -49,6 +49,7 @@ return {
 			lspconfig.lua_ls.setup {
 				settings = {
 					Lua = {
+						hint = { enable = true },
 						runtime = { version = "LuaJIT" },
 						diagnostics = {
 							globals = { "vim" },
@@ -76,6 +77,9 @@ return {
 					require("lsp-inlayhints").on_attach(client, bufnr)
 				end,
 			})
+			nmap {
+				["<leader>H"] = { function() require("lsp-inlayhints").toggle() end, "Toggle inlay hints" },
+			}
 		end,
 		opts = {
 			inlay_hints = {
