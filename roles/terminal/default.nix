@@ -67,13 +67,6 @@ in {
       };
       programs.starship = {
         enable = true;
-        settings = {
-          right_format = "$time";
-          time = {
-            disabled = false;
-            format = ''\[[$time]($style)\]'';
-          };
-        };
       };
       programs.skim = {
         enable = true;

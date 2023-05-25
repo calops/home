@@ -52,7 +52,6 @@ in {
         git status --short
       '';
       gc = ''git commit -m "$argv"'';
-      starship_transient_rprompt_func = "starship module time";
     };
     interactiveShellInit = ''
       set fish_greeting
