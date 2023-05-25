@@ -166,8 +166,44 @@ return {
 	-- Highlight todo/fixme/etc.
 	{
 		"folke/todo-comments.nvim",
+		enabled = false,
 		event = "VeryLazy",
 		config = true,
+	},
+	{
+		"echasnovski/mini.hipatterns",
+		event = "VeryLazy",
+		config = function()
+			local hipatterns = require("mini.hipatterns")
+			hipatterns.setup {
+				highlighters = {
+					fixme = { pattern = "%f[%w]()FIXME()%f[%W]", group = "MiniHipatternsFixme" },
+					hack = { pattern = "%f[%w]()HACK()%f[%W]", group = "MiniHipatternsHack" },
+					todo = { pattern = "%f[%w]()TODO()%f[%W]", group = "MiniHipatternsTodo" },
+					note = { pattern = "%f[%w]()NOTE()%f[%W]", group = "MiniHipatternsNote" },
+
+					palette_base = { pattern = "%f[%w]()palette[.]base()%f[%W]", group = "PaletteBase" },
+					palette_mauve = { pattern = "%f[%w]()palette[.]mauve()%f[%W]", group = "PaletteMauve" },
+					palette_red = { pattern = "%f[%w]()palette[.]red()%f[%W]", group = "PaletteRed" },
+					palette_yellow = { pattern = "%f[%w]()palette[.]yellow()%f[%W]", group = "PaletteYellow" },
+					palette_peach = { pattern = "%f[%w]()palette[.]peach()%f[%W]", group = "PalettePeach" },
+					palette_teal = { pattern = "%f[%w]()palette[.]teal()%f[%W]", group = "PaletteTeal" },
+					palette_green = { pattern = "%f[%w]()palette[.]green()%f[%W]", group = "PaletteGreen" },
+					palette_sky = { pattern = "%f[%w]()palette[.]sky()%f[%W]", group = "PaletteSky" },
+					palette_pink = { pattern = "%f[%w]()palette[.]pink()%f[%W]", group = "PalettePink" },
+					palette_lavender = { pattern = "%f[%w]()palette[.]lavender()%f[%W]", group = "PaletteLavender" },
+					palette_blue = { pattern = "%f[%w]()palette[.]blue()%f[%W]", group = "PaletteBlue" },
+					palette_text = { pattern = "%f[%w]()palette[.]text()%f[%W]", group = "PaletteText" },
+					palette_sapphire = { pattern = "%f[%w]()palette[.]sapphire()%f[%W]", group = "PaletteSapphire" },
+					palette_surface0 = { pattern = "%f[%w]()palette[.]surface0()%f[%W]", group = "PaletteSurface0" },
+					palette_surface1 = { pattern = "%f[%w]()palette[.]surface1()%f[%W]", group = "PaletteSurface1" },
+					palette_surface2 = { pattern = "%f[%w]()palette[.]surface2()%f[%W]", group = "PaletteSurface2" },
+					palette_overlay1 = { pattern = "%f[%w]()palette[.]overlay1()%f[%W]", group = "PaletteOverlay1" },
+
+					hex_color = hipatterns.gen_highlighter.hex_color(),
+				},
+			}
+		end,
 	},
 	-- Modern folds
 	{
