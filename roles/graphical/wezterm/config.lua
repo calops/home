@@ -3,8 +3,8 @@ local wezterm = require("wezterm")
 local act = wezterm.action
 
 return {
-	enable_wayland = true,
-	front_end = "OpenGL",
+	enable_wayland = nix.nvidia == false,
+	front_end = nix.nvidia and "WebGpu" or "OpenGL",
 	term = "wezterm",
 	font = wezterm.font(nix.font.name),
 	font_size = nix.font.size,

@@ -30,24 +30,6 @@ return {
                 local utils = require("catppuccin.utils.colors")
 
                 return {
-					PaletteBase = { sp = palette.base, style = { "underdouble" } },
-					PaletteMauve = { sp = palette.mauve, style = { "underdouble" } },
-					PaletteRed = { sp = palette.red, style = { "underdouble" } },
-					PaletteYellow = { sp = palette.yellow, style = { "underdouble" } },
-					PalettePeach = { sp = palette.peach, style = { "underdouble" } },
-					PaletteTeal = { sp = palette.teal, style = { "underdouble" } },
-					PaletteGreen = { sp = palette.green, style = { "underdouble" } },
-					PaletteSky = { sp = palette.sky, style = { "underdouble" } },
-					PaletteBlue = { sp = palette.blue, style = { "underdouble" } },
-					PalettePink = { sp = palette.pink, style = { "underdouble" } },
-					PaletteLavender = { sp = palette.lavender, style = { "underdouble" } },
-					PaletteSapphire = { sp = palette.sapphire, style = { "underdouble" } },
-					PaletteText = { sp = palette.text, style = { "underdouble" } },
-					PaletteSurface0 = { sp = palette.surface0, style = { "underdouble" } },
-					PaletteSurface1 = { sp = palette.surface1, style = { "underdouble" } },
-					PaletteSurface2 = { sp = palette.surface2, style = { "underdouble" } },
-					PaletteOverlay1 = { sp = palette.overlay1, style = { "underdouble" } },
-
                     NormalFloat = { bg = palette.base },
                     FloatBorder = { fg = palette.mauve },
                     TermFloatBorder = { fg = palette.red },

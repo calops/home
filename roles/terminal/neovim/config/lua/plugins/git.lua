@@ -17,7 +17,7 @@ return {
                 },
             },
         },
-    },
+   },
     -- Git utilities, gutter signs
     {
         'lewis6991/gitsigns.nvim',

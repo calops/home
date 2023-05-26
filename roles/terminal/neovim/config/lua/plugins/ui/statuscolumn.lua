@@ -99,7 +99,7 @@ return {
 			end,
 			provider = function(self)
 				if self.gitsign == "GitSignsUntracked" then
-					return "┇ "
+					return "┋ "
 				elseif self.gitsign then
 					return "┃ "
 				else

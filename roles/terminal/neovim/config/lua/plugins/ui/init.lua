@@ -1,5 +1,4 @@
 local nmap = require("core.utils").nmap
--- local utils = require("plugins.ui.utils")
 
 vim.fn.sign_define("DiagnosticSignError", { text = "", texthl = "DiagnosticSignError", numhl = "" })
 vim.fn.sign_define("DiagnosticSignWarn", { text = "", texthl = "DiagnosticSignWarn", numhl = "" })
@@ -176,47 +175,30 @@ return {
 		event = "VeryLazy",
 		config = function()
 			local hipatterns = require("mini.hipatterns")
-			local palette = require("catputtin.palettes").get_palette()
+			local palette = require("catppuccin.palettes").get_palette()
 			local palette_patterns = {}
 			local palette_highlights = {}
 			for name, color in pairs(palette) do
 				palette_patterns[name] = {
-					pattern = string.format("%%f[%%w]()palette[.]%s()%%f[%%W]", name),
+					pattern = "%f[%w]()palette[.]" .. name .. "()%f[%W]",
 					group = "HiPatternsPalette_" .. name,
 				}
-				palette_highlights = {
-					["HiPatternsPalette_" .. name] = { sp = color, style = { "underdouble" } },
+				palette_highlights["HiPatternsPalette_" .. name] = {
+					sp = color,
+					style = { "underdouble" },
 				}
 			end
-			-- require("catppuccin.lib.highlighter").syntax(palette_highlights)
+			require("catppuccin.lib.highlighter").syntax(palette_highlights)
+			local highlighters = {
+				fixme = { pattern = "%f[%w]()FIXME()%f[%W]", group = "MiniHipatternsFixme" },
+				hack = { pattern = "%f[%w]()HACK()%f[%W]", group = "MiniHipatternsHack" },
+				todo = { pattern = "%f[%w]()TODO()%f[%W]", group = "MiniHipatternsTodo" },
+				note = { pattern = "%f[%w]()NOTE()%f[%W]", group = "MiniHipatternsNote" },
+
+				hex_color = hipatterns.gen_highlighter.hex_color(),
+			}
 			hipatterns.setup {
-				highlighters = {
-					fixme = { pattern = "%f[%w]()FIXME()%f[%W]", group = "MiniHipatternsFixme" },
-					hack = { pattern = "%f[%w]()HACK()%f[%W]", group = "MiniHipatternsHack" },
-					todo = { pattern = "%f[%w]()TODO()%f[%W]", group = "MiniHipatternsTodo" },
-					note = { pattern = "%f[%w]()NOTE()%f[%W]", group = "MiniHipatternsNote" },
-
-					-- palette_base = { pattern = "%f[%w]()palette[.]base()%f[%W]", group = "PaletteBase" },
-					-- palette_mauve = { pattern = "%f[%w]()palette[.]mauve()%f[%W]", group = "PaletteMauve" },
-					-- palette_red = { pattern = "%f[%w]()palette[.]red()%f[%W]", group = "PaletteRed" },
-					-- palette_yellow = { pattern = "%f[%w]()palette[.]yellow()%f[%W]", group = "PaletteYellow" },
-					-- palette_peach = { pattern = "%f[%w]()palette[.]peach()%f[%W]", group = "PalettePeach" },
-					-- palette_teal = { pattern = "%f[%w]()palette[.]teal()%f[%W]", group = "PaletteTeal" },
-					-- palette_green = { pattern = "%f[%w]()palette[.]green()%f[%W]", group = "PaletteGreen" },
-					-- palette_sky = { pattern = "%f[%w]()palette[.]sky()%f[%W]", group = "PaletteSky" },
-					-- palette_pink = { pattern = "%f[%w]()palette[.]pink()%f[%W]", group = "PalettePink" },
-					-- palette_lavender = { pattern = "%f[%w]()palette[.]lavender()%f[%W]", group = "PaletteLavender" },
-					-- palette_blue = { pattern = "%f[%w]()palette[.]blue()%f[%W]", group = "PaletteBlue" },
-					-- palette_text = { pattern = "%f[%w]()palette[.]text()%f[%W]", group = "PaletteText" },
-					-- palette_sapphire = { pattern = "%f[%w]()palette[.]sapphire()%f[%W]", group = "PaletteSapphire" },
-					-- palette_surface0 = { pattern = "%f[%w]()palette[.]surface0()%f[%W]", group = "PaletteSurface0" },
-					-- palette_surface1 = { pattern = "%f[%w]()palette[.]surface1()%f[%W]", group = "PaletteSurface1" },
-					-- palette_surface2 = { pattern = "%f[%w]()palette[.]surface2()%f[%W]", group = "PaletteSurface2" },
-					-- palette_overlay1 = { pattern = "%f[%w]()palette[.]overlay1()%f[%W]", group = "PaletteOverlay1" },
-
-					palette_colors = utils.gen_palette_patterns(palette),
-					hex_color = hipatterns.gen_highlighter.hex_color(),
-				},
+				highlighters = vim.tbl_extend("force", highlighters, palette_patterns),
 			}
 		end,
 	},

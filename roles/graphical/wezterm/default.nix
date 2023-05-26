@@ -21,6 +21,7 @@ in
       xdg.configFile."wezterm/nix.lua" = {
         text = ''
           return {
+            nvidia = ${toString cfg.nvidia},
           	font = {
           		name = "${cfg.font.name}",
           		size = ${toString cfg.font.size},
