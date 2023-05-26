@@ -12,7 +12,7 @@
     graphical = {
       enable = true;
       nvidia.enable = true;
-      terminal = "kitty";
+      terminal = "wezterm";
     };
     gaming.enable = true;
   };

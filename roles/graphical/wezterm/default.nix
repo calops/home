@@ -21,10 +21,10 @@ in
       xdg.configFile."wezterm/nix.lua" = {
         text = ''
           return {
-            font = {
-              name = "${cfg.font.name}",
-              size = ${toString cfg.font.size},
-            }
+          	font = {
+          		name = "${cfg.font.name}",
+          		size = ${toString cfg.font.size},
+          	},
           }
         '';
       };
