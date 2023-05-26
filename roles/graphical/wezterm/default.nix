@@ -10,18 +10,17 @@ in
     config = mkIf (cfg.enable && cfg.terminal == "wezterm") {
       programs.wezterm = {
         enable = true;
-        package = pkgs.wezterm;
-        #package = lib.my.gl.nixGlWrap {
-        #  inherit config pkgs;
-        #  pkg = pkgs.wezterm;
-        #};
+        package = lib.my.gl.nixGlWrap {
+          inherit config pkgs;
+          pkg = pkgs.wezterm;
+        };
         extraConfig = builtins.readFile ./config.lua;
       };
 
       xdg.configFile."wezterm/nix.lua" = {
         text = ''
           return {
-            nvidia = ${toString cfg.nvidia},
+            nvidia = ${boolToString cfg.nvidia.enable},
           	font = {
           		name = "${cfg.font.name}",
           		size = ${toString cfg.font.size},
