@@ -5,10 +5,7 @@
   };
 
   my.roles = {
-    terminal = {
-      enable = true;
-      dev = true;
-    };
+    terminal.enable = true;
     graphical = {
       enable = true;
       nvidia.enable = true;

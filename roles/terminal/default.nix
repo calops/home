@@ -8,7 +8,6 @@
 in {
   options = {
     my.roles.terminal.enable = lib.mkEnableOption "Terminal utilities";
-    my.roles.terminal.dev = lib.mkEnableOption "Development tools";
   };
   imports = [
     ./git.nix
@@ -21,18 +20,16 @@ in {
   config =
     lib.mkIf cfg.enable
     {
-      home.packages = with pkgs;
-        [
-          bash
-          fd
-          ripgrep
-          rm-improved
-          rustup
-          xcp
-          choose
-          rargs
-        ]
-        ++ lib.optional cfg.dev pkgs.gcc;
+      home.packages = with pkgs; [
+        bash
+        fd
+        ripgrep
+        rm-improved
+        rustup
+        xcp
+        choose
+        rargs
+      ];
 
       programs.direnv.enable = true;
 

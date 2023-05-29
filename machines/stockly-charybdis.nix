@@ -5,9 +5,6 @@
   };
 
   my.roles = {
-    terminal = {
-      enable = true;
-      dev = true;
-    };
+    terminal.enable = true;
   };
 }

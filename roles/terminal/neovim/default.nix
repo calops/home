@@ -11,18 +11,22 @@ in
     config = mkIf cfg.enable {
       programs.neovim = {
         enable = true;
-        package = pkgs.neovim-nightly;
+        # We want gcc to override the system's one or treesitter throws a fit
+        package = pkgs.neovim-nightly.overrideAttrs (attrs: {
+          disallowedReferences = [];
+          nativeBuildInputs = attrs.nativeBuildInputs ++ [pkgs.makeWrapper];
+          postFixup = ''
+            wrapProgram $out/bin/nvim --prefix PATH : ${lib.makeBinPath [pkgs.gcc]}
+          '';
+        });
         defaultEditor = true;
-        extraPackages = with pkgs;
-          mkIf cfg.dev [
-            fzf
-            fd
-            alejandra
-            ripgrep
-          ];
+        extraPackages = with pkgs; [
+          fzf
+          alejandra
+        ];
       };
       # Raw symlink to the config directory. Plugins installation and synchronization is deferred to lazy.nvim
-      xdg.configFile.nvim = mkIf cfg.dev {
+      xdg.configFile.nvim = {
         source = config.lib.file.mkOutOfStoreSymlink configDir;
       };
     };

@@ -8,7 +8,7 @@
 in {
   programs.kitty = {
     enable = cfg.enable && cfg.terminal == "kitty";
-    package = lib.my.gl.nixGlWrap {
+    package = lib.my.nixGlWrap {
       inherit config;
       inherit pkgs;
       pkg = pkgs.kitty;

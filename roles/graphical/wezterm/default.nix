@@ -10,8 +10,8 @@ in
     config = mkIf (cfg.enable && cfg.terminal == "wezterm") {
       programs.wezterm = {
         enable = true;
-        package = lib.my.gl.nixGlWrap {
-          inherit config pkgs;
+        package = lib.my.nixGlWrap {
+          inherit config;
           pkg = pkgs.wezterm;
         };
         extraConfig = builtins.readFile ./config.lua;

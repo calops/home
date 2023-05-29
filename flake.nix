@@ -25,7 +25,7 @@
       inputs.nixgl.overlay
     ];
 
-    modules = [
+    extraModules = [
       hyprland.homeManagerModules.default
     ];
 
@@ -34,21 +34,21 @@
       (self: super:
         {
           my = import ./lib {
+            inherit nixpkgs;
             lib = self;
           };
         }
         // home-manager.lib);
-    lib = mkLib inputs.nixpkgs;
 
     mkHomeConfiguration = machine:
-      home-manager.lib.homeManagerConfiguration {
+      home-manager.lib.homeManagerConfiguration rec {
         pkgs = import nixpkgs {
           system = "x86_64-linux";
           config.allowUnfree = true;
           overlays = overlays;
         };
         modules =
-          modules
+          extraModules
           ++ [
             ./roles
             ./machines/${machine}.nix
@@ -60,7 +60,7 @@
           ];
         extraSpecialArgs = {
           inherit inputs;
-          inherit lib;
+          lib = mkLib pkgs;
         };
       };
   in {

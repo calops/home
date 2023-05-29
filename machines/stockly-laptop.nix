@@ -7,7 +7,6 @@
   my.roles = {
     terminal = {
       enable = true;
-      dev = true;
       ssh.hosts = {
         charybdis = {
           hostname = "192.168.1.10";

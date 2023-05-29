@@ -55,7 +55,6 @@ in {
     };
     interactiveShellInit = ''
       set fish_greeting
-      set -gx PATH $PATH ~/.cargo/bin
 
       if test -e ~/.nix-profile/etc/profile.d/nix.fish
         source ~/.nix-profile/etc/profile.d/nix.fish
