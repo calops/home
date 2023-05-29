@@ -101,6 +101,9 @@ return {
 
                     CopilotSuggestion = { fg = utils.darken(palette.peach, 0.8), style = { "italic" } },
 
+                    MultiCursor = { bg = palette.peach, fg = palette.base },
+					VM_Mono = { bg = palette.peach, fg = palette.base },
+
                     -- Syntax
                     ["@parameter"] = { fg = palette.text, style = { "nocombine" } },
                     ["@namespace"] = { fg = palette.pink, style = { "nocombine" } },

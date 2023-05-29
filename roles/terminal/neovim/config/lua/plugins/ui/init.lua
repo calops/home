@@ -174,18 +174,43 @@ return {
 		"echasnovski/mini.hipatterns",
 		event = "VeryLazy",
 		config = function()
+			local utils = require("plugins.ui.utils")
 			local hipatterns = require("mini.hipatterns")
 			local palette = require("catppuccin.palettes").get_palette()
 			local palette_patterns = {}
 			local palette_highlights = {}
 			for name, color in pairs(palette) do
 				palette_patterns[name] = {
-					pattern = "%f[%w]()palette[.]" .. name .. "()%f[%W]",
+					pattern = "%f[%w]palette[.]()" .. name .. "()%f[%W]",
 					group = "HiPatternsPalette_" .. name,
 				}
 				palette_highlights["HiPatternsPalette_" .. name] = {
-					sp = color,
-					style = { "underdouble" },
+					bg = color,
+					fg = utils.compute_opposite_color(color:lower():sub(2)),
+				}
+			end
+			local function gen_palette_colors()
+				return {
+					pattern = "utils[.]%w*[(]palette[.].*, %d[.]%d+[)]",
+					group = function(_, _, data)
+						local func, base_color, ratio = data.full_match:match(
+							"utils[.](%w*)[(]palette[.](.*), (%d[.]%d+)[)]")
+						local group_name = "HiPatternsPalette_" ..
+							base_color .. "_" .. func .. "_" .. ratio:gsub("%.", "_")
+						base_color = palette[base_color]
+						local bg_color = utils[func](base_color, tonumber(ratio))
+						local fg_color = utils.compute_opposite_color(bg_color:lower():sub(2))
+						if vim.fn.hlexists(group_name) == 0 then
+							require("catppuccin.lib.highlighter").syntax {
+								[group_name] = {
+									fg = fg_color,
+									bg = bg_color,
+								},
+							}
+						end
+
+						return group_name
+					end
 				}
 			end
 			require("catppuccin.lib.highlighter").syntax(palette_highlights)
@@ -196,6 +221,7 @@ return {
 				note = { pattern = "%f[%w]()NOTE()%f[%W]", group = "MiniHipatternsNote" },
 
 				hex_color = hipatterns.gen_highlighter.hex_color(),
+				palette_colors = gen_palette_colors(),
 			}
 			hipatterns.setup {
 				highlighters = vim.tbl_extend("force", highlighters, palette_patterns),
