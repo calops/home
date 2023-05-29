@@ -163,13 +163,6 @@ return {
 			}
 		end,
 	},
-	-- Highlight todo/fixme/etc.
-	{
-		"folke/todo-comments.nvim",
-		enabled = false,
-		event = "VeryLazy",
-		config = true,
-	},
 	{
 		"echasnovski/mini.hipatterns",
 		event = "VeryLazy",
@@ -191,7 +184,13 @@ return {
 			end
 			local function gen_palette_colors()
 				return {
-					pattern = "utils[.]%w*[(]palette[.].*, %d[.]%d+[)]",
+					pattern = function(bufnr)
+						if vim.api.nvim_buf_get_name(bufnr):match("theme.lua$") then
+							return "utils[.]%w*[(]palette[.].*, %d[.]%d+[)]"
+						end
+
+						return nil
+					end,
 					group = function(_, _, data)
 						local func, base_color, ratio = data.full_match:match(
 							"utils[.](%w*)[(]palette[.](.*), (%d[.]%d+)[)]")
