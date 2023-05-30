@@ -26,8 +26,6 @@ in
         ];
       };
       # Raw symlink to the config directory. Plugins installation and synchronization is deferred to lazy.nvim
-      xdg.configFile.nvim = {
-        source = config.lib.file.mkOutOfStoreSymlink configDir;
-      };
+      xdg.configFile.nvim.source = config.lib.file.mkOutOfStoreSymlink configDir;
     };
   }
