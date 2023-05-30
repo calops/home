@@ -8,6 +8,7 @@ return {
 	term = "wezterm",
 	font = wezterm.font(nix.font.name),
 	font_size = nix.font.size,
+	freetype_load_target = "HorizontalLcd",
 	underline_thickness = 2,
 	underline_position = -2,
 	enable_tab_bar = false,
@@ -32,17 +33,17 @@ return {
 		{
 			key = "Tab",
 			mods = "CTRL",
-			action = act.SendKey({ key = "Tab", mods = "CTRL" }),
+			action = act.SendKey { key = "Tab", mods = "CTRL" },
 		},
 		{
 			key = "Tab",
 			mods = "CTRL|SHIFT",
-			action = act.SendKey({ key = "Tab", mods = "CTRL|SHIFT" }),
+			action = act.SendKey { key = "Tab", mods = "CTRL|SHIFT" },
 		},
 		{
 			key = "Enter",
 			mods = "ALT",
-			action = act.SendKey({ key = "Enter", mods = "ALT" }),
+			action = act.SendKey { key = "Enter", mods = "ALT" },
 		},
 	},
 	unix_domains = {
