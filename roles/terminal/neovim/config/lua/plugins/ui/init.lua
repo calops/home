@@ -229,13 +229,14 @@ return {
 					group = function(_, _, data)
 						local group, body = data.full_match:match("([^{]*) = ({.*})$")
 						group = group:gsub('[]"[]+', "")
-						local group_name = "HiPatternsPalette_" .. group
+						local group_name = "HiPatternsGroup_" .. group
 						local group_def = loadstring([[
 							local utils = require("plugins.ui.utils")
 							local palette = require("catppuccin.palettes").get_palette()
 							return ]] .. body)
+						-- The group name isn't fully descriptive of what's inside, so we need to redefine it each time
 						require("catppuccin.lib.highlighter").syntax {
-							["HiPatternsPalette_" .. group] = group_def and group_def() or nil,
+							[group_name] = group_def and group_def() or nil,
 						}
 						return group_name
 					end,
