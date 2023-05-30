@@ -168,10 +168,11 @@ return {
 		event = "VeryLazy",
 		config = function()
 			local utils = require("plugins.ui.utils")
+			local palette = utils.palette()
 			local hipatterns = require("mini.hipatterns")
-			local palette = require("catppuccin.palettes").get_palette()
 			local palette_patterns = {}
 			local palette_highlights = {}
+
 			for name, color in pairs(palette) do
 				palette_patterns[name] = {
 					pattern = "%f[%w]palette[.]()" .. name .. "()%f[%W]",
@@ -182,20 +183,24 @@ return {
 					fg = utils.compute_opposite_color(color:lower():sub(2)),
 				}
 			end
+
 			local function gen_palette_colors()
 				return {
 					pattern = function(bufnr)
 						if vim.api.nvim_buf_get_name(bufnr):match("theme.lua$") then
 							return "utils[.]%w*[(]palette[.].*, %d[.]%d+[)]"
 						end
-
 						return nil
 					end,
 					group = function(_, _, data)
-						local func, base_color, ratio = data.full_match:match(
-							"utils[.](%w*)[(]palette[.](.*), (%d[.]%d+)[)]")
-						local group_name = "HiPatternsPalette_" ..
-							base_color .. "_" .. func .. "_" .. ratio:gsub("%.", "_")
+						local func, base_color, ratio =
+							data.full_match:match("utils[.](%w*)[(]palette[.](.*), (%d[.]%d+)[)]")
+						local group_name = "HiPatternsPalette_"
+							.. base_color
+							.. "_"
+							.. func
+							.. "_"
+							.. ratio:gsub("%.", "_")
 						base_color = palette[base_color]
 						local bg_color = utils[func](base_color, tonumber(ratio))
 						local fg_color = utils.compute_opposite_color(bg_color:lower():sub(2))
@@ -209,9 +214,34 @@ return {
 						end
 
 						return group_name
-					end
+					end,
 				}
 			end
+
+			local function gen_group_colors()
+				return {
+					pattern = function(bufnr)
+						if vim.api.nvim_buf_get_name(bufnr):match("theme.lua$") then
+							return "()[^	 ].*() = {.*palette.*}"
+						end
+						return nil
+					end,
+					group = function(_, _, data)
+						local group, body = data.full_match:match("([^{]*) = ({.*})$")
+						group = group:gsub('[]"[]+', "")
+						local group_name = "HiPatternsPalette_" .. group
+						local group_def = loadstring([[
+							local utils = require("plugins.ui.utils")
+							local palette = require("catppuccin.palettes").get_palette()
+							return ]] .. body)
+						require("catppuccin.lib.highlighter").syntax {
+							["HiPatternsPalette_" .. group] = group_def and group_def() or nil,
+						}
+						return group_name
+					end,
+				}
+			end
+
 			require("catppuccin.lib.highlighter").syntax(palette_highlights)
 			local highlighters = {
 				fixme = { pattern = "%f[%w]()FIXME()%f[%W]", group = "MiniHipatternsFixme" },
@@ -221,6 +251,7 @@ return {
 
 				hex_color = hipatterns.gen_highlighter.hex_color(),
 				palette_colors = gen_palette_colors(),
+				group_colors = gen_group_colors(),
 			}
 			hipatterns.setup {
 				highlighters = vim.tbl_extend("force", highlighters, palette_patterns),
@@ -243,6 +274,7 @@ return {
 				local sufWidth = vim.fn.strdisplaywidth(suffix)
 				local targetWidth = width - sufWidth + 4
 				local curWidth = 0
+
 				for _, chunk in ipairs(virtText) do
 					local chunkText = chunk[1]
 					local chunkWidth = vim.fn.strdisplaywidth(chunkText)
@@ -260,6 +292,7 @@ return {
 					end
 					curWidth = curWidth + chunkWidth
 				end
+
 				table.insert(
 					newVirtText,
 					{ " " .. ("┄"):rep(targetWidth - curWidth - sufWidth - 2) .. "", "UfoVirtTextPill" }

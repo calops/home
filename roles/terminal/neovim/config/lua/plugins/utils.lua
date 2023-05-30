@@ -6,6 +6,8 @@ return {
 		"rmagatti/auto-session",
 		lazy = false,
 		config = function()
+			-- It seems there's a race condition somewhere if I don't do that
+			require("nvim-treesitter")
 			require("auto-session").setup {
 				log_level = "error",
 				cwd_change_handling = false,

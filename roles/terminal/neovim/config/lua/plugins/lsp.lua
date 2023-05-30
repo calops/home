@@ -49,6 +49,7 @@ return {
 			lspconfig.lua_ls.setup {
 				settings = {
 					Lua = {
+						format = { enable = false },
 						hint = { enable = true },
 						runtime = { version = "LuaJIT" },
 						diagnostics = {
@@ -79,13 +80,18 @@ return {
 				end,
 			})
 			nmap {
-				["<leader>H"] = { function() require("lsp-inlayhints").toggle() end, "Toggle inlay hints" },
+				["<leader>H"] = {
+					function()
+						require("lsp-inlayhints").toggle()
+					end,
+					"Toggle inlay hints",
+				},
 			}
 		end,
 		opts = {
 			inlay_hints = {
 				highlight = "InlayHints",
-			}
+			},
 		},
 		config = true,
 	},
@@ -181,7 +187,7 @@ return {
 
 			-- Auto format on save
 			require("core.autocmd").BufWritePre = {
-				"*.rs,*.nix",
+				"*.rs,*.nix,*.lua",
 				function()
 					for _, client in ipairs(vim.lsp.get_active_clients()) do
 						if client.attached_buffers[vim.api.nvim_get_current_buf()] then
