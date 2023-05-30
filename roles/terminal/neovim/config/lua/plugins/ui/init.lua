@@ -38,7 +38,30 @@ return {
 			}
 		end,
 	},
-	require("plugins.ui.windowline"),
+	-- require("plugins.ui.windowline"),
+	{
+		"Bekaboo/dropbar.nvim",
+		event = "VeryLazy",
+		opts = {
+			general = {
+				update_events = {
+					"CursorMoved",
+					"DirChanged",
+					"FileChangedShellPost",
+					"TextChanged",
+					"VimResized",
+					"WinResized",
+					"WinScrolled",
+				},
+			},
+			menu = {
+				win_configs = {
+					border = "rounded",
+				},
+			},
+		},
+		config = true,
+	},
 	-- Colorful modes
 	{
 		"mvllow/modes.nvim",
