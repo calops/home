@@ -18,7 +18,7 @@ in
         font = {
           name = mkOption {
             type = types.str;
-            default = "Iosevka Comfy";
+            default = lib.my.fonts.iosevka-comfy.name;
             description = "Font name";
           };
           size = mkOption {
@@ -28,7 +28,7 @@ in
           };
           pkg = mkOption {
             type = types.package;
-            default = pkgs.iosevka-comfy.comfy;
+            default = lib.my.fonts.iosevka-comfy.pkg;
             description = "Font package";
           };
         };

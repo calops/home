@@ -26,7 +26,7 @@
   fonts = {
     iosevka-comfy = {
       name = "Iosevka Comfy";
-      pkg = nixpkgs.iosevka-comfy;
+      pkg = nixpkgs.iosevka-comfy.comfy;
     };
     luculent = {
       name = "Luculent";
