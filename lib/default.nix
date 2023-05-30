@@ -23,4 +23,14 @@
        chmod +x $wrapped_bin
       done
     '';
+  fonts = {
+    iosevka-comfy = {
+      name = "Iosevka Comfy";
+      pkg = nixpkgs.iosevka-comfy;
+    };
+    luculent = {
+      name = "Luculent";
+      pkg = nixpkgs.luculent;
+    };
+  };
 }
