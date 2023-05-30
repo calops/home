@@ -1,4 +1,4 @@
-{...}: {
+{pkgs, ...}: {
   home = {
     username = "user";
     homeDirectory = "/home/user";
@@ -21,5 +21,9 @@
       };
     };
     graphical.enable = true;
+    graphical.font = {
+      name = "Luculent";
+      pkg = pkgs.luculent;
+    };
   };
 }
