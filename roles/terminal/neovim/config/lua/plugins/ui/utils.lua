@@ -13,6 +13,10 @@ function module.colors()
 	return module._colors_data
 end
 
+function module.get_highlight(group)
+	return utils.get_highlight(group)
+end
+
 module._git_data = nil
 function module.git()
 	if not module._git_data then
@@ -114,7 +118,9 @@ end
 
 module.separators = {
 	left = "",
+	left_lite = "",
 	right = "",
+	right_lite = "",
 }
 
 function module.darken(color, amount, bg)
@@ -132,15 +138,18 @@ end
 function module.correct_channel(x)
 	return 0.04045 < x and math.pow((x + 0.055) / 1.055, 2.4) or (x / 12.92)
 end
+
 function module.correct_lightness(x)
 	local k1, k2 = 0.206, 0.03
 	local k3 = (1 + k1) / (1 + k2)
 
 	return 0.5 * (k3 * x - k1 + math.sqrt((k3 * x - k1) ^ 2 + 4 * k2 * k3 * x))
 end
+
 function module.cuberoot(x)
 	return math.pow(x, 0.333333)
 end
+
 function module.compute_opposite_color(hex)
 	local dec = tonumber(hex, 16)
 	local b = module.correct_channel(math.fmod(dec, 256) / 255)
@@ -158,7 +167,16 @@ function module.compute_opposite_color(hex)
 	return L < 0.5 and module.palette().text or module.palette().base
 end
 
-function module.build_pill(left, center, right)
+local function fmt(color)
+	if type(color) == "string" then
+		return color
+	elseif type(color) == "number" then
+		return string.format("#%x", color)
+	end
+end
+
+function module.build_pill(left, center, right, key)
+	key = key or "provider"
 	local colors = module.colors()
 	local sep = module.separators
 	local result = {
@@ -168,37 +186,43 @@ function module.build_pill(left, center, right)
 		content = {},
 	}
 	local function bg(color)
-		if not color then
-			color = {}
+		if not color or not color.fg then
+			color = { fg = module.palette().text }
 		end
 		if not color.bg then
-			color.bg = module.darken(string.format("#%x", color.fg), 0.3)
+			color.bg = module.darken(fmt(color.fg), 0.3)
 		end
-		return color.bg
+		return fmt(color.bg)
 	end
 
 	local prev_color = colors.normal
 	for _, item in ipairs(left) do
 		if not item.condition or item.condition() then
-			result:insert { provider = sep.left, hl = { fg = bg(item.hl), bg = bg(prev_color) } }
+			result:insert {
+				[key] = item.lite and sep.left_lite or sep.left,
+				hl = {
+					fg = item.lite and module.palette().base or bg(item.hl),
+					bg = bg(prev_color),
+				},
+			}
 			result:insert(item)
 			prev_color = item.hl
 		end
 	end
 
-	result:insert { provider = sep.left, hl = { fg = bg(center.hl), bg = bg(prev_color) } }
+	result:insert { [key] = sep.left, hl = { fg = bg(center.hl), bg = bg(prev_color) } }
 	result:insert(center)
 	prev_color = center.hl
 
 	for _, item in ipairs(right) do
 		if not item.condition or item.condition() then
-			result:insert { provider = sep.right, hl = { fg = bg(prev_color), bg = bg(item.hl) } }
+			result:insert { [key] = sep.right, hl = { fg = bg(prev_color), bg = bg(item.hl) } }
 			result:insert(item)
 			prev_color = item.hl
 		end
 	end
 
-	result:insert { provider = sep.right, hl = { fg = bg(prev_color), bg = bg(colors.normal) } }
+	result:insert { [key] = sep.right, hl = { fg = bg(prev_color), bg = bg(colors.normal) } }
 
 	return result.content
 end
@@ -243,6 +267,31 @@ function module.make_tablist(tab_component)
 		end,
 	}
 	return tablist
+end
+
+function module.get_hl_group(hl)
+	local group_name = "AutoGroup_"
+	if hl.fg then
+		group_name = group_name .. "_fg" .. fmt(hl.fg):gsub("#", "")
+	end
+	if hl.bg then
+		group_name = group_name .. "_bg" .. fmt(hl.bg):gsub("#", "")
+	end
+	if hl.sp then
+		group_name = group_name .. "_sp" .. fmt(hl.sp):gsub("#", "")
+	end
+	if hl.style then
+		for _, style in ipairs(hl.style) do
+			group_name = group_name .. "_" .. style
+		end
+	end
+	if vim.fn.hlexists(group_name) then
+		require("catppuccin.lib.highlighter").syntax {
+			[group_name] = hl,
+		}
+	end
+
+	return group_name
 end
 
 return module

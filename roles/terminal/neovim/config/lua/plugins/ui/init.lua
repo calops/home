@@ -38,29 +38,99 @@ return {
 			}
 		end,
 	},
-	-- require("plugins.ui.windowline"),
+	require("plugins.ui.windowline"),
 	{
 		"Bekaboo/dropbar.nvim",
 		event = "VeryLazy",
-		opts = {
-			general = {
-				update_events = {
-					"CursorMoved",
-					"DirChanged",
-					"FileChangedShellPost",
-					"TextChanged",
-					"VimResized",
-					"WinResized",
-					"WinScrolled",
+		-- Wait for the plugin to become more stable
+		enabled = false,
+		config = function()
+			local bar = require("dropbar.bar")
+			local utils = require("plugins.ui.utils")
+			local palette = utils.palette()
+			local function wrap_path(buf, cursor)
+				local sources = require("dropbar.sources")
+				local symbols_len = 0
+				local symbols = {
+					content = {},
+					insert = function(self, elt)
+						symbols_len = symbols_len + 1
+						if type(elt) == "string" then
+							elt = bar.dropbar_symbol_t:new { name = elt }
+						elseif type(elt) == "table" and #elt < 3 then
+							elt = bar.dropbar_symbol_t:new(elt)
+						end
+						if type(elt.hl) == "table" then
+							elt.name_hl = utils.get_hl_group(elt.hl)
+						end
+						table.insert(self.content, symbols_len, elt)
+					end,
+				}
+				local path_symbols = sources.path.get_symbols(buf, cursor)
+				local left, mid = {}, {}
+				for i, item in ipairs(path_symbols) do
+					if i < #path_symbols then
+						if i ~= 1 then
+							item.lite = true
+						end
+						item.hl = { fg = palette.text, bg = palette.surface1 }
+						item.icon_hl = utils.get_hl_group {
+							fg = utils.get_highlight(item.icon_hl).fg,
+							bg = palette.surface1,
+						}
+						table.insert(left, item)
+					else
+						if vim.api.nvim_get_current_buf() == buf then
+							item.hl = {
+								fg = palette.peach,
+								bg = palette.overlay0,
+								style = { "bold" },
+							}
+						else
+							item.hl = {
+								fg = palette.text,
+								bg = palette.surface1,
+							}
+						end
+						table.insert(left, {
+							name = item.icon,
+							hl = utils.get_highlight(item.icon_hl),
+						})
+						item.icon = nil
+						mid = item
+					end
+				end
+				local pill = utils.build_pill(left, mid, {}, "name")
+				for _, item in ipairs(pill) do
+					symbols:insert(item)
+				end
+
+				return symbols.content
+			end
+			require("dropbar").setup {
+				bar = {
+					sources = {
+						{ get_symbols = wrap_path },
+					},
 				},
-			},
-			menu = {
-				win_configs = {
-					border = "rounded",
+				icons = { ui = { bar = { separator = "" } } },
+				general = {
+					update_events = {
+						"DirChanged",
+						"FileChangedShellPost",
+						"VimResized",
+						"WinResized",
+						"WinEnter",
+						"WinLeave",
+					},
 				},
-			},
-		},
-		config = true,
+				menu = {
+					win_configs = {
+						border = "rounded",
+					},
+				},
+			}
+		end,
 	},
 	-- Colorful modes
 	{
@@ -285,6 +355,7 @@ return {
 	-- Modern folds
 	{
 		"kevinhwang91/nvim-ufo",
+		enable = false,
 		event = "VeryLazy",
 		dependencies = "kevinhwang91/promise-async",
 		config = function()
@@ -347,5 +418,13 @@ return {
 				},
 			}
 		end,
+	},
+	{
+		"petertriho/nvim-scrollbar",
+		opts = {
+			handlers = {
+				gitsigns = true,
+			},
+		},
 	},
 }
