@@ -5,10 +5,6 @@
   ...
 }: let
   cfg = config.my.roles.graphical;
-  nixGlPkg =
-    if cfg.nvidia.enable
-    then pkgs.nixgl.auto.nixGLNvidia
-    else pkgs.nixgl.nixGLIntel;
 in
   with lib; {
     options = {
@@ -50,7 +46,6 @@ in
       programs.mpv.enable = true;
       home.packages = [
         cfg.font.pkg
-        nixGlPkg
       ];
     };
   }

@@ -9,8 +9,8 @@
   }: let
     nixGlBin =
       if config.my.roles.graphical.nvidia.enable
-      then "nixGLNvidia-530.41.03"
-      else "nixGLIntel";
+      then (lib.getExe nixpkgs.nixgl.auto.nixGLNvidia) + "-530.41.03"
+      else lib.getExe nixpkgs.nixgl.nixGLIntel;
   in
     nixpkgs.runCommand "${pkg.name}-nixgl-wrapper" {} ''
       mkdir $out
