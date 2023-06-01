@@ -27,6 +27,11 @@ in
             default = lib.my.fonts.iosevka-comfy.pkg;
             description = "Font package";
           };
+          hinting = mkOption {
+            type = types.enum ["Normal" "Mono" "HorizontaLcd"];
+            default = "Normal";
+            description = "Font hinting strategy";
+          };
         };
         terminal = mkOption {
           type = types.enum ["kitty" "wezterm"];

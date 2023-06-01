@@ -21,6 +21,6 @@
       };
     };
     graphical.enable = true;
-    graphical.font = lib.my.fonts.iosevka-comfy;
+    graphical.font = lib.my.fonts.iosevka-comfy // {hinting = "HorizontalLcd";};
   };
 }

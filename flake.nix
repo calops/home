@@ -71,7 +71,7 @@
       };
   in {
     homeConfigurations = {
-      "calops@tocardstation" = mkHomeConfiguration "tocardland";
+      "calops@tocardstation" = mkHomeConfiguration "tocardstation";
       "user@stockly-409" = mkHomeConfiguration "stockly-laptop";
       "rlabeyrie@charybdis" = mkHomeConfiguration "stockly-charybdis";
     };

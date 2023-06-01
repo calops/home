@@ -24,6 +24,7 @@ in
           	font = {
           		name = "${cfg.font.name}",
           		size = ${toString cfg.font.size},
+              hinting = "${cfg.font.hinting}",
           	},
           }
         '';
