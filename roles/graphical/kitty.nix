@@ -5,6 +5,7 @@
   ...
 }: let
   cfg = config.my.roles.graphical;
+  palette = config.my.colors.palette;
 in {
   programs.kitty = {
     enable = cfg.enable && cfg.terminal == "kitty";
@@ -20,11 +21,11 @@ in {
       bold_italic_font = "${cfg.font.family.name} Bold Italic";
 
       undercurl_style = "thick-sparse";
-      foreground = "#CDD6F4";
-      background = "#1E1E2E";
+      foreground = palette.text;
+      background = palette.base;
       selection_foreground = "#1E1E2E";
-      selection_background = "#F5E0DC";
-      cursor = "#F5E0DC";
+      selection_background = palette.rosewater;
+      cursor = palette.peach;
       cursor_text_color = "#1E1E2E";
       url_color = "#F5E0DC";
       active_border_color = "#B4BEFE";

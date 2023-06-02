@@ -56,6 +56,7 @@
           extraModules
           ++ [
             ./roles
+            ./colorschemes
             ./machines/${machine}.nix
             {home.stateVersion = "23.05";}
           ];
