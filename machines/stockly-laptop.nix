@@ -20,7 +20,16 @@
         };
       };
     };
-    graphical.enable = true;
-    graphical.font = lib.my.fonts.iosevka-comfy // {hinting = "HorizontalLcd";};
+    graphical = {
+      enable = true;
+      font.hinting = "HorizontalLcd";
+      monitors = {
+        primary.name = "HDMI-0";
+        secondary = {
+          name = "eDP-1";
+          position = "left";
+        };
+      };
+    };
   };
 }

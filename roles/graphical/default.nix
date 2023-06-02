@@ -5,6 +5,35 @@
   ...
 }: let
   cfg = config.my.roles.graphical;
+  my.types = with lib; {
+    font = types.submodule {
+      options = {
+        name = mkOption {
+          type = types.str;
+          default = lib.my.fonts.iosevka-comfy.name;
+          description = "Font name";
+        };
+        pkg = mkOption {
+          type = types.package;
+          description = "Font package";
+        };
+      };
+    };
+    monitor = types.submodule {
+      options = {
+        id = mkOption {
+          type = types.str;
+          default = "eDP-1";
+          description = "Monitor name";
+        };
+        position = mkOption {
+          type = types.enum ["left" "right" "above" "below" "center"];
+          default = "center";
+          description = "Monitor position";
+        };
+      };
+    };
+  };
 in
   with lib; {
     options = {
@@ -12,20 +41,15 @@ in
         enable = mkEnableOption "Graphical environment";
         nvidia.enable = mkEnableOption "Nvidia tweaks";
         font = {
-          name = mkOption {
-            type = types.str;
-            default = lib.my.fonts.iosevka-comfy.name;
-            description = "Font name";
+          family = mkOption {
+            type = my.types.font;
+            default = lib.my.fonts.iosevka-comfy;
+            description = "Font family";
           };
           size = mkOption {
             type = types.int;
             default = 10;
             description = "Font size";
-          };
-          pkg = mkOption {
-            type = types.package;
-            default = lib.my.fonts.iosevka-comfy.pkg;
-            description = "Font package";
           };
           hinting = mkOption {
             type = types.enum ["Normal" "Mono" "HorizontaLcd"];
@@ -37,6 +61,21 @@ in
           type = types.enum ["kitty" "wezterm"];
           default = "wezterm";
           description = "Terminal emulator";
+        };
+        monitors = {
+          primary = mkOption {
+            type = my.types.monitor;
+            default = {
+              id = "eDP-1";
+              position = "center";
+            };
+            description = "Primary monitor";
+          };
+          secondary = mkOption {
+            type = my.types.monitor;
+            default = null;
+            description = "Secondary monitor";
+          };
         };
       };
     };
@@ -50,7 +89,7 @@ in
       fonts.fontconfig.enable = true;
       programs.mpv.enable = true;
       home.packages = [
-        cfg.font.pkg
+        cfg.font.family.pkg
       ];
     };
   }

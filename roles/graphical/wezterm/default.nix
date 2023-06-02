@@ -22,7 +22,7 @@ in
           return {
             nvidia = ${boolToString cfg.nvidia.enable},
           	font = {
-          		name = "${cfg.font.name}",
+          		name = "${cfg.font.family.name}",
           		size = ${toString cfg.font.size},
               hinting = "${cfg.font.hinting}",
           	},

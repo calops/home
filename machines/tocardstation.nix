@@ -10,6 +10,7 @@
       enable = true;
       nvidia.enable = true;
       terminal = "wezterm";
+      monitors.primary.id = "DP-2";
     };
     gaming.enable = true;
   };

@@ -1,6 +1,6 @@
 {
   lib,
-  nixpkgs,
+  pkgs,
   ...
 }: {
   nixGlWrap = {
@@ -9,10 +9,10 @@
   }: let
     nixGlBin =
       if config.my.roles.graphical.nvidia.enable
-      then (lib.getExe nixpkgs.nixgl.auto.nixGLNvidia) + "-530.41.03"
-      else lib.getExe nixpkgs.nixgl.nixGLIntel;
+      then (lib.getExe pkgs.nixgl.auto.nixGLNvidia) + "-530.41.03"
+      else lib.getExe pkgs.nixgl.nixGLIntel;
   in
-    nixpkgs.runCommand "${pkg.name}-nixgl-wrapper" {} ''
+    pkgs.runCommand "${pkg.name}-nixgl-wrapper" {} ''
       mkdir $out
       ln -s ${pkg}/* $out
       rm $out/bin
@@ -26,11 +26,11 @@
   fonts = {
     iosevka-comfy = {
       name = "Iosevka Comfy";
-      pkg = nixpkgs.iosevka-comfy.comfy;
+      pkg = pkgs.iosevka-comfy.comfy;
     };
     luculent = {
       name = "Luculent";
-      pkg = nixpkgs.luculent;
+      pkg = pkgs.luculent;
     };
   };
 }

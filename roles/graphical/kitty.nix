@@ -10,15 +10,14 @@ in {
     enable = cfg.enable && cfg.terminal == "kitty";
     package = lib.my.nixGlWrap {
       inherit config;
-      inherit pkgs;
       pkg = pkgs.kitty;
     };
     settings = {
       font_size = cfg.font.size;
-      font_family = cfg.font.name;
-      bold_font = "${cfg.font.name} Bold";
-      italic_font = "${cfg.font.name} Italic";
-      bold_italic_font = "${cfg.font.name} Bold Italic";
+      font_family = cfg.font.family.name;
+      bold_font = "${cfg.font.family.name} Bold";
+      italic_font = "${cfg.font.family.name} Italic";
+      bold_italic_font = "${cfg.font.family.name} Bold Italic";
 
       undercurl_style = "thick-sparse";
       foreground = "#CDD6F4";

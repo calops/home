@@ -23,7 +23,6 @@
     self,
     home-manager,
     nixpkgs,
-    hyprland,
     ...
   } @ inputs: let
     overlays = [
@@ -32,15 +31,15 @@
     ];
 
     extraModules = [
-      hyprland.homeManagerModules.default
+      inputs.hyprland.homeManagerModules.default
     ];
 
-    mkLib = nixpkgs:
-      nixpkgs.lib.extend
+    mkLib = pkgs:
+      pkgs.lib.extend
       (self: super:
         {
           my = import ./lib {
-            inherit nixpkgs;
+            inherit pkgs;
             lib = self;
           };
         }
@@ -58,11 +57,7 @@
           ++ [
             ./roles
             ./machines/${machine}.nix
-            {
-              home = {
-                stateVersion = "23.05";
-              };
-            }
+            {home.stateVersion = "23.05";}
           ];
         extraSpecialArgs = {
           inherit inputs;
