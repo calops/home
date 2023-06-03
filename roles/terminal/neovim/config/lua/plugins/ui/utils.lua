@@ -161,7 +161,6 @@ function module.compute_opposite_color(hex)
 	local s = 0.0883024619 * r + 0.2817188376 * g + 0.6299787005 * b
 
 	local l_, m_, s_ = module.cuberoot(l), module.cuberoot(m), module.cuberoot(s)
-
 	local L = module.correct_lightness(0.2104542553 * l_ + 0.7936177850 * m_ - 0.0040720468 * s_)
 
 	return L < 0.5 and module.palette().text or module.palette().base
@@ -186,11 +185,15 @@ function module.build_pill(left, center, right, key)
 		content = {},
 	}
 	local function bg(color)
-		if not color or not color.fg then
-			color = { fg = module.palette().text }
+		if not color then
+			color = {}
 		end
 		if not color.bg then
-			color.bg = module.darken(fmt(color.fg), 0.3)
+			local fg = color.fg
+			if not fg then
+				fg = module.palette().text
+			end
+			color.bg = module.darken(fmt(fg), 0.3)
 		end
 		return fmt(color.bg)
 	end
