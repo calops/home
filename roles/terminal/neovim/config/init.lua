@@ -54,6 +54,8 @@ vim.o.pumblend = 0
 vim.o.scrolloff = 10
 vim.o.fixendofline = true
 vim.o.guicursor = "a:blinkon100"
+vim.o.virtualedit = "block"
+vim.o.mousemodel = "extend"
 
 require("lazy").setup("plugins", {
 	ui = {

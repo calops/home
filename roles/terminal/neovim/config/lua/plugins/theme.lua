@@ -43,8 +43,7 @@ return {
 					InclineNormal = { bg = palette.overlay1, fg = palette.base, blend = 0 },
 
 					TreesitterContext = { bg = palette.base, style = { "italic" }, blend = 0 },
-					TreesitterContextLineNumber = { fg = palette.base, bg = palette.surface1, blend = 0 },
-					TreesitterContextBottom = { sp = palette.surface1, style = { "underline" } },
+					TreesitterContextSeparator = { fg = palette.surface1 },
 
 					DiagnosticUnderlineError = { sp = palette.red, style = { "undercurl" } },
 					DiagnosticUnderlineWarn = { sp = palette.yellow, style = { "undercurl" } },
@@ -58,11 +57,7 @@ return {
 
 					DiagnosticUnnecessary = { sp = palette.mauve, style = { "undercurl" } },
 
-					IndentBlanklineChar = { style = { "nocombine" } },
-					IndentBlanklineSpaceChar = { style = { "nocombine" } },
 					IndentBlanklineContextChar = { fg = palette.mauve, style = { "nocombine" } },
-					IndentBlanklineContextSpaceChar = { style = { "nocombine" } },
-					IndentBlanklineSpaceCharBlankline = { style = { "nocombine" } },
 
 					ModesInsert = { bg = palette.green },
 					ModesVisual = { bg = palette.mauve },
