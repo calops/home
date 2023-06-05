@@ -43,7 +43,7 @@ return {
 		"Bekaboo/dropbar.nvim",
 		event = "VeryLazy",
 		-- Wait for the plugin to become more stable
-		enabled = false,
+		enabled = true,
 		config = function()
 			local bar = require("dropbar.bar")
 			local utils = require("plugins.ui.utils")
@@ -108,22 +108,22 @@ return {
 				return symbols.content
 			end
 			require("dropbar").setup {
-				bar = {
-					sources = {
-						{ get_symbols = wrap_path },
-					},
-				},
-				icons = { ui = { bar = { separator = "" } } },
-				general = {
-					update_events = {
-						"DirChanged",
-						"FileChangedShellPost",
-						"VimResized",
-						"WinResized",
-						"WinEnter",
-						"WinLeave",
-					},
-				},
+				-- bar = {
+				-- 	sources = {
+				-- 		{ get_symbols = wrap_path },
+				-- 	},
+				-- },
+				-- icons = { ui = { bar = { separator = "" } } },
+				-- general = {
+				-- update_events = {
+				-- 	"DirChanged",
+				-- 	"FileChangedShellPost",
+				-- 	"VimResized",
+				-- 	"WinResized",
+				-- 	"WinEnter",
+				-- 	"WinLeave",
+				-- },
+				-- },
 				menu = {
 					win_configs = {
 						border = "rounded",
