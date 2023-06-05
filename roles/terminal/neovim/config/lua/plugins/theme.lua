@@ -44,6 +44,7 @@ return {
 
 					TreesitterContext = { bg = palette.base, style = { "italic" }, blend = 0 },
 					TreesitterContextSeparator = { fg = palette.surface1 },
+					TreesitterContextBottom = { sp = palette.surface1, style = { "underline" } },
 
 					DiagnosticUnderlineError = { sp = palette.red, style = { "undercurl" } },
 					DiagnosticUnderlineWarn = { sp = palette.yellow, style = { "undercurl" } },
