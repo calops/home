@@ -52,7 +52,7 @@ in
             description = "Font size";
           };
           hinting = mkOption {
-            type = types.enum ["Normal" "Mono" "HorizontaLcd"];
+            type = types.enum ["Normal" "Mono" "HorizontalLcd"];
             default = "Normal";
             description = "Font hinting strategy";
           };
