@@ -96,7 +96,7 @@ return {
 				["<leader>n"] = {
 					name = "file tree",
 					n = { ":Neotree toggle reveal_force_cwd<cr>", "Toggle file browser" },
-					g = { ":Neotree float git_status<cr>", "Show git status" },
+					g = { ":Neotree toggle git_status<cr>", "Show git status" },
 				},
 			}
 		end,
@@ -109,6 +109,10 @@ return {
 						hide_dotfiles = false,
 						hide_gitignored = true,
 					},
+				},
+				source_selector = {
+					winbar = true,
+					statusline = false,
 				},
 			}
 		end,
