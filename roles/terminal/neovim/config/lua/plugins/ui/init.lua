@@ -244,17 +244,17 @@ return {
 	{
 		"folke/which-key.nvim",
 		event = "VeryLazy",
-		config = function()
+		init = function()
 			vim.o.timeout = true
 			vim.o.timeoutlen = 150
-			require("which-key").setup {
-				window = {
-					border = "rounded",
-					position = "bottom",
-					margin = { 10, 10, 2, 10 },
-				},
-			}
 		end,
+		opts = {
+			window = {
+				border = "rounded",
+				position = "bottom",
+				margin = { 10, 10, 2, 10 },
+			},
+		},
 	},
 	{
 		"echasnovski/mini.hipatterns",
@@ -421,6 +421,7 @@ return {
 	},
 	{
 		"petertriho/nvim-scrollbar",
+		event = "VeryLazy",
 		opts = {
 			handlers = {
 				gitsigns = true,

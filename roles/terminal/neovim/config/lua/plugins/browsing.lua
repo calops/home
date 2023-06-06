@@ -97,6 +97,7 @@ return {
 					name = "file tree",
 					n = { ":Neotree toggle reveal_force_cwd<cr>", "Toggle file browser" },
 					g = { ":Neotree toggle git_status<cr>", "Show git status" },
+					b = { ":Neotree toggle buffers<cr>", "Show open buffers" },
 				},
 			}
 		end,
