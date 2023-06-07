@@ -11,7 +11,11 @@ in {
       nv = "nvim";
       cat = "bat";
       hm = "home-manager";
-      hs = "home-manager switch";
+      hs =
+        # The nvidia variant of NixGl is impure
+        if config.my.roles.graphical.nvidia.enable
+        then "home-manager switch --impure"
+        else "home-manager switch";
       ga = "git add -v";
       gu = "git add -vu";
       gp = "git push";
@@ -36,6 +40,7 @@ in {
           make -C "./scd" $argv
         end
       '';
+      run = ''nix run nixpkgs#"$argv[1]" -- $argv[2..-1]'';
       cdr = ''
         if test (count $argv) -gt 0
           cd $STOCKLY_MAIN/$argv[1]
