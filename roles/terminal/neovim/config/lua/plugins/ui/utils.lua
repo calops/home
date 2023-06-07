@@ -31,7 +31,7 @@ function module.git()
 				colors = utils.get_highlight("GitSignsDelete"),
 			},
 			untracked = {
-				colors = utils.get_highlight("GitSignsAdd"),
+				colors = utils.get_highlight("GitSignsUntracked"),
 			},
 			changedelete = {
 				colors = utils.get_highlight("GitSignsChangedelete"),
@@ -47,6 +47,7 @@ function module.git_signs()
 		GitSignsChangeChange = module.git().change,
 		GitSignsDeleteDelete = module.git().delete,
 		GitSignsUntracked = module.git().untracked,
+		GitSignsUntrackedUntracked = module.git().untracked,
 		GitSignsChangedeleteChangedelete = module.git().changedelete,
 	}
 end

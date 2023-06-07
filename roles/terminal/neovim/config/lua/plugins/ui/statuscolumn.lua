@@ -44,7 +44,7 @@ return {
 					if not self.diagsign or diag.severity < self.diagsign.severity then
 						self.diagsign = diag
 						self.bg = diag.colors.bg
-                        self.fg = diag.colors.fg
+						self.fg = diag.colors.fg
 					end
 				end
 			end
@@ -98,7 +98,7 @@ return {
 				self.gitsign = nil
 			end,
 			provider = function(self)
-				if self.gitsign == "GitSignsUntracked" then
+				if self.gitsign == "GitSignsUntrackedUntracked" then
 					return "┋ "
 				elseif self.gitsign then
 					return "┃ "
