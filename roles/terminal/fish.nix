@@ -22,11 +22,11 @@ in {
       st = "git status";
       cc = "cargo check";
       di = "git diff";
+      rm = "rip";
     };
     shellAliases = {
       copy = "xclip -selection clipboard";
       cp = "xcp";
-      rm = "rip";
       ls = "exa";
       ll = "ls -lH --time-style=long-iso";
       la = "ll -a";
