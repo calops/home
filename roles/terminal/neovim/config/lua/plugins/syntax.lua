@@ -8,6 +8,7 @@ return {
 		lazy = false,
 		dependencies = {
 			{ "nvim-treesitter/nvim-treesitter-textobjects" },
+			{ "JoosepAlviste/nvim-ts-context-commentstring" },
 		},
 		config = function()
 			require("nvim-treesitter.configs").setup {
@@ -156,11 +157,6 @@ return {
 			}
 		end,
 		config = true,
-	},
-	-- Syntax-aware comments
-	{
-		"JoosepAlviste/nvim-ts-context-commentstring",
-		event = "VeryLazy",
 	},
 	-- Yuck support
 	{

@@ -193,8 +193,6 @@ return {
 						if client.attached_buffers[vim.api.nvim_get_current_buf()] then
 							vim.lsp.buf.format()
 							return
-						else
-							return
 						end
 					end
 				end,

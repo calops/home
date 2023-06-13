@@ -114,16 +114,6 @@ return {
 				-- 	},
 				-- },
 				-- icons = { ui = { bar = { separator = "" } } },
-				-- general = {
-				-- update_events = {
-				-- 	"DirChanged",
-				-- 	"FileChangedShellPost",
-				-- 	"VimResized",
-				-- 	"WinResized",
-				-- 	"WinEnter",
-				-- 	"WinLeave",
-				-- },
-				-- },
 				menu = {
 					win_configs = {
 						border = "rounded",
