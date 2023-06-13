@@ -4,16 +4,16 @@
   forest = "#6ac26a";
 
   mint = "#a6f7e3";
-  teal = "#94e2d5";
-  turquoise = "#7ad5d5";
+  teal = "#7ad5d5";
+  turquoise = "#5aa6a6";
 
   lavender = "#a6d8f7";
   blue = "#89b4fa";
-  navy = "#7f9bea";
+  navy = "#6c7fde";
 
   mauve = "#cba6f7";
   purple = "#b48bf2";
-  violet = "#a67af2";
+  violet = "#8b6af2";
 
   pink = "#f7a6c2";
   red = "#f38ba8";
@@ -23,9 +23,9 @@
   peach = "#f2b48b";
   tangerine = "#f2a66d";
 
-  sun = "#f9e2af";
-  yellow = "#f7d08a";
-  gold = "#f5c26a";
+  yellow = "#f7e3a6";
+  sand = "#f2d48b";
+  gold = "#f2c46d";
 
   rosewater = "#f5e0dc";
   flamingo = "#f2cdcd";
