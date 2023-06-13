@@ -29,6 +29,7 @@ in {
         xcp
         choose
         rargs
+        sshfs
       ];
 
       programs.direnv.enable = true;

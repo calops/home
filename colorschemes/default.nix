@@ -5,7 +5,7 @@
 }: let
   mkColorOption = name:
     lib.mkOption {
-      type = lib.types.string;
+      type = lib.types.str;
       description = "Color for " + name + " hue";
     };
   my.types = {
@@ -71,6 +71,7 @@ in
       };
     };
     config = {
-      my.colors.palette = import "${config.my.colors.scheme}/${config.my.colors.background}.nix";
+      my.colors.palette =
+        import (config.home.homeDirectory + "/home/colorschemes/${config.my.colors.scheme}/${config.my.colors.background}.nix");
     };
   }

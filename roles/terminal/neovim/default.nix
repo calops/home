@@ -5,6 +5,7 @@
   ...
 }: let
   cfg = config.my.roles.terminal;
+  palette = config.my.colors.palette;
   configDir = "${config.home.homeDirectory}/.config/home-manager/roles/terminal/neovim/config";
 in
   with lib; {
@@ -25,7 +26,12 @@ in
           alejandra
         ];
       };
-      # Raw symlink to the config directory. Plugins installation and synchronization is deferred to lazy.nvim
-      xdg.configFile.nvim.source = config.lib.file.mkOutOfStoreSymlink configDir;
+      # Raw symlink to the lazy plugin manager lock file, so that it stays writeable
+      xdg.configFile."nvim/lazy-lock.json".source = config.lib.file.mkOutOfStoreSymlink configDir + "/lazy-lock.json";
+      xdg.configFile."nvim/lua/nix/palette.lua".text = "return ${lib.generators.toLua {} palette}";
+      xdg.configFile.nvim = {
+        source = configDir;
+        recursive = true;
+      };
     };
   }
