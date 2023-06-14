@@ -7,7 +7,7 @@
   teal = "#7ad5d5";
   turquoise = "#5aa6a6";
 
-  lavender = "#a6d8f7";
+  sky = "#a6d8f7";
   blue = "#89b4fa";
   navy = "#6c7fde";
 
