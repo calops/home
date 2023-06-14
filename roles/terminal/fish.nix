@@ -11,11 +11,7 @@ in {
       nv = "nvim";
       cat = "bat";
       hm = "home-manager";
-      hs =
-        # The nvidia variant of NixGl is impure
-        if config.my.roles.graphical.nvidia.enable
-        then "home-manager switch --impure"
-        else "home-manager switch";
+      hs = "home-manager switch --impure";
       ga = "git add -v";
       gu = "git add -vu";
       gp = "git push";
