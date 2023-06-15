@@ -5,7 +5,7 @@ return {
 	-- Universal language parser
 	{
 		"nvim-treesitter/nvim-treesitter",
-		lazy = false,
+		lazy = "VeryLazy",
 		dependencies = {
 			{ "nvim-treesitter/nvim-treesitter-textobjects" },
 			{ "JoosepAlviste/nvim-ts-context-commentstring" },

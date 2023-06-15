@@ -1,4 +1,6 @@
-local nmap = require("core.utils").nmap
+local core_utils = require("core.utils")
+local utils = require("plugins.ui.utils")
+local nmap = core_utils.nmap
 
 vim.fn.sign_define("DiagnosticSignError", { text = "", texthl = "DiagnosticSignError", numhl = "" })
 vim.fn.sign_define("DiagnosticSignWarn", { text = "", texthl = "DiagnosticSignWarn", numhl = "" })
@@ -41,15 +43,14 @@ return {
 	require("plugins.ui.windowline"),
 	{
 		"Bekaboo/dropbar.nvim",
-		event = "VeryLazy",
+		event = "UIEnter",
 		-- Wait for the plugin to become more stable
 		enabled = true,
 		config = function()
 			local bar = require("dropbar.bar")
-			local utils = require("plugins.ui.utils")
 			local palette = utils.palette()
+			local sources = require("dropbar.sources")
 			local function wrap_path(buf, cursor)
-				local sources = require("dropbar.sources")
 				local symbols_len = 0
 				local symbols = {
 					content = {},
@@ -108,11 +109,35 @@ return {
 				return symbols.content
 			end
 			require("dropbar").setup {
-				-- bar = {
-				-- 	sources = {
-				-- 		{ get_symbols = wrap_path },
-				-- 	},
-				-- },
+				bar = {
+					sources = function(_, _)
+						return {
+							sources.path,
+							{
+								get_symbols = function(_, _, _)
+									return { bar.dropbar_symbol_t:new { name = "%=" } }
+								end,
+							},
+							{
+								get_symbols = function(buf, win, cursor)
+									if vim.bo[buf].ft == "markdown" then
+										return sources.markdown.get_symbols(buf, win, cursor)
+									end
+									for _, source in ipairs {
+										sources.lsp,
+										sources.treesitter,
+									} do
+										local symbols = source.get_symbols(buf, win, cursor)
+										if not vim.tbl_isempty(symbols) then
+											return core_utils.reverse_table(symbols)
+										end
+									end
+									return {}
+								end,
+							},
+						}
+					end,
+				},
 				-- icons = { ui = { bar = { separator = "" } } },
 				menu = {
 					win_configs = {
