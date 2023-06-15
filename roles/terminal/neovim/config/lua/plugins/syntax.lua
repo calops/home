@@ -70,7 +70,7 @@ return {
 	-- Show sticky context for off-screen scope beginnings
 	{
 		-- TODO: switch to upstream once merged
-		"calops/nvim-treesitter-context",
+		"nvim-treesitter/nvim-treesitter-context",
 		event = "VeryLazy",
 		config = function()
 			require("treesitter-context").setup {
