@@ -9,6 +9,7 @@
     graphical = {
       enable = true;
       nvidia.enable = true;
+      installAllFonts = true;
       terminal = "wezterm";
       monitors.primary.id = "DP-2";
     };

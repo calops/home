@@ -57,6 +57,7 @@ in
             description = "Font hinting strategy";
           };
         };
+        installAllFonts = mkEnableOption "Install all fonts";
         terminal = mkOption {
           type = types.enum ["kitty" "wezterm"];
           default = "wezterm";
@@ -88,8 +89,9 @@ in
     config = mkIf cfg.enable {
       fonts.fontconfig.enable = true;
       programs.mpv.enable = true;
-      home.packages = [
-        cfg.font.family.pkg
-      ];
+      home.packages =
+        if cfg.installAllFonts
+        then lib.attrsets.mapAttrsToList (name: font: font.pkg) lib.my.fonts
+        else [cfg.font.family.pkg];
     };
   }
