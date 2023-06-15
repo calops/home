@@ -11,7 +11,10 @@ in {
       nv = "nvim";
       cat = "bat";
       hm = "home-manager";
-      hs = "home-manager switch --impure";
+      hs =
+        if config.my.roles.graphical.nvidia.enable # nixGLNvidia is always impure, unfortunately
+        then "home-manager switch --impure"
+        else "home-manager switch";
       ga = "git add -v";
       gu = "git add -vu";
       gp = "git push";

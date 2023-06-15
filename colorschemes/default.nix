@@ -72,6 +72,6 @@ in
     };
     config = {
       my.colors.palette =
-        import (config.home.homeDirectory + "/home/colorschemes/${config.my.colors.scheme}/${config.my.colors.background}.nix");
+        import ./${config.my.colors.scheme}/${config.my.colors.background}.nix;
     };
   }
