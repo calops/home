@@ -128,6 +128,11 @@ return {
 										sources.treesitter,
 									} do
 										local symbols = source.get_symbols(buf, win, cursor)
+										-- for _, symbol in ipairs(symbols) do
+										-- 	if symbol.name == "" then
+										-- 		symbol.name = ""
+										-- 	end
+										-- end
 										if not vim.tbl_isempty(symbols) then
 											return core_utils.reverse_table(symbols)
 										end
@@ -138,7 +143,7 @@ return {
 						}
 					end,
 				},
-				-- icons = { ui = { bar = { separator = "" } } },
+				-- icons = { ui = { bar = { separator = "" } } },
 				menu = {
 					win_configs = {
 						border = "rounded",
