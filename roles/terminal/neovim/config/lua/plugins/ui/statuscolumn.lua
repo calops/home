@@ -111,6 +111,7 @@ return {
 				local bg = self.bg
 
 				if self.gitsign then
+					-- vim.print(self.gitsign)
 					fg = ui_utils.git_signs()[self.gitsign].colors.fg
 				end
 

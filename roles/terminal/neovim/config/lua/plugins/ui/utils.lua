@@ -1,20 +1,17 @@
 local module = {}
 
-require("catppuccin") -- Make sure the theme is loaded first
-local utils = require("heirline.utils")
-
 module._colors_data = nil
 function module.colors()
 	if not module._colors_data then
 		module._colors_data = {
-			normal = utils.get_highlight("Normal"),
+			normal = module.get_highlight("Normal"),
 		}
 	end
 	return module._colors_data
 end
 
-function module.get_highlight(group)
-	return utils.get_highlight(group)
+function module.get_highlight(name)
+	return vim.api.nvim_get_hl(0, { name = name, link = false })
 end
 
 module._git_data = nil
@@ -22,19 +19,19 @@ function module.git()
 	if not module._git_data then
 		module._git_data = {
 			add = {
-				colors = utils.get_highlight("GitSignsAdd"),
+				colors = module.get_highlight("GitSignsAdd"),
 			},
 			change = {
-				colors = utils.get_highlight("GitSignsChange"),
+				colors = module.get_highlight("GitSignsChange"),
 			},
 			delete = {
-				colors = utils.get_highlight("GitSignsDelete"),
+				colors = module.get_highlight("GitSignsDelete"),
 			},
 			untracked = {
-				colors = utils.get_highlight("GitSignsUntracked"),
+				colors = module.get_highlight("GitSignsUntracked"),
 			},
 			changedelete = {
-				colors = utils.get_highlight("GitSignsChangedelete"),
+				colors = module.get_highlight("GitSignsChangedelete"),
 			},
 		}
 	end
@@ -43,12 +40,11 @@ end
 
 function module.git_signs()
 	return {
-		GitSignsAddAdd = module.git().add,
-		GitSignsChangeChange = module.git().change,
-		GitSignsDeleteDelete = module.git().delete,
+		GitSignsAdd = module.git().add,
+		GitSignsChange = module.git().change,
+		GitSignsDelete = module.git().delete,
 		GitSignsUntracked = module.git().untracked,
-		GitSignsUntrackedUntracked = module.git().untracked,
-		GitSignsChangedeleteChangedelete = module.git().changedelete,
+		GitSignsChangedelete = module.git().changedelete,
 	}
 end
 
@@ -58,22 +54,22 @@ function module.diags()
 		module._diags_data = {
 			error = {
 				severity = 1,
-				colors = utils.get_highlight("DiagnosticVirtualTextError"),
+				colors = module.get_highlight("DiagnosticVirtualTextError"),
 				sign = vim.fn.sign_getdefined("DiagnosticSignError")[1].text,
 			},
 			warn = {
 				severity = 2,
-				colors = utils.get_highlight("DiagnosticVirtualTextWarn"),
+				colors = module.get_highlight("DiagnosticVirtualTextWarn"),
 				sign = vim.fn.sign_getdefined("DiagnosticSignWarn")[1].text,
 			},
 			info = {
 				severity = 3,
-				colors = utils.get_highlight("DiagnosticVirtualTextInfo"),
+				colors = module.get_highlight("DiagnosticVirtualTextInfo"),
 				sign = vim.fn.sign_getdefined("DiagnosticSignInfo")[1].text,
 			},
 			hint = {
 				severity = 4,
-				colors = utils.get_highlight("DiagnosticVirtualTextHint"),
+				colors = module.get_highlight("DiagnosticVirtualTextHint"),
 				sign = vim.fn.sign_getdefined("DiagnosticSignHint")[1].text,
 			},
 		}
