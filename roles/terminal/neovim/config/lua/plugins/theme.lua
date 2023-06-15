@@ -4,6 +4,7 @@ return {
 	name = "catppuccin",
 	lazy = false,
 	config = function()
+		local palette = require("nix.palette")
 		vim.g.catppuccin_flavour = "mocha"
 		require("catppuccin").setup {
 			integrations = {
@@ -25,8 +26,22 @@ return {
 			compile = {
 				enabled = true,
 			},
+			color_overrides = {
+				rosewater = palette.rosewater,
+				flamingo = palette.flamingo,
+				pink = palette.pink,
+				mauve = palette.purple,
+				red = palette.cherry,
+				maroon = palette.red,
+				peach = palette.tangerine,
+				yellow = palette.sand,
+				teal = palette.teal,
+				sky = palette.mint,
+				sapphire = palette.turquoise,
+				blue = palette.blue,
+				lavender = palette.sky,
+			},
 			custom_highlights = function()
-				local palette = require("plugins.ui.utils").palette()
 				local utils = require("plugins.ui.utils")
 
 				return {
