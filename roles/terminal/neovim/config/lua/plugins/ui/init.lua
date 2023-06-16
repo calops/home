@@ -76,7 +76,7 @@ return {
 						end
 						item.hl = { fg = palette.text, bg = palette.surface1 }
 						item.icon_hl = utils.get_hl_group {
-							fg = utils.get_highlight(item.icon_hl).fg,
+							fg = utils.get_hl(item.icon_hl).fg,
 							bg = palette.surface1,
 						}
 						table.insert(left, item)
@@ -95,7 +95,7 @@ return {
 						end
 						table.insert(left, {
 							name = item.icon,
-							hl = utils.get_highlight(item.icon_hl),
+							hl = utils.get_hl(item.icon_hl),
 						})
 						item.icon = nil
 						mid = item

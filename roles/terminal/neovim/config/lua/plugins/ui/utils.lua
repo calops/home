@@ -4,13 +4,13 @@ module._colors_data = nil
 function module.colors()
 	if not module._colors_data then
 		module._colors_data = {
-			normal = module.get_highlight("Normal"),
+			normal = module.get_hl("Normal"),
 		}
 	end
 	return module._colors_data
 end
 
-function module.get_highlight(name)
+function module.get_hl(name)
 	return vim.api.nvim_get_hl(0, { name = name, link = false })
 end
 
@@ -19,19 +19,19 @@ function module.git()
 	if not module._git_data then
 		module._git_data = {
 			add = {
-				colors = module.get_highlight("GitSignsAdd"),
+				colors = module.get_hl("GitSignsAdd"),
 			},
 			change = {
-				colors = module.get_highlight("GitSignsChange"),
+				colors = module.get_hl("GitSignsChange"),
 			},
 			delete = {
-				colors = module.get_highlight("GitSignsDelete"),
+				colors = module.get_hl("GitSignsDelete"),
 			},
 			untracked = {
-				colors = module.get_highlight("GitSignsUntracked"),
+				colors = module.get_hl("GitSignsUntracked"),
 			},
 			changedelete = {
-				colors = module.get_highlight("GitSignsChangedelete"),
+				colors = module.get_hl("GitSignsChangedelete"),
 			},
 		}
 	end
@@ -43,8 +43,9 @@ function module.git_signs()
 		GitSignsAdd = module.git().add,
 		GitSignsChange = module.git().change,
 		GitSignsDelete = module.git().delete,
-		GitSignsUntracked = module.git().untracked,
+		GitSignsTopdelete = module.git().delete,
 		GitSignsChangedelete = module.git().changedelete,
+		GitSignsUntracked = module.git().untracked,
 	}
 end
 
@@ -54,22 +55,22 @@ function module.diags()
 		module._diags_data = {
 			error = {
 				severity = 1,
-				colors = module.get_highlight("DiagnosticVirtualTextError"),
+				colors = module.get_hl("DiagnosticVirtualTextError"),
 				sign = vim.fn.sign_getdefined("DiagnosticSignError")[1].text,
 			},
 			warn = {
 				severity = 2,
-				colors = module.get_highlight("DiagnosticVirtualTextWarn"),
+				colors = module.get_hl("DiagnosticVirtualTextWarn"),
 				sign = vim.fn.sign_getdefined("DiagnosticSignWarn")[1].text,
 			},
 			info = {
 				severity = 3,
-				colors = module.get_highlight("DiagnosticVirtualTextInfo"),
+				colors = module.get_hl("DiagnosticVirtualTextInfo"),
 				sign = vim.fn.sign_getdefined("DiagnosticSignInfo")[1].text,
 			},
 			hint = {
 				severity = 4,
-				colors = module.get_highlight("DiagnosticVirtualTextHint"),
+				colors = module.get_hl("DiagnosticVirtualTextHint"),
 				sign = vim.fn.sign_getdefined("DiagnosticSignHint")[1].text,
 			},
 		}

@@ -1,4 +1,3 @@
-local conditions = require("heirline.conditions")
 local utils = require("heirline.utils")
 local ui_utils = require("plugins.ui.utils")
 
@@ -25,7 +24,7 @@ return {
 			diagnostics = ui_utils.diags_signs(),
 		},
 		init = function(self)
-			if conditions.is_active() and vim.v.lnum == vim.api.nvim_win_get_cursor(0)[1] then
+			if require("heirline.conditions").is_active() and vim.v.lnum == vim.api.nvim_win_get_cursor(0)[1] then
 				self.bg = self.colors.cursor_line
 				self.fg = self.colors.cursor_num
 			else
@@ -87,7 +86,7 @@ return {
 		},
 		-- Git chunks
 		{
-			condition = conditions.is_git_repo,
+			condition = require("heirline.conditions").is_git_repo,
 			init = function(self)
 				for _, sign in ipairs(self.signs) do
 					self.gitsign = sign.name:match("GitSigns.*")
@@ -111,8 +110,7 @@ return {
 				local bg = self.bg
 
 				if self.gitsign then
-					-- vim.print(self.gitsign)
-					fg = ui_utils.git_signs()[self.gitsign].colors.fg
+					fg = ui_utils.get_hl(self.gitsign).fg
 				end
 
 				return { fg = fg, bg = bg }
@@ -121,6 +119,7 @@ return {
 				name = "git_sign_callback",
 				callback = function(_, _, _, button)
 					local mouse_pos = vim.fn.getmousepos()
+					vim.api.nvim_set_current_win(mouse_pos.winid)
 					vim.api.nvim_win_set_cursor(mouse_pos.winid, { mouse_pos.line, 0 })
 					if button == "l" then
 						vim.defer_fn(require("gitsigns").preview_hunk_inline, 50)

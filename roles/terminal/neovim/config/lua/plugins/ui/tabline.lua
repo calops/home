@@ -12,12 +12,12 @@ return {
 			sep = utils.separators,
 			diags = utils.diags_sorted(),
 			colors = {
-				logo = utils.get_highlight("CustomTablineLogo"),
-				tab_active = utils.get_highlight("CustomTablineSel"),
-				tab_inactive = utils.get_highlight("CustomTabline"),
-				icon_pill_inactive = utils.get_highlight("CustomTablinePillIcon"),
-				icon_pill_active = utils.get_highlight("CustomTablinePillIconSel"),
-				icon_modified = utils.get_highlight("CustomTablineModifiedIcon"),
+				logo = utils.get_hl("CustomTablineLogo"),
+				tab_active = utils.get_hl("CustomTablineSel"),
+				tab_inactive = utils.get_hl("CustomTabline"),
+				icon_pill_inactive = utils.get_hl("CustomTablinePillIcon"),
+				icon_pill_active = utils.get_hl("CustomTablinePillIconSel"),
+				icon_modified = utils.get_hl("CustomTablineModifiedIcon"),
 			},
 		},
 		{
@@ -25,12 +25,7 @@ return {
 		},
 		-- Logo
 		{
-			utils.build_pill(
-				{},
-				{ provider = " Tabs", hl = utils.get_highlight("CustomTablineLogo") },
-				{},
-				"provider"
-			),
+			utils.build_pill({}, { provider = " Tabs", hl = utils.get_hl("CustomTablineLogo") }, {}, "provider"),
 		},
 		-- Tabs
 		utils.make_tablist {
