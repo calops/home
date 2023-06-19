@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  configurationName,
   ...
 }: let
   cfg = config.my.roles.terminal;
@@ -25,6 +26,7 @@ in
           fzf
           alejandra
           stylua
+          nixd
         ];
       };
       xdg.configFile = {
@@ -34,6 +36,17 @@ in
         "nvim" = {
           source = ./config;
           recursive = true;
+        };
+        "home-manager/.nixd.json".text = builtins.toJSON {
+          eval = {
+            depth = 10;
+          };
+          options = {
+            enable = true;
+            target = {
+              installable = "/flakeref#nixosConfigurations.${configurationName}.options";
+            };
+          };
         };
       };
     };

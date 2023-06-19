@@ -69,7 +69,6 @@ return {
 	},
 	-- Show sticky context for off-screen scope beginnings
 	{
-		-- TODO: switch to upstream once merged
 		"nvim-treesitter/nvim-treesitter-context",
 		event = "VeryLazy",
 		config = function()

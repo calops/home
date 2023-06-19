@@ -1,5 +1,6 @@
 local core_utils = require("core.utils")
 local utils = require("plugins.ui.utils")
+local palette = require("nix.palette")
 local nmap = core_utils.nmap
 
 vim.fn.sign_define("DiagnosticSignError", { text = "", texthl = "DiagnosticSignError", numhl = "" })
@@ -50,24 +51,19 @@ return {
 			local bar = require("dropbar.bar")
 			local palette = utils.palette()
 			local sources = require("dropbar.sources")
-			local function wrap_path(buf, cursor)
+			local function wrap_path(buf, win, cursor)
 				local symbols_len = 0
 				local symbols = {
 					content = {},
 					insert = function(self, elt)
 						symbols_len = symbols_len + 1
-						if type(elt) == "string" then
-							elt = bar.dropbar_symbol_t:new { name = elt }
-						elseif type(elt) == "table" and #elt < 3 then
-							elt = bar.dropbar_symbol_t:new(elt)
-						end
 						if type(elt.hl) == "table" then
 							elt.name_hl = utils.get_hl_group(elt.hl)
 						end
 						table.insert(self.content, symbols_len, elt)
 					end,
 				}
-				local path_symbols = sources.path.get_symbols(buf, cursor)
+				local path_symbols = sources.path.get_symbols(buf, win, cursor)
 				local left, mid = {}, {}
 				for i, item in ipairs(path_symbols) do
 					if i < #path_symbols then
@@ -103,47 +99,47 @@ return {
 				end
 				local pill = utils.build_pill(left, mid, {}, "name")
 				for _, item in ipairs(pill) do
+					if not item.win then
+						item = bar.dropbar_symbol_t:new(item)
+					end
 					symbols:insert(item)
 				end
 
 				return symbols.content
 			end
 			require("dropbar").setup {
-				bar = {
-					sources = function(_, _)
-						return {
-							sources.path,
-							{
-								get_symbols = function(_, _, _)
-									return { bar.dropbar_symbol_t:new { name = "%=" } }
-								end,
-							},
-							{
-								get_symbols = function(buf, win, cursor)
-									if vim.bo[buf].ft == "markdown" then
-										return sources.markdown.get_symbols(buf, win, cursor)
-									end
-									for _, source in ipairs {
-										sources.lsp,
-										sources.treesitter,
-									} do
-										local symbols = source.get_symbols(buf, win, cursor)
-										-- for _, symbol in ipairs(symbols) do
-										-- 	if symbol.name == "" then
-										-- 		symbol.name = ""
-										-- 	end
-										-- end
-										if not vim.tbl_isempty(symbols) then
-											return core_utils.reverse_table(symbols)
-										end
-									end
-									return {}
-								end,
-							},
-						}
-					end,
-				},
-				-- icons = { ui = { bar = { separator = "" } } },
+				-- bar = {
+				-- 	sources = function(_, _)
+				-- 		return {
+				-- 			-- sources.path,
+				-- 			{ get_symbols = wrap_path },
+				-- 			{
+				-- 				get_symbols = function(_, _, _)
+				-- 					return { bar.dropbar_symbol_t:new { name = "%=" } }
+				-- 				end,
+				-- 			},
+				-- 			{
+				-- 				get_symbols = function(buf, win, cursor)
+				-- 					if vim.bo[buf].ft == "markdown" then
+				-- 						return sources.markdown.get_symbols(buf, win, cursor)
+				-- 					end
+				-- 					for _, source in ipairs {
+				-- 						sources.lsp,
+				-- 						sources.treesitter,
+				-- 					} do
+				-- 						local symbols = source.get_symbols(buf, win, cursor)
+				-- 						if not vim.tbl_isempty(symbols) then
+				-- 							table.remove(symbols, 1)
+				-- 							return core_utils.reverse_table(symbols)
+				-- 						end
+				-- 					end
+				-- 					return {}
+				-- 				end,
+				-- 			},
+				-- 		}
+				-- 	end,
+				-- },
+				-- icons = { ui = { bar = { separator = "" } } },
 				menu = {
 					win_configs = {
 						border = "rounded",
@@ -443,6 +439,9 @@ return {
 		"petertriho/nvim-scrollbar",
 		event = "VeryLazy",
 		opts = {
+			handle = {
+				color = palette.surface1,
+			},
 			handlers = {
 				gitsigns = true,
 			},
