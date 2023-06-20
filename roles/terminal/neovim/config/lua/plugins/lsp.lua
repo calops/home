@@ -64,7 +64,6 @@ return {
 	{
 		"lvimuser/lsp-inlayhints.nvim",
 		branch = "anticonceal",
-		enable = false,
 		lazy = true,
 		init = function()
 			vim.api.nvim_create_augroup("LspAttach_inlayhints", {})
@@ -140,7 +139,7 @@ return {
 			rt.setup {
 				tools = {
 					inlay_hints = {
-						auto = true,
+						auto = false,
 						highlight = "InlayHints",
 					},
 				},

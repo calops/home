@@ -1,5 +1,4 @@
 local nmap = require("core.utils").nmap
-local imap = require("core.utils").imap
 local tmap = require("core.utils").tmap
 
 return {
@@ -55,16 +54,11 @@ return {
 		name = "toggleterm",
 		cmd = "ToggleTerm",
 		init = function()
-			nmap { ["<C-f>"] = { "<Cmd>exe v:count1 . 'ToggleTerm'<CR>", "Toggle floating terminal" } }
-			imap { ["<C-f>"] = { "<Esc><Cmd>exe v:count1 . 'ToggleTerm'<CR>", "Toggle floating terminal" } }
-			vim.api.nvim_create_autocmd("TermEnter", {
-				pattern = "term://*toggleterm#*",
-				callback = function()
-					tmap {
-						["<C-f>"] = { "<Cmd>exe v:count1 . 'ToggleTerm'<CR>", "Toggle floating terminal" },
-					}
-				end,
-			})
+			local function toggle()
+				require("toggleterm").toggle()
+			end
+			nmap { ["<C-f>"] = { toggle, "Toggle floating terminal" } }
+			tmap { ["<C-f>"] = { toggle, "Toggle floating terminal" } }
 		end,
 		opts = {
 			direction = "float",
