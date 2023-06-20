@@ -21,7 +21,7 @@ vim.o.guifont = "Iosevka:h9"
 
 ---------- Core settings
 vim.g.mapleader = ","
-vim.o.inccmd = "nosplit"
+vim.o.inccommand = "nosplit"
 vim.o.number = true
 vim.o.mouse = "a"
 vim.o.mousemodel = "extend"

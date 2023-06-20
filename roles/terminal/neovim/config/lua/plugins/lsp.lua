@@ -187,9 +187,9 @@ return {
 				vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
 
 			-- Auto format on save
-			require("core.autocmd").BufWritePre = {
-				"*.rs,*.nix,*.lua",
-				function()
+			vim.api.nvim_create_autocmd("BufWritePre", {
+				pattern = "*.rs,*.nix,*.lua",
+				callback = function()
 					for _, client in ipairs(vim.lsp.get_active_clients()) do
 						if client.attached_buffers[vim.api.nvim_get_current_buf()] then
 							vim.lsp.buf.format()
@@ -197,7 +197,7 @@ return {
 						end
 					end
 				end,
-			}
+			})
 		end,
 	},
 	-- LSP files operations
