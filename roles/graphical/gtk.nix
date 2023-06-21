@@ -10,10 +10,6 @@ in
     config = mkIf cfg.enable {
       gtk = {
         enable = true;
-        cursorTheme = {
-          name = "Catppuccin-Mocha-Peach-Cursors";
-          package = pkgs.catppuccin-cursors.mochaPeach;
-        };
         theme = {
           name = "Catppuccin-Mocha-Compact-Peach-Dark";
           package = pkgs.catppuccin-gtk.override {
@@ -23,10 +19,6 @@ in
             variant = "mocha";
           };
         };
-      };
-      home.pointerCursor = {
-        name = "Catppuccin-Mocha-Peach-Cursors";
-        package = pkgs.catppuccin-cursors.mochaPeach;
       };
     };
   }

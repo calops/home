@@ -90,6 +90,12 @@ in
     config = mkIf cfg.enable {
       fonts.fontconfig.enable = true;
       programs.mpv.enable = true;
+      home.pointerCursor = {
+        name = "Catppuccin-Mocha-Peach-Cursors";
+        size = 32;
+        package = pkgs.catppuccin-cursors.mochaPeach;
+        gtk.enable = true;
+      };
       home.packages =
         if cfg.installAllFonts
         then lib.attrsets.mapAttrsToList (name: font: font.pkg) lib.my.fonts
