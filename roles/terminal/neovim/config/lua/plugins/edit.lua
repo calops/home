@@ -129,8 +129,25 @@ return {
 	},
 	-- Move around
 	{
-		"ggandor/leap.nvim",
+		"folke/flash.nvim",
 		event = "VeryLazy",
-		config = function() require("leap").add_default_mappings() end,
+		opts = {
+			search = {
+				mode = "fuzzy",
+				incremental = true,
+			},
+		},
+		keys = {
+			{
+				"s",
+				mode = { "n", "x", "o" },
+				function() require("flash").jump() end,
+			},
+			{
+				"S",
+				mode = { "n", "o", "x" },
+				function() require("flash").treesitter() end,
+			},
+		},
 	},
 }

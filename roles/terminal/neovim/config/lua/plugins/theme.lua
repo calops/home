@@ -100,6 +100,9 @@ return {
 					MultiCursor = { bg = palette.peach, fg = palette.base },
 					VM_Mono = { bg = palette.peach, fg = palette.base },
 
+					FlashLabel = { bg = palette.peach, fg = palette.base, style = { "bold" } },
+					FlashMatch = { bg = palette.lavender, fg = palette.base },
+
 					-- Syntax
 					["@parameter"] = { fg = palette.text, style = { "nocombine" } },
 					["@namespace"] = { fg = palette.pink, style = { "nocombine" } },
