@@ -59,7 +59,9 @@ return {
 				matchup = {
 					enable = true,
 				},
-				context_commentstring = { enable = true },
+				context_commentstring = {
+					enable = true,
+				},
 				playground = { enable = true },
 				query_linter = {
 					enable = true,

@@ -7,7 +7,14 @@ return {
 	{
 		"echasnovski/mini.comment",
 		event = "VeryLazy",
-		config = true,
+		opts = {
+			options = {
+				custom_commentstring = function()
+					return require("ts_context_commentstring.internal").calculate_commentstring()
+						or vim.bo.commentstring
+				end,
+			},
+		},
 	},
 	-- Split/join
 	{
@@ -15,9 +22,7 @@ return {
 		lazy = true,
 		init = function()
 			nmap { ["gs"] = {
-				function()
-					require("treesj").toggle()
-				end,
+				function() require("treesj").toggle() end,
 				"Toggle split",
 			} }
 		end,
@@ -52,27 +57,19 @@ return {
 				["<leader>p"] = {
 					name = "debug print",
 					p = {
-						function()
-							require("debugprint").debugprint()
-						end,
+						function() require("debugprint").debugprint() end,
 						"Add simple debug print below",
 					},
 					P = {
-						function()
-							require("debugprint").debugprint { above = true }
-						end,
+						function() require("debugprint").debugprint { above = true } end,
 						"Add simple debug print above",
 					},
 					v = {
-						function()
-							require("debugprint").debugprint { variable = true }
-						end,
+						function() require("debugprint").debugprint { variable = true } end,
 						"Add variable debug print below",
 					},
 					V = {
-						function()
-							require("debugprint").debugprint { variable = true, above = true }
-						end,
+						function() require("debugprint").debugprint { variable = true, above = true } end,
 						"Add variable debug print above",
 					},
 				},
@@ -80,30 +77,22 @@ return {
 
 			xmap {
 				["<leader>p"] = {
-					function()
-						require("debugprint").debugprint { variable = true }
-					end,
+					function() require("debugprint").debugprint { variable = true } end,
 					"Add variable debug print below",
 				},
 				["<leader>P"] = {
-					function()
-						require("debugprint").debugprint { variable = true, above = true }
-					end,
+					function() require("debugprint").debugprint { variable = true, above = true } end,
 					"Add variable debug print above",
 				},
 			}
 
 			omap {
 				["<leader>p"] = {
-					function()
-						require("debugprint").debugprint { variable = true }
-					end,
+					function() require("debugprint").debugprint { variable = true } end,
 					"Add variable debug print below",
 				},
 				["<leader>P"] = {
-					function()
-						require("debugprint").debugprint { variable = true, above = true }
-					end,
+					function() require("debugprint").debugprint { variable = true, above = true } end,
 					"Add variable debug print above",
 				},
 			}
@@ -113,9 +102,7 @@ return {
 	-- Edit filesystem as a buffer
 	{
 		"stevearc/oil.nvim",
-		config = function()
-			require("oil").setup()
-		end,
+		config = function() require("oil").setup() end,
 	},
 	-- Move stuff around
 	{
@@ -144,8 +131,6 @@ return {
 	{
 		"ggandor/leap.nvim",
 		event = "VeryLazy",
-		config = function()
-			require("leap").add_default_mappings()
-		end,
+		config = function() require("leap").add_default_mappings() end,
 	},
 }

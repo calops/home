@@ -62,7 +62,6 @@
   "ron.vim": { "branch": "master", "commit": "f749e543975a82e8dd9a6e7df9600a1c098ae800" },
   "rust-tools.nvim": { "branch": "master", "commit": "71d2cf67b5ed120a0e31b2c8adb210dd2834242f" },
   "sqlite.lua": { "branch": "master", "commit": "b7e28c8463254c46a8e61c52d27d6a2040492fc3" },
-  "ssr.nvim": { "branch": "main", "commit": "e5768511518a397fa712f26389ba30d0404990de" },
   "syntax-tree-surfer": { "branch": "master", "commit": "6571f0fe11463ea094f3dec1c8ca925daad70693" },
   "telescope-all-recent.nvim": { "branch": "main", "commit": "dee20f810aec14c31287988b3baa8c371900cf06" },
   "telescope-fzf-native.nvim": { "branch": "main", "commit": "9bc8237565ded606e6c366a71c64c0af25cd7a50" },

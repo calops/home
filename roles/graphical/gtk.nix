@@ -11,8 +11,8 @@ in
       gtk = {
         enable = true;
         cursorTheme = {
-          pkg = pkgs.catppuccin-cursors.mochaPeach;
           name = "Catppuccin-Mocha-Peach-Cursors";
+          package = pkgs.catppuccin-cursors.mochaPeach;
         };
         theme = {
           name = "Catppuccin-Mocha-Compact-Peach-Dark";
@@ -25,8 +25,8 @@ in
         };
       };
       home.pointerCursor = {
-        pkg = pkgs.catppuccin-cursors.mochaPeach;
         name = "Catppuccin-Mocha-Peach-Cursors";
+        package = pkgs.catppuccin-cursors.mochaPeach;
       };
     };
   }

@@ -6,27 +6,22 @@ return {
 	{
 		"rmagatti/auto-session",
 		lazy = false,
-		priority = 1001,
-		init = function()
+		config = function()
+			require("auto-session").setup {
+				log_level = "error",
+				cwd_change_handling = false,
+				bypass_session_save_file_types = { "neo-tree", "Trouble" },
+				pre_save_cmds = {
+					function() require("neo-tree.sources.manager").close_all() end,
+				},
+			}
 			nmap {
 				["<C-s>"] = {
-					function()
-						require("auto-session.session-lens").search_session()
-					end,
+					function() require("auto-session.session-lens").search_session() end,
 					"Search sessions",
 				},
 			}
 		end,
-		opts = {
-			log_level = "error",
-			cwd_change_handling = false,
-			bypass_session_save_file_types = { "neo-tree" },
-			pre_save_cmds = {
-				function()
-					require("neo-tree.sources.manager").close_all()
-				end,
-			},
-		},
 	},
 	-- Universal clipboard forwarding
 	{
@@ -54,9 +49,7 @@ return {
 		name = "toggleterm",
 		cmd = "ToggleTerm",
 		init = function()
-			local function toggle()
-				require("toggleterm").toggle()
-			end
+			local function toggle() require("toggleterm").toggle() end
 			nmap { ["<C-f>"] = { toggle, "Toggle floating terminal" } }
 			tmap { ["<C-f>"] = { toggle, "Toggle floating terminal" } }
 		end,
