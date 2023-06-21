@@ -63,7 +63,7 @@ return {
 					ModesInsert = { bg = palette.green },
 					ModesVisual = { bg = palette.mauve },
 
-					InlayHints = { fg = palette.surface1 },
+					LspInlayHint = { fg = palette.surface1, style = { "italic" } },
 					Comment = { fg = utils.darken(palette.lavender, 0.6) },
 
 					IlluminatedWordText = { bg = palette.surface1, style = { "bold", "underdotted" } },

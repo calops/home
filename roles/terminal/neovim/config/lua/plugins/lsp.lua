@@ -38,6 +38,11 @@ return {
 
 			lspconfig.util.default_config = vim.tbl_extend("force", lspconfig.util.default_config, {
 				capabilities = make_capabilities(),
+				on_attach = function(client, bufnr)
+					if client.server_capabilities.inlayHintProvider then
+						vim.lsp.buf.inlay_hint(bufnr, true)
+					end
+				end,
 			})
 
 			for _, server in ipairs(mason.get_installed_servers()) do
@@ -60,40 +65,6 @@ return {
 			}
 			lspconfig.nixd.setup {}
 		end,
-	},
-	{
-		"lvimuser/lsp-inlayhints.nvim",
-		branch = "anticonceal",
-		lazy = true,
-		init = function()
-			vim.api.nvim_create_augroup("LspAttach_inlayhints", {})
-			vim.api.nvim_create_autocmd("LspAttach", {
-				group = "LspAttach_inlayhints",
-				callback = function(args)
-					if not (args.data and args.data.client_id) then
-						return
-					end
-
-					local bufnr = args.buf
-					local client = vim.lsp.get_client_by_id(args.data.client_id)
-					require("lsp-inlayhints").on_attach(client, bufnr)
-				end,
-			})
-			nmap {
-				["<leader>H"] = {
-					function()
-						require("lsp-inlayhints").toggle()
-					end,
-					"Toggle inlay hints",
-				},
-			}
-		end,
-		opts = {
-			inlay_hints = {
-				highlight = "InlayHints",
-			},
-		},
-		config = true,
 	},
 	-- LSP bridge for non-LSP utilities
 	{
@@ -144,7 +115,8 @@ return {
 					},
 				},
 				server = {
-					on_attach = function(_, bufnr)
+					on_attach = function(client, bufnr)
+						require("lspconfig").util.default_on_attach(client, bufnr)
 						nmap {
 							["<leader>h"] = { rt.hover_actions.hover_actions, "Hover actions", { buffer = bufnr } },
 						}
