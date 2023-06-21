@@ -22,29 +22,26 @@ return {
 	{
 		"lewis6991/gitsigns.nvim",
 		event = "VeryLazy",
-		config = function()
-			local gitsigns = require("gitsigns")
-
-			gitsigns.setup {
-				numhl = false,
-				sign_priority = 1,
-				preview_config = {
-					border = "rounded",
-				},
-			}
-
+		init = function()
 			nmap {
 				["<leader>g"] = {
 					name = "git",
-					s = { gitsigns.stage_hunk, "Stage hunk" },
-					u = { gitsigns.undo_stage_hunk, 'Undo "stage hunk"' },
-					r = { gitsigns.reset_hunk, "Reset hunk" },
-					n = { gitsigns.next_hunk, "Next hunk" },
-					N = { gitsigns.prev_hunk, "Previous hunk" },
-					p = { gitsigns.preview_hunk_inline, "Preview hunk" },
+					s = { function() require("gitsigns").stage_hunk() end, "Stage hunk" },
+					u = { function() require("gitsigns").undo_stage_hunk() end, 'Undo "stage hunk"' },
+					r = { function() require("gitsigns").reset_hunk() end, "Reset hunk" },
+					n = { function() require("gitsigns").next_hunk() end, "Next hunk" },
+					N = { function() require("gitsigns").prev_hunk() end, "Previous hunk" },
+					p = { function() require("gitsigns").preview_hunk_inline() end, "Preview hunk" },
 				},
 			}
 		end,
+		opts = {
+			numhl = false,
+			sign_priority = 1,
+			preview_config = {
+				border = "rounded",
+			},
+		},
 	},
 	-- Git commands
 	{
@@ -58,14 +55,14 @@ return {
 		cmd = "Octo",
 		config = true,
 	},
-
+	-- WIP
 	{
 		dir = "~/github/gitroutine.nvim",
 		name = "gitroutine",
 		enabled = false,
 		event = "VeryLazy",
-		config = function()
-			require("gitroutine").setup { foo = "bar" }
-		end,
+		opts = {
+			foo = "bar",
+		},
 	},
 }

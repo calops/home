@@ -163,9 +163,7 @@ return {
 		},
 		enabled = true,
 		lazy = false,
-		init = function()
-			nmap { ["<leader><leader>"] = { ":noh<CR>", "Hide search highlights" } }
-		end,
+		init = function() nmap { ["<leader><leader>"] = { ":noh<CR>", "Hide search highlights" } } end,
 		opts = {
 			lsp = {
 				override = {
@@ -415,26 +413,11 @@ return {
 
 			require("ufo").setup {
 				fold_virt_text_handler = handler,
-				provider_selector = function()
-					return { "treesitter", "indent" }
-				end,
+				provider_selector = function() return { "treesitter", "indent" } end,
 			}
 		end,
 	},
-	{
-		dir = "~/github/cuicui",
-		name = "charcolumn",
-		enabled = false,
-		event = "VeryLazy",
-		config = function()
-			require("charcolumn").setup {
-				columns = {
-					{ col = 100, hl = "CuicuiCharColumn1" },
-					{ col = 120, hl = "CuicuiCharColumn2", hl_overflow = "Error" },
-				},
-			}
-		end,
-	},
+	-- Scrollbar with git signs and diagnostics
 	{
 		"petertriho/nvim-scrollbar",
 		event = "VeryLazy",

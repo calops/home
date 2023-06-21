@@ -19,13 +19,11 @@ return {
 	-- Language servers and utilities orchestrator
 	{
 		"williamboman/mason.nvim",
-		config = function()
-			require("mason").setup {
-				ui = {
-					border = "rounded",
-				},
-			}
-		end,
+		opts = {
+			ui = {
+				border = "rounded",
+			},
+		},
 	},
 	-- General LSP setup
 	{
@@ -46,6 +44,7 @@ return {
 			})
 
 			for _, server in ipairs(mason.get_installed_servers()) do
+				-- rust-analyzer is configured separately in the rust-tools plugin
 				if server ~= "rust-analyzer" then
 					lspconfig[server].setup {}
 				end
@@ -63,7 +62,6 @@ return {
 					},
 				},
 			}
-			lspconfig.nixd.setup {}
 		end,
 	},
 	-- LSP bridge for non-LSP utilities
@@ -85,50 +83,46 @@ return {
 	-- Rust-specific utilities and LSP configurations
 	{
 		"simrat39/rust-tools.nvim",
-		enabled = true,
 		ft = "rust",
-		config = function()
-			local rust_lsp_conf = {
-				semanticHighlighting = {
-					["punctuation.enable"] = true,
-					["punctuation.separate.macro.bang"] = true,
+		opts = {
+			tools = {
+				inlay_hints = {
+					auto = false,
 				},
-				diagnostics = {
-					enable = true,
-					disabled = { "unresolved-method", "unresolved-field" },
-					experimental = { enable = false },
-				},
-				assist = {
-					emitMustUse = true,
-				},
-				procMacro = {
-					enable = true,
-				},
-			}
-
-			local rt = require("rust-tools")
-			rt.setup {
-				tools = {
-					inlay_hints = {
-						auto = false,
-						highlight = "InlayHints",
+			},
+			server = {
+				on_attach = function(client, bufnr)
+					require("lspconfig").util.default_on_attach(client, bufnr)
+					local rt = require("rust-tools")
+					nmap {
+						["<leader>h"] = { rt.hover_actions.hover_actions, "Hover actions", { buffer = bufnr } },
+					}
+					xmap {
+						K = { rt.hover_range.hover_range, "Hover information", { buffer = bufnr } },
+					}
+				end,
+				capabilities = make_capabilities(),
+				settings = {
+					["rust-analyzer"] = {
+						semanticHighlighting = {
+							["punctuation.enable"] = true,
+							["punctuation.separate.macro.bang"] = true,
+						},
+						diagnostics = {
+							enable = true,
+							disabled = { "unresolved-method", "unresolved-field" },
+							experimental = { enable = false },
+						},
+						assist = {
+							emitMustUse = true,
+						},
+						procMacro = {
+							enable = true,
+						},
 					},
 				},
-				server = {
-					on_attach = function(client, bufnr)
-						require("lspconfig").util.default_on_attach(client, bufnr)
-						nmap {
-							["<leader>h"] = { rt.hover_actions.hover_actions, "Hover actions", { buffer = bufnr } },
-						}
-						xmap {
-							K = { rt.hover_range.hover_range, "Hover information", { buffer = bufnr } },
-						}
-					end,
-					capabilities = make_capabilities(),
-					settings = { ["rust-analyzer"] = rust_lsp_conf },
-				},
-			}
-		end,
+			},
+		},
 	},
 	-- First-party LSP configurations
 	{
@@ -138,9 +132,7 @@ return {
 			nmap {
 				K = { vim.lsp.buf.hover, "Show documentation" },
 				H = {
-					function()
-						vim.diagnostic.open_float { border = "rounded" }
-					end,
+					function() vim.diagnostic.open_float { border = "rounded" } end,
 					"Show diagnostics",
 				},
 				["<C-k>"] = { vim.lsp.buf.signature_help, "Interactive signature help" },
@@ -152,9 +144,7 @@ return {
 				},
 				["<leader>a"] = { vim.lsp.buf.code_action, "Interactive list of code actions" },
 				["<leader>i"] = {
-					function()
-						vim.lsp.buf.inlay_hint(0)
-					end,
+					function() vim.lsp.buf.inlay_hint(0) end,
 					"Toggle inlay hints for buffer",
 				},
 			}
@@ -185,40 +175,34 @@ return {
 			{ "nvim-lua/plenary.nvim" },
 			{ "kyazdani42/nvim-tree.lua" },
 		},
-		config = function()
-			require("lsp-file-operations").setup {}
-		end,
+		config = true,
 	},
 	-- Neovim lua LSP utilities
 	{
 		"folke/neodev.nvim",
 		ft = "lua",
-		config = function()
-			require("neodev").setup {}
-		end,
+		config = true,
 	},
 	{
 		"zbirenbaum/copilot.lua",
 		event = "VeryLazy",
-		config = function()
-			require("copilot").setup {
-				suggestion = {
-					enabled = true,
-					auto_trigger = true,
-					debounce = 75,
-					keymap = {
-						accept = "<M-CR>",
-						accept_word = "<M-w>",
-						accept_line = "<M-l>",
-						next = "<M-Right>",
-						prev = "<M-Left>",
-						dismiss = "<C-:>",
-					},
+		opts = {
+			suggestion = {
+				enabled = true,
+				auto_trigger = true,
+				debounce = 75,
+				keymap = {
+					accept = "<M-CR>",
+					accept_word = "<M-w>",
+					accept_line = "<M-l>",
+					next = "<M-Right>",
+					prev = "<M-Left>",
+					dismiss = "<C-:>",
 				},
-				filetypes = {
-					yaml = true,
-				},
-			}
-		end,
+			},
+			filetypes = {
+				yaml = true,
+			},
+		},
 	},
 }

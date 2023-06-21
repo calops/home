@@ -7,9 +7,7 @@ return {
 	{
 		"echasnovski/mini.comment",
 		event = "VeryLazy",
-		config = function()
-			require("mini.comment").setup()
-		end,
+		config = true,
 	},
 	-- Split/join
 	{
@@ -23,7 +21,7 @@ return {
 				"Toggle split",
 			} }
 		end,
-		opt = {
+		opts = {
 			max_join_length = 300,
 		},
 		config = true,
@@ -31,18 +29,8 @@ return {
 	-- Automatically adjust indentation settings depending on the file
 	{
 		"nmac427/guess-indent.nvim",
-		event = "InsertEnter",
+		event = "BufReadPre",
 		config = true,
-	},
-	-- Structural replace
-	{
-		"cshuaimin/ssr.nvim",
-		lazy = true,
-		init = function()
-			vim.keymap.set({ "n", "x" }, "<leader>cR", function()
-				require("ssr").open()
-			end, { desc = "Structural replace" })
-		end,
 	},
 	-- Surround text objects
 	{
@@ -120,18 +108,7 @@ return {
 				},
 			}
 		end,
-		config = function()
-			require("debugprint").setup {}
-		end,
-	},
-	-- Navigate over sets of matching pairs
-	{
-		"andymass/vim-matchup",
-		event = "VeryLazy",
-		enabled = false,
-		config = function()
-			vim.g.matchup_matchparen_offscreen = { method = "popup" }
-		end,
+		config = true,
 	},
 	-- Edit filesystem as a buffer
 	{
@@ -144,26 +121,26 @@ return {
 	{
 		"echasnovski/mini.move",
 		event = "VeryLazy",
-		config = function()
-			require("mini.move").setup {
-				mappings = {
-					left = "<S-Left>",
-					right = "<S-Right>",
-					down = "<S-Down>",
-					up = "<S-Up>",
-					line_left = "<S-Left>",
-					line_right = "<S-Right>",
-					line_down = "<S-Down>",
-					line_up = "<S-Up>",
-				},
-			}
-		end,
+		opts = {
+			mappings = {
+				left = "<S-Left>",
+				right = "<S-Right>",
+				down = "<S-Down>",
+				up = "<S-Up>",
+				line_left = "<S-Left>",
+				line_right = "<S-Right>",
+				line_down = "<S-Down>",
+				line_up = "<S-Up>",
+			},
+		},
 	},
+	-- Align stuff
 	{
 		"echasnovski/mini.align",
 		event = "VeryLazy",
 		config = true,
 	},
+	-- Move around
 	{
 		"ggandor/leap.nvim",
 		event = "VeryLazy",

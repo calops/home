@@ -65,7 +65,6 @@ return {
 		config = function()
 			require("notify")
 			local telescope = require("telescope")
-			local actions = require("telescope.actions")
 
 			telescope.setup {
 				defaults = {
@@ -73,7 +72,7 @@ return {
 					layout_config = {
 						flex = { flip_columns = 200 },
 					},
-					mappings = { i = { ["<esc>"] = actions.close } },
+					mappings = { i = { ["<esc>"] = require("telescope.actions").close } },
 				},
 			}
 			telescope.load_extension("fzf")

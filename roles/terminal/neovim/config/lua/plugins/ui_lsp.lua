@@ -49,17 +49,15 @@ return {
 				},
 			}
 		end,
-		config = function()
-			require("glance").setup {
-				height = 25,
-				border = {
-					enable = true,
-					top_char = "▔",
-					bottom_char = "▁",
-				},
-				theme = { enable = true, mode = "auto" },
-			}
-		end,
+		opts = {
+			height = 25,
+			border = {
+				enable = true,
+				top_char = "▔",
+				bottom_char = "▁",
+			},
+			theme = { enable = true, mode = "auto" },
+		},
 	},
 	-- Highlight symbols under cursor, LSP and treesitter-aware
 	{
@@ -73,24 +71,11 @@ return {
 		init = function()
 			nmap {
 				["<leader>t"] = {
-					function()
-						require("trouble").toggle()
-					end,
+					function() require("trouble").toggle() end,
 					"Open diagnostics window",
 				},
 			}
 		end,
-		config = function()
-			require("trouble").setup {}
-		end,
-	},
-	-- Diagnostic markers on the right of the file
-	{
-		"doums/dmap.nvim",
-		event = "LspAttach",
-		enabled = false,
-		config = function()
-			require("dmap").setup()
-		end,
+		config = true,
 	},
 }
