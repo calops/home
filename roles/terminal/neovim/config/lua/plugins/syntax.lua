@@ -5,7 +5,7 @@ return {
 	-- Universal language parser
 	{
 		"nvim-treesitter/nvim-treesitter",
-		lazy = "VeryLazy",
+		lazy = false,
 		dependencies = {
 			{ "nvim-treesitter/nvim-treesitter-textobjects" },
 			{ "JoosepAlviste/nvim-ts-context-commentstring" },
@@ -15,57 +15,59 @@ return {
 				["<leader>T"] = { ":Inspect<CR>", "Show highlighting groups and captures" },
 			}
 		end,
-		opts = {
-			auto_install = true,
-			ensure_installed = { "vim", "lua", "rust" },
-			indent = { enable = true },
-			highlight = {
-				enable = true,
-				additional_vim_regex_highlighting = false,
-			},
-			incremental_selection = {
-				enable = false,
-				keymaps = {
-					init_selection = "<CR>",
-					scope_incremental = "<CR>",
-					node_incremental = "<TAB>",
-					node_decremental = "<S-TAB>",
-				},
-			},
-			textobjects = {
-				select = {
+		config = function()
+			require("nvim-treesitter.configs").setup {
+				auto_install = true,
+				ensure_installed = { "vim", "lua", "rust" },
+				indent = { enable = true },
+				highlight = {
 					enable = true,
-					lookahead = true,
+					additional_vim_regex_highlighting = false,
+				},
+				incremental_selection = {
+					enable = false,
 					keymaps = {
-						["af"] = { query = "@function.outer", desc = "outer function" },
-						["if"] = { query = "@function.inner", desc = "inner function" },
-						["ac"] = { query = "@class.outer", desc = "outer class" },
-						["ic"] = { query = "@class.inner", desc = "inner class" },
-						["an"] = { query = "@parameter.outer", desc = "outer parameter" },
-						["in"] = { query = "@parameter.inner", desc = "inner parameter" },
+						init_selection = "<CR>",
+						scope_incremental = "<CR>",
+						node_incremental = "<TAB>",
+						node_decremental = "<S-TAB>",
 					},
 				},
-				swap = { enable = true },
-				lsp_interop = {
+				textobjects = {
+					select = {
+						enable = true,
+						lookahead = true,
+						keymaps = {
+							["af"] = { query = "@function.outer", desc = "outer function" },
+							["if"] = { query = "@function.inner", desc = "inner function" },
+							["ac"] = { query = "@class.outer", desc = "outer class" },
+							["ic"] = { query = "@class.inner", desc = "inner class" },
+							["an"] = { query = "@parameter.outer", desc = "outer parameter" },
+							["in"] = { query = "@parameter.inner", desc = "inner parameter" },
+						},
+					},
+					swap = { enable = true },
+					lsp_interop = {
+						enable = true,
+						border = "rounded",
+						peek_definition_code = {
+							["<leader>df"] = "@function.outer",
+							["<leader>dF"] = "@class.outer",
+						},
+					},
+				},
+				matchup = {
 					enable = true,
-					border = "rounded",
-					peek_definition_code = {
-						["<leader>df"] = "@function.outer",
-						["<leader>dF"] = "@class.outer",
-					},
 				},
-			},
-			matchup = {
-				enable = true,
-			},
-			context_commentstring = { enable = true },
-			playground = { enable = true },
-			query_linter = {
-				enable = true,
-				use_virtual_text = true,
-				lint_events = { "BufWrite", "CursorHold" },
-			},
-		},
+				context_commentstring = { enable = true },
+				playground = { enable = true },
+				query_linter = {
+					enable = true,
+					use_virtual_text = true,
+					lint_events = { "BufWrite", "CursorHold" },
+				},
+			}
+		end,
 	},
 	-- Show sticky context for off-screen scope beginnings
 	{
