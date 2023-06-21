@@ -85,6 +85,7 @@ in
       ./wezterm
       ./kitty.nix
       ./ulauncher
+      ./gtk.nix
     ];
     config = mkIf cfg.enable {
       fonts.fontconfig.enable = true;
