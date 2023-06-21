@@ -151,6 +151,12 @@ return {
 					f = { vim.lsp.buf.format, "Format code" },
 				},
 				["<leader>a"] = { vim.lsp.buf.code_action, "Interactive list of code actions" },
+				["<leader>i"] = {
+					function()
+						vim.lsp.buf.inlay_hint(0)
+					end,
+					"Toggle inlay hints for buffer",
+				},
 			}
 
 			vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
