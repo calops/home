@@ -14,11 +14,11 @@ in {
       pkg = pkgs.kitty;
     };
     settings = {
-      font_size = cfg.font.size;
-      font_family = cfg.font.family.name;
-      bold_font = "${cfg.font.family.name} Bold";
-      italic_font = "${cfg.font.family.name} Italic";
-      bold_italic_font = "${cfg.font.family.name} Bold Italic";
+      font_size = cfg.fonts.sizes.terminal;
+      font_family = cfg.fonts.monospace.name;
+      bold_font = "${cfg.fonts.monospace.name} Bold";
+      italic_font = "${cfg.fonts.monospace.name} Italic";
+      bold_italic_font = "${cfg.fonts.monospace.name} Bold Italic";
 
       undercurl_style = "thick-sparse";
       foreground = palette.text;

@@ -22,7 +22,7 @@
     };
     graphical = {
       enable = true;
-      font.hinting = "HorizontalLcd";
+      fonts.hinting = "HorizontalLcd";
       monitors = {
         primary.name = "HDMI-0";
         secondary = {

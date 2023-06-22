@@ -274,7 +274,6 @@ return {
 		"echasnovski/mini.hipatterns",
 		event = "VeryLazy",
 		config = function()
-			local utils = require("plugins.ui.utils")
 			local palette = utils.palette()
 			local hipatterns = require("mini.hipatterns")
 			local palette_patterns = {}

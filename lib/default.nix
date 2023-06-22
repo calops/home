@@ -26,11 +26,23 @@
   fonts = {
     iosevka-comfy = {
       name = "Iosevka Comfy";
-      pkg = pkgs.iosevka-comfy.comfy;
+      package = pkgs.iosevka-comfy.comfy;
     };
     luculent = {
       name = "Luculent";
-      pkg = pkgs.luculent;
+      package = pkgs.luculent;
+    };
+    noto-serif = {
+      name = "Noto Serif";
+      package = pkgs.noto-fonts;
+    };
+    noto-sans = {
+      name = "Noto Sans";
+      package = pkgs.noto-fonts;
+    };
+    noto-emoji = {
+      name = "Noto Emoji";
+      package = pkgs.noto-fonts-emoji;
     };
   };
 }

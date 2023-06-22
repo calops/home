@@ -12,6 +12,7 @@
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     nixgl.url = "github:guibou/nixGL";
     nixd.url = "github:nix-community/nixd";
+    stylix.url = "github:danth/stylix";
   };
 
   outputs = {
@@ -24,6 +25,10 @@
       inputs.neovim-nightly-overlay.overlay
       inputs.nixgl.overlay
       inputs.nixd.overlays.default
+    ];
+
+    extraModules = [
+      inputs.stylix.homeManagerModules.stylix
     ];
 
     mkLib = pkgs:
@@ -44,12 +49,14 @@
           config.allowUnfree = true;
           overlays = overlays;
         };
-        modules = [
-          ./roles
-          ./colorschemes
-          ./machines/${machine}.nix
-          {home.stateVersion = "23.11";}
-        ];
+        modules =
+          extraModules
+          ++ [
+            ./roles
+            ./colorschemes
+            ./machines/${machine}.nix
+            {home.stateVersion = "23.11";}
+          ];
         extraSpecialArgs = {
           inherit inputs;
           inherit configurationName;

@@ -136,6 +136,11 @@ return {
 				mode = "fuzzy",
 				incremental = true,
 			},
+			modes = {
+				char = {
+					keys = { "f", "F", "t", "T" },
+				},
+			},
 		},
 		keys = {
 			{

@@ -56,6 +56,7 @@ in {
           theme = "catppuccin_mocha";
         };
       };
+      stylix.targets.helix.enable = false;
       programs.btop = {
         enable = true;
         settings = {

@@ -10,15 +10,15 @@ in
     config = mkIf cfg.enable {
       gtk = {
         enable = true;
-        theme = {
-          name = "Catppuccin-Mocha-Compact-Peach-Dark";
-          package = pkgs.catppuccin-gtk.override {
-            accents = ["peach"];
-            size = "compact";
-            tweaks = ["rimless" "black"];
-            variant = "mocha";
-          };
-        };
+        # theme = {
+        #   name = "Catppuccin-Mocha-Compact-Peach-Dark";
+        #   package = pkgs.catppuccin-gtk.override {
+        #     accents = ["peach"];
+        #     size = "compact";
+        #     tweaks = ["rimless" "black"];
+        #     variant = "mocha";
+        #   };
+        # };
       };
       qt = {
         enable = true;

@@ -102,6 +102,7 @@ return {
 
 					FlashLabel = { bg = palette.peach, fg = palette.base, style = { "bold" } },
 					FlashMatch = { bg = palette.lavender, fg = palette.base },
+					FlashBackdrop = { bg = nil, fg = palette.overlay0, style = { "nocombine" } },
 
 					-- Syntax
 					["@parameter"] = { fg = palette.text, style = { "nocombine" } },
