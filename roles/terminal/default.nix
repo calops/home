@@ -101,5 +101,6 @@ in {
             + "/Catppuccin-mocha.tmTheme");
         };
       };
+      stylix.targets.bat.enable = false;
     };
 }
