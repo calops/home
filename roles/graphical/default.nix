@@ -106,18 +106,12 @@ in
     ];
     config = mkIf cfg.enable {
       fonts.fontconfig.enable = true;
-      stylix = {
-        image = pkgs.fetchurl {
-          url = "https://user-images.githubusercontent.com/4097716/247954752-8c7f3db1-e6a3-4f77-9cc4-262b3d929c36.png";
-          sha256 = "sha256-O2AIOKMIgNwZ1/wEZyoVWiby6+FLrNWn9kiSw9rsOAI=";
-        };
-        fonts = {
-          sizes.terminal = cfg.fonts.sizes.terminal;
-          serif = cfg.fonts.serif;
-          sansSerif = cfg.fonts.sansSerif;
-          monospace = cfg.fonts.monospace;
-          emoji = cfg.fonts.emoji;
-        };
+      stylix.fonts = {
+        sizes.terminal = cfg.fonts.sizes.terminal;
+        serif = cfg.fonts.serif;
+        sansSerif = cfg.fonts.sansSerif;
+        monospace = cfg.fonts.monospace;
+        emoji = cfg.fonts.emoji;
       };
       programs.mpv.enable = true;
       home.pointerCursor = {

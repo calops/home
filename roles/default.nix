@@ -1,4 +1,8 @@
-{config, ...}: {
+{
+  config,
+  pkgs,
+  ...
+}: {
   imports = [
     ./terminal
     ./graphical
@@ -27,6 +31,10 @@
   };
 
   stylix = {
+    image = pkgs.fetchurl {
+      url = "https://user-images.githubusercontent.com/4097716/247954752-8c7f3db1-e6a3-4f77-9cc4-262b3d929c36.png";
+      sha256 = "sha256-O2AIOKMIgNwZ1/wEZyoVWiby6+FLrNWn9kiSw9rsOAI=";
+    };
     autoEnable = true;
     polarity = config.my.colors.background;
     base16Scheme = {
