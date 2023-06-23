@@ -53,7 +53,10 @@ return {
 		"pwntester/octo.nvim",
 		lazy = true,
 		cmd = "Octo",
-		config = true,
+		opts = {
+			use_local_fs = true,
+			enable_builtin = true,
+		},
 	},
 	-- WIP
 	{
