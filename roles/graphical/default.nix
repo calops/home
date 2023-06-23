@@ -122,7 +122,7 @@ in
       };
       home.packages =
         if cfg.installAllFonts
-        then lib.attrsets.mapAttrsToList (name: font: font.pkg) lib.my.fonts
+        then lib.attrsets.mapAttrsToList (name: font: font.package) lib.my.fonts
         else [cfg.fonts.monospace.package];
     };
   }

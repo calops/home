@@ -30,7 +30,9 @@
     enable = true;
   };
 
-  stylix = {
+  stylix = let
+    palette = config.my.colors.palette;
+  in {
     image = pkgs.fetchurl {
       url = "https://user-images.githubusercontent.com/4097716/247954752-8c7f3db1-e6a3-4f77-9cc4-262b3d929c36.png";
       sha256 = "sha256-O2AIOKMIgNwZ1/wEZyoVWiby6+FLrNWn9kiSw9rsOAI=";
@@ -38,6 +40,22 @@
     autoEnable = true;
     polarity = config.my.colors.background;
     base16Scheme = {
+      # base00 = palette.base;
+      # base01 = palette.subtext0;
+      # base02 = palette.navy;
+      # base03 = palette.surface2;
+      # base04 = palette.mantle;
+      # base05 = palette.text;
+      # base06 = palette.yellow;
+      # base07 = palette.violet;
+      # base08 = "f38ba8";
+      # base09 = "fab387";
+      # base0A = "f9e2af";
+      # base0B = "a6e3a1";
+      # base0C = "94e2d5";
+      # base0D = "89b4fa";
+      # base0E = "cba6f7";
+      # base0F = "f2cdcd";
       base00 = "1e1e2e";
       base01 = "181825";
       base02 = "313244";
