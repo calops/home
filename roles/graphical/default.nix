@@ -72,6 +72,11 @@ in
               default = 10;
               description = "Terminal font size";
             };
+            applications = mkOption {
+              type = types.int;
+              default = 10;
+              description = "Application font size";
+            };
           };
         };
         installAllFonts = mkEnableOption "Install all fonts";
@@ -106,23 +111,29 @@ in
     ];
     config = mkIf cfg.enable {
       fonts.fontconfig.enable = true;
-      stylix.fonts = {
-        sizes.terminal = cfg.fonts.sizes.terminal;
-        serif = cfg.fonts.serif;
-        sansSerif = cfg.fonts.sansSerif;
-        monospace = cfg.fonts.monospace;
-        emoji = cfg.fonts.emoji;
-      };
-      programs.mpv.enable = true;
       home.pointerCursor = {
         name = "Catppuccin-Mocha-Peach-Cursors";
         size = 32;
         package = pkgs.catppuccin-cursors.mochaPeach;
         gtk.enable = true;
       };
+      stylix.fonts = {
+        sizes = {
+          terminal = cfg.fonts.sizes.terminal;
+          applications = cfg.fonts.sizes.applications;
+        };
+        serif = cfg.fonts.serif;
+        sansSerif = cfg.fonts.sansSerif;
+        monospace = cfg.fonts.monospace;
+        emoji = cfg.fonts.emoji;
+      };
+      programs.mpv.enable = true;
       home.packages =
-        if cfg.installAllFonts
-        then lib.attrsets.mapAttrsToList (name: font: font.package) lib.my.fonts
-        else [cfg.fonts.monospace.package];
+        [pkgs.discord]
+        ++ (
+          if cfg.installAllFonts
+          then lib.attrsets.mapAttrsToList (name: font: font.package) lib.my.fonts
+          else [cfg.fonts.monospace.package]
+        );
     };
   }

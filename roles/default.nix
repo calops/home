@@ -31,7 +31,7 @@
   };
 
   stylix = let
-    palette = config.my.colors.palette;
+    palette = builtins.mapAttrs (name: value: builtins.substring 1 (-1) value) config.my.colors.palette;
   in {
     image = pkgs.fetchurl {
       url = "https://user-images.githubusercontent.com/4097716/247954752-8c7f3db1-e6a3-4f77-9cc4-262b3d929c36.png";
@@ -40,38 +40,22 @@
     autoEnable = true;
     polarity = config.my.colors.background;
     base16Scheme = {
-      # base00 = palette.base;
-      # base01 = palette.subtext0;
-      # base02 = palette.navy;
-      # base03 = palette.surface2;
-      # base04 = palette.mantle;
-      # base05 = palette.text;
-      # base06 = palette.yellow;
-      # base07 = palette.violet;
-      # base08 = "f38ba8";
-      # base09 = "fab387";
-      # base0A = "f9e2af";
-      # base0B = "a6e3a1";
-      # base0C = "94e2d5";
-      # base0D = "89b4fa";
-      # base0E = "cba6f7";
-      # base0F = "f2cdcd";
-      base00 = "1e1e2e";
-      base01 = "181825";
-      base02 = "313244";
-      base03 = "45475a";
-      base04 = "585b70";
-      base05 = "cdd6f4";
-      base06 = "f5e0dc";
-      base07 = "b4befe";
-      base08 = "f38ba8";
-      base09 = "fab387";
-      base0A = "f9e2af";
-      base0B = "a6e3a1";
-      base0C = "94e2d5";
-      base0D = "89b4fa";
-      base0E = "cba6f7";
-      base0F = "f2cdcd";
+      base00 = palette.base; # Default Background
+      base01 = palette.subtext0; # Lighter Background (Used for status bars)
+      base02 = palette.surface2; # Selection Background
+      base03 = palette.overlay0; # Comments, Invisibles, Line Highlighting
+      base04 = palette.base; # Dark Foreground (Used for status bars)
+      base05 = palette.text; # Default Foreground, Caret, Delimiters, Operators
+      base06 = palette.flamingo; # Light Foreground (Not often used)
+      base07 = palette.navy; # Light Background (Not often used)
+      base08 = palette.red; # Variables, XML Tags, Markup Link Text, Markup Lists, Diff Deleted
+      base09 = palette.peach; # Integers, Boolean, Constants, XML Attributes, Markup Link Url
+      base0A = palette.sand; # Classes, Markup Bold, Search Text Background
+      base0B = palette.green; # Strings, Inherited Class, Markup Code, Diff Inserted
+      base0C = palette.teal; # Support, Regular Expressions, Escape Characters, Markup Quotes
+      base0D = palette.blue; # Functions, Methods, Attribute IDs, Headings
+      base0E = palette.purple; # Keywords, Storage, Selector, Markup Italic, Diff Changed
+      base0F = palette.cherry; # Deprecated, Opening/Closing Embedded Language Tags, e.g. <?php ?>
     };
   };
 }
