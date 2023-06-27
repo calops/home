@@ -11,6 +11,7 @@ in
       my.roles.gaming.enable = mkEnableOption "Enable gaming configuration";
     };
     config = mkIf cfg.enable {
+      home.packages = [pkgs.discord];
       programs.mangohud = {
         enable = true;
         enableSessionWide = true;

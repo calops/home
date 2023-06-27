@@ -129,11 +129,8 @@ in
       };
       programs.mpv.enable = true;
       home.packages =
-        [pkgs.discord]
-        ++ (
-          if cfg.installAllFonts
-          then lib.attrsets.mapAttrsToList (name: font: font.package) lib.my.fonts
-          else [cfg.fonts.monospace.package]
-        );
+        if cfg.installAllFonts
+        then lib.attrsets.mapAttrsToList (name: font: font.package) lib.my.fonts
+        else [cfg.fonts.monospace.package];
     };
   }
