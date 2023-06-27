@@ -5,6 +5,7 @@
   ...
 }: let
   cfg = config.my.roles.graphical;
+  palette = config.my.colors.palette; # TODO
 in
   with lib; {
     config = mkIf cfg.enable {
@@ -103,9 +104,28 @@ in
                     ]
                   }
                 }
-              ]
+              ],
+              "theme": "Catppuccin Mocha",
+              "useSystemFont": true,
+              "systemFont": "${cfg.fonts.monospace.name}"
             },
-            "show_labs_settings": true
+            "show_labs_settings": true,
+            "features": {
+              "feature_spotlight": true,
+              "feature_video_rooms": true,
+              "feature_latex_maths": true,
+              "feature_pinning": true,
+              "feature_jump_to_date": true,
+              "feature_state_counters": true,
+              "feature_mjolnir": true,
+              "feature_bridge_state": true,
+              "feature_custom_themes": true,
+              "feature_spotlight": true,
+              "feature_extensible_events": true,
+              "feature_video_rooms": true,
+              "feature_html_topic": true,
+              "feature_exploring_public_spaces": true
+            }
           }
         '';
       };
