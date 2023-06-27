@@ -107,7 +107,8 @@ in
               ],
               "theme": "Catppuccin Mocha",
               "useSystemFont": true,
-              "systemFont": "${cfg.fonts.monospace.name}"
+              "systemFont": "${cfg.fonts.monospace.name}",
+              "layout": "irc"
             },
             "show_labs_settings": true,
             "features": {
