@@ -8,25 +8,27 @@
   cfg = config.my.roles.terminal;
   palette = config.my.colors.palette;
   nvimDir = "${config.home.homeDirectory}/.config/home-manager/roles/terminal/neovim";
+  # We want gcc to override the system's one or treesitter throws a fit
+  my.neovim = pkgs.neovim-nightly.overrideAttrs (attrs: {
+    disallowedReferences = [];
+    nativeBuildInputs = attrs.nativeBuildInputs ++ [pkgs.makeWrapper];
+    postFixup = ''
+      wrapProgram $out/bin/nvim --prefix PATH : ${lib.makeBinPath [pkgs.gcc]}
+    '';
+  });
 in
   with lib; {
     config = mkIf cfg.enable {
       programs.neovim = {
         enable = true;
-        # We want gcc to override the system's one or treesitter throws a fit
-        package = pkgs.neovim-nightly.overrideAttrs (attrs: {
-          disallowedReferences = [];
-          nativeBuildInputs = attrs.nativeBuildInputs ++ [pkgs.makeWrapper];
-          postFixup = ''
-            wrapProgram $out/bin/nvim --prefix PATH : ${lib.makeBinPath [pkgs.gcc]}
-          '';
-        });
+        package = my.neovim;
         defaultEditor = true;
         extraPackages = with pkgs; [
           fzf
           alejandra
           stylua
           nixd
+          sqlfluff
         ];
       };
       xdg.configFile = {

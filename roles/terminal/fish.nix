@@ -23,6 +23,7 @@ in {
         cc = "cargo check";
         di = "git diff";
         rm = "rip";
+        sd = "dev rust";
       };
       shellAliases = {
         copy = "xclip -selection clipboard";
@@ -33,6 +34,7 @@ in {
         lt = "ll -T";
       };
       functions = {
+        dev = ''nix develop "github:calops/nix#$argv[1]" --command fish'';
         smake = ''
           if test -d "./StocklyContinuousDeployment"
             make -C "./StocklyContinuousDeployment" $argv

@@ -20,6 +20,7 @@ return {
 	{
 		"williamboman/mason.nvim",
 		opts = {
+			automatic_installation = false,
 			ui = {
 				border = "rounded",
 			},
@@ -30,7 +31,7 @@ return {
 		"williamboman/mason-lspconfig.nvim",
 		config = function()
 			local mason = require("mason-lspconfig")
-			mason.setup { automatic_installation = true }
+			mason.setup { automatic_installation = false }
 
 			local lspconfig = require("lspconfig")
 
@@ -76,6 +77,9 @@ return {
 					nls.builtins.diagnostics.buf,
 					nls.builtins.formatting.npm_groovy_lint,
 					nls.builtins.formatting.alejandra,
+					nls.builtins.formatting.sqlfluff.with {
+						extraArgs = { "--dialect", "postgres" },
+					},
 				},
 			}
 		end,

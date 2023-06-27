@@ -25,14 +25,16 @@ in {
         fd
         ripgrep
         rm-improved
-        rustup
         xcp
         choose
         rargs
         sshfs
       ];
 
-      programs.direnv.enable = true;
+      programs.direnv = {
+        enable = true;
+        nix-direnv.enable = true;
+      };
 
       programs.jujutsu = {
         enable = true;
@@ -66,6 +68,10 @@ in {
       };
       programs.starship = {
         enable = true;
+        settings = {
+          nix_shell.symbol = " ";
+          rust.symbol = " ";
+        };
       };
       programs.skim = {
         enable = true;
