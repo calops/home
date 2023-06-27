@@ -2,9 +2,8 @@ local module = {}
 
 local function map_with_mode(mode)
 	return function(mappings, opts_in)
-		local wk = require("which-key")
 		local opts = vim.tbl_extend("force", opts_in or {}, { mode = mode })
-		return wk.register(mappings, opts)
+		return require("which-key").register(mappings, opts)
 	end
 end
 

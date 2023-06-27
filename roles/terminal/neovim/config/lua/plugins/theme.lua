@@ -22,6 +22,11 @@ return {
 				gitsigns = true,
 				notify = true,
 				mini = true,
+				native_lsp = {
+					inlay_hints = {
+						background = false,
+					},
+				},
 			},
 			compile = {
 				enabled = true,

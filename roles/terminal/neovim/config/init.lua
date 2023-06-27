@@ -77,13 +77,9 @@ local utils = require("plugins.ui.utils")
 local lines_ns = vim.api.nvim_create_namespace("diag_lines")
 local underlines_ns = vim.api.nvim_create_namespace("diag_underlines")
 
-local function clear_highlights(buf)
-	vim.api.nvim_buf_clear_namespace(buf, lines_ns, 0, -1)
-end
+local function clear_highlights(buf) vim.api.nvim_buf_clear_namespace(buf, lines_ns, 0, -1) end
 
-local function clear_underlines(buf)
-	vim.api.nvim_buf_clear_namespace(buf, underlines_ns, 0, -1)
-end
+local function clear_underlines(buf) vim.api.nvim_buf_clear_namespace(buf, underlines_ns, 0, -1) end
 
 local function update_underlines(buf, diagnostics)
 	clear_underlines(buf)
@@ -115,12 +111,8 @@ local function update_highlights(buf, diagnostics)
 end
 
 vim.diagnostic.handlers.diagnostic_lines = {
-	show = function(_, bufnr, diagnostics, _)
-		update_highlights(bufnr, diagnostics)
-	end,
-	hide = function(_, bufnr)
-		clear_highlights(bufnr)
-	end,
+	show = function(_, bufnr, diagnostics, _) update_highlights(bufnr, diagnostics) end,
+	hide = function(_, bufnr) clear_highlights(bufnr) end,
 }
 
 -- vim.diagnostic.handlers.underline = {
@@ -131,7 +123,3 @@ vim.diagnostic.handlers.diagnostic_lines = {
 --         clear_underlines(bufnr)
 --     end,
 -- }
-
-vim.cmd([[
-    autocmd FileType rust setlocal textwidth=120
-]])

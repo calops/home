@@ -87,7 +87,7 @@ return {
 	-- Rust-specific utilities and LSP configurations
 	{
 		"simrat39/rust-tools.nvim",
-		ft = "rust",
+		lazy = false,
 		opts = {
 			tools = {
 				inlay_hints = {
@@ -95,34 +95,32 @@ return {
 				},
 			},
 			server = {
-				on_attach = function(client, bufnr)
-					require("lspconfig").util.default_on_attach(client, bufnr)
+				standalone = false,
+				on_attach = function(_, bufnr)
 					local rt = require("rust-tools")
 					nmap {
-						["<leader>h"] = { rt.hover_actions.hover_actions, "Hover actions", { buffer = bufnr } },
+						K = { rt.hover_actions.hover_actions, "Hover actions", buffer = bufnr },
 					}
 					xmap {
-						K = { rt.hover_range.hover_range, "Hover information", { buffer = bufnr } },
+						K = { rt.hover_range.hover_range, "Hover information", buffer = bufnr },
 					}
 				end,
 				capabilities = make_capabilities(),
-				settings = {
-					["rust-analyzer"] = {
-						semanticHighlighting = {
-							["punctuation.enable"] = true,
-							["punctuation.separate.macro.bang"] = true,
-						},
-						diagnostics = {
-							enable = true,
-							disabled = { "unresolved-method", "unresolved-field" },
-							experimental = { enable = false },
-						},
-						assist = {
-							emitMustUse = true,
-						},
-						procMacro = {
-							enable = true,
-						},
+				["rust-analyzer"] = {
+					semanticHighlighting = {
+						["punctuation.enable"] = true,
+						["punctuation.separate.macro.bang"] = true,
+					},
+					diagnostics = {
+						enable = true,
+						disabled = { "unresolved-method", "unresolved-field" },
+						experimental = { enable = false },
+					},
+					assist = {
+						emitMustUse = true,
+					},
+					procMacro = {
+						enable = true,
 					},
 				},
 			},

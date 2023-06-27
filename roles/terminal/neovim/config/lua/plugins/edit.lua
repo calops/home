@@ -21,10 +21,12 @@ return {
 		"Wansmer/treesj",
 		lazy = true,
 		init = function()
-			nmap { ["gs"] = {
-				function() require("treesj").toggle() end,
-				"Toggle split",
-			} }
+			nmap {
+				["gs"] = {
+					function() require("treesj").toggle() end,
+					"Toggle split",
+				},
+			}
 		end,
 		opts = {
 			max_join_length = 300,

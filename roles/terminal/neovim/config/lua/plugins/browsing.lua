@@ -9,9 +9,7 @@ return {
 			"nvim-telescope/telescope-symbols.nvim",
 			{
 				"nvim-telescope/telescope-fzf-native.nvim",
-				build = function()
-					io.popen("make")
-				end,
+				build = function() io.popen("make") end,
 			},
 			{
 				"prochri/telescope-all-recent.nvim",
@@ -23,40 +21,28 @@ return {
 		init = function()
 			nmap {
 				["<C-p>"] = {
-					function()
-						require("telescope.builtin").find_files()
-					end,
+					function() require("telescope.builtin").find_files() end,
 					"Find files",
 				},
 				["<leader>"] = {
 					["<Space>"] = {
-						function()
-							require("telescope.builtin").grep_string()
-						end,
+						function() require("telescope.builtin").grep_string() end,
 						"Grep string under cursor",
 					},
 					s = {
-						function()
-							require("telescope.builtin").live_grep()
-						end,
+						function() require("telescope.builtin").live_grep() end,
 						"Live grep",
 					},
 					b = {
-						function()
-							require("telescope.builtin").buffers()
-						end,
+						function() require("telescope.builtin").buffers() end,
 						"Find buffer",
 					},
 					e = {
-						function()
-							require("telescope.builtin").symbols()
-						end,
+						function() require("telescope.builtin").symbols() end,
 						"Select symbol",
 					},
 					R = {
-						function()
-							require("telescope.builtin").resume()
-						end,
+						function() require("telescope.builtin").resume() end,
 						"Resume selection",
 					},
 				},
@@ -78,7 +64,19 @@ return {
 			telescope.load_extension("fzf")
 			telescope.load_extension("notify")
 			telescope.load_extension("media_files")
-			require("telescope-all-recent").setup {}
+			require("telescope-all-recent").setup {
+				default = {
+					sorting = "frecency",
+				},
+				pickers = {
+					live_grep = {
+						disable = false,
+					},
+					grep_string = {
+						disable = false,
+					},
+				},
+			}
 		end,
 	},
 	-- File tree browser
