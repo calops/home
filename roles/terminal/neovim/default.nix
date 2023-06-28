@@ -27,7 +27,7 @@ in
           fzf
           alejandra
           stylua
-          # nixd
+          nixd
           sqlfluff
         ];
       };

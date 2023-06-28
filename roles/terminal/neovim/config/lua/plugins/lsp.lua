@@ -1,15 +1,6 @@
 local nmap = require("core.utils").nmap
 local xmap = require("core.utils").xmap
 
-local function make_capabilities()
-	local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
-	capabilities.textDocument.foldingRange = {
-		dynamicRegistration = false,
-		lineFoldingOnly = true,
-	}
-	return capabilities
-end
-
 return {
 	-- Show icons for LSP completions
 	{
@@ -39,20 +30,20 @@ return {
 					lspconfig[server_name].setup {}
 				end,
 				rust_analyzer = nil, -- handled entirely by rust-tools.nvim, and installed by nix
-				-- lua_ls = function()
-				-- 	lspconfig.lua_ls.setup {
-				-- 		settings = {
-				-- 			Lua = {
-				-- 				format = { enable = false },
-				-- 				hint = { enable = true },
-				-- 				runtime = { version = "LuaJIT" },
-				-- 				diagnostics = {
-				-- 					globals = { "vim" },
-				-- 				},
-				-- 			},
-				-- 		},
-				-- 	}
-				-- end,
+				lua_ls = function()
+					lspconfig.lua_ls.setup {
+						settings = {
+							Lua = {
+								format = { enable = false },
+								hint = { enable = true },
+								runtime = { version = "LuaJIT" },
+								diagnostics = {
+									globals = { "vim" },
+								},
+							},
+						},
+					}
+				end,
 			}
 		end,
 	},
@@ -113,6 +104,9 @@ return {
 					end
 				end,
 			})
+
+			-- Installed by nix
+			lspconfig.nixd.setup {}
 		end,
 	},
 	-- LSP bridge for non-LSP utilities
@@ -155,7 +149,6 @@ return {
 						K = { rt.hover_range.hover_range, "Hover information", buffer = bufnr },
 					}
 				end,
-				-- capabilities = make_capabilities(),
 				["rust-analyzer"] = {
 					semanticHighlighting = {
 						["punctuation.enable"] = true,
