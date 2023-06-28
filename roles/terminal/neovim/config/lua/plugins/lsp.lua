@@ -87,7 +87,7 @@ return {
 	-- Rust-specific utilities and LSP configurations
 	{
 		"simrat39/rust-tools.nvim",
-		lazy = false,
+		event = { "BufReadPost *.rs" },
 		opts = {
 			tools = {
 				inlay_hints = {
@@ -99,7 +99,7 @@ return {
 				on_attach = function(_, bufnr)
 					local rt = require("rust-tools")
 					nmap {
-						K = { rt.hover_actions.hover_actions, "Hover actions", buffer = bufnr },
+						["<C-h>"] = { rt.hover_actions.hover_actions, "Hover actions", buffer = bufnr },
 					}
 					xmap {
 						K = { rt.hover_range.hover_range, "Hover information", buffer = bufnr },
