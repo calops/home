@@ -19,50 +19,100 @@ return {
 	-- Language servers and utilities orchestrator
 	{
 		"williamboman/mason.nvim",
-		opts = {
-			automatic_installation = false,
-			ui = {
-				border = "rounded",
-			},
-		},
+		lazy = false,
+		config = function()
+			require("mason").setup {
+				ui = { border = "rounded" },
+			}
+			require("mason-lspconfig")
+		end,
 	},
-	-- General LSP setup
 	{
 		"williamboman/mason-lspconfig.nvim",
+		lazy = true,
 		config = function()
-			local mason = require("mason-lspconfig")
-			mason.setup { automatic_installation = false }
-
 			local lspconfig = require("lspconfig")
+			local mason_lspconfig = require("mason-lspconfig")
+			mason_lspconfig.setup { automatic_installation = false }
+			mason_lspconfig.setup_handlers {
+				function(server_name) -- default handler (optional)
+					lspconfig[server_name].setup {}
+				end,
+				rust_analyzer = nil, -- handled entirely by rust-tools.nvim, and installed by nix
+				-- lua_ls = function()
+				-- 	lspconfig.lua_ls.setup {
+				-- 		settings = {
+				-- 			Lua = {
+				-- 				format = { enable = false },
+				-- 				hint = { enable = true },
+				-- 				runtime = { version = "LuaJIT" },
+				-- 				diagnostics = {
+				-- 					globals = { "vim" },
+				-- 				},
+				-- 			},
+				-- 		},
+				-- 	}
+				-- end,
+			}
+		end,
+	},
+	{
+		"neovim/nvim-lspconfig",
+		lazy = true,
+		init = function()
+			nmap {
+				K = { vim.lsp.buf.hover, "Show documentation" },
+				H = {
+					function() vim.diagnostic.open_float { border = "rounded" } end,
+					"Show diagnostics",
+				},
+				["<C-k>"] = { vim.lsp.buf.signature_help, "Interactive signature help" },
+				["<space>f"] = { vim.lsp.buf.format, "Format code" },
+				["<leader>r"] = {
+					name = "refactor",
+					n = { vim.lsp.buf.rename, "Interactive rename" },
+					f = { vim.lsp.buf.format, "Format code" },
+				},
+				["<leader>a"] = { vim.lsp.buf.code_action, "Interactive list of code actions" },
+				["<leader>i"] = {
+					function() vim.lsp.buf.inlay_hint(0) end,
+					"Toggle inlay hints for buffer",
+				},
+			}
+			vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
+			vim.lsp.handlers["textDocument/signatureHelp"] =
+				vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
 
+			-- Auto format on save
+			vim.api.nvim_create_autocmd("BufWritePre", {
+				pattern = "*.rs,*.nix,*.lua",
+				callback = function()
+					for _, client in ipairs(vim.lsp.get_active_clients()) do
+						if client.attached_buffers[vim.api.nvim_get_current_buf()] then
+							vim.lsp.buf.format()
+							return
+						end
+					end
+				end,
+			})
+		end,
+		config = function()
+			require("neoconf")
+			local lspconfig = require("lspconfig")
+			local capabilities =
+				require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+			capabilities.textDocument.foldingRange = {
+				dynamicRegistration = false,
+				lineFoldingOnly = true,
+			}
 			lspconfig.util.default_config = vim.tbl_extend("force", lspconfig.util.default_config, {
-				capabilities = make_capabilities(),
+				capabilities = capabilities,
 				on_attach = function(client, bufnr)
 					if client.server_capabilities.inlayHintProvider then
 						vim.lsp.buf.inlay_hint(bufnr, true)
 					end
 				end,
 			})
-
-			for _, server in ipairs(mason.get_installed_servers()) do
-				-- rust-analyzer is configured separately in the rust-tools plugin
-				if server ~= "rust-analyzer" then
-					lspconfig[server].setup {}
-				end
-			end
-
-			lspconfig.lua_ls.setup {
-				settings = {
-					Lua = {
-						format = { enable = false },
-						hint = { enable = true },
-						runtime = { version = "LuaJIT" },
-						diagnostics = {
-							globals = { "vim" },
-						},
-					},
-				},
-			}
 		end,
 	},
 	-- LSP bridge for non-LSP utilities
@@ -105,7 +155,7 @@ return {
 						K = { rt.hover_range.hover_range, "Hover information", buffer = bufnr },
 					}
 				end,
-				capabilities = make_capabilities(),
+				-- capabilities = make_capabilities(),
 				["rust-analyzer"] = {
 					semanticHighlighting = {
 						["punctuation.enable"] = true,
@@ -125,49 +175,6 @@ return {
 				},
 			},
 		},
-	},
-	-- First-party LSP configurations
-	{
-		"neovim/nvim-lspconfig",
-		config = function()
-			require("neoconf")
-			nmap {
-				K = { vim.lsp.buf.hover, "Show documentation" },
-				H = {
-					function() vim.diagnostic.open_float { border = "rounded" } end,
-					"Show diagnostics",
-				},
-				["<C-k>"] = { vim.lsp.buf.signature_help, "Interactive signature help" },
-				["<space>f"] = { vim.lsp.buf.format, "Format code" },
-				["<leader>r"] = {
-					name = "refactor",
-					n = { vim.lsp.buf.rename, "Interactive rename" },
-					f = { vim.lsp.buf.format, "Format code" },
-				},
-				["<leader>a"] = { vim.lsp.buf.code_action, "Interactive list of code actions" },
-				["<leader>i"] = {
-					function() vim.lsp.buf.inlay_hint(0) end,
-					"Toggle inlay hints for buffer",
-				},
-			}
-
-			vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
-			vim.lsp.handlers["textDocument/signatureHelp"] =
-				vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
-
-			-- Auto format on save
-			vim.api.nvim_create_autocmd("BufWritePre", {
-				pattern = "*.rs,*.nix,*.lua",
-				callback = function()
-					for _, client in ipairs(vim.lsp.get_active_clients()) do
-						if client.attached_buffers[vim.api.nvim_get_current_buf()] then
-							vim.lsp.buf.format()
-							return
-						end
-					end
-				end,
-			})
-		end,
 	},
 	-- LSP files operations
 	{

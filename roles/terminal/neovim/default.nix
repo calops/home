@@ -40,13 +40,10 @@ in
           recursive = true;
         };
         "home-manager/.nixd.json".text = builtins.toJSON {
-          eval = {
-            depth = 10;
-          };
           options = {
             enable = true;
             target = {
-              installable = "/flakeref#nixosConfigurations.${configurationName}.options";
+              installable = ".#homeConfigurations.${configurationName}.options";
             };
           };
         };
