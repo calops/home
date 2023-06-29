@@ -19,49 +19,56 @@ vim.g.neovide_scroll_animation_length = 0.13
 vim.g.neovide_background_color = "#000000aa"
 vim.o.guifont = "Iosevka:h9"
 
----------- Core settings
-vim.g.mapleader = ","
+---------- Settings
+-- Search
+vim.o.ignorecase = true
 vim.o.inccommand = "nosplit"
+vim.o.smartcase = true
+
+-- Edit
+vim.g.mapleader = ","
+vim.o.colorcolumn = "120"
+vim.o.concealcursor = "nc"
+vim.o.textwidth = 120
+vim.o.virtualedit = "block"
+
+-- GUI
+vim.o.background = "dark"
+vim.o.cursorline = true
+vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:,diff:╱]]
+vim.o.guicursor = "a:blinkon100"
+vim.o.laststatus = 3
+vim.o.list = true
+vim.o.listchars = "tab:→ ,nbsp:␣,trail:~,precedes:«,extends:»"
 vim.o.number = true
+vim.o.pumblend = 0
+vim.o.scrolloff = 4
+vim.o.shortmess = "c"
+vim.o.termguicolors = true
+vim.o.winblend = 0
+vim.o.wrap = false
+
+-- Indentation
+vim.o.autoindent = true
+vim.o.expandtab = false
+vim.o.shiftwidth = 4
+vim.o.smartindent = true
+vim.o.smarttab = true
+vim.o.softtabstop = 4
+vim.o.tabstop = 4
+
+-- Splits
+vim.o.splitbelow = true
+vim.o.splitright = true
+
+-- Mouse
 vim.o.mouse = "a"
 vim.o.mousemodel = "extend"
 vim.o.mousemoveevent = true
-vim.o.shortmess = "c"
-vim.o.concealcursor = ""
-vim.o.textwidth = 120
-vim.o.listchars = "tab:→ ,nbsp:␣,trail:~,precedes:«,extends:»"
-vim.o.list = true
-vim.o.wrap = false
-vim.o.splitbelow = true
-vim.o.splitright = true
-vim.o.laststatus = 3
-vim.g.rustfmt_autosave = false
-vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:,diff:╱]]
-vim.o.ignorecase = true
-vim.o.smartcase = true
-vim.o.termguicolors = true
-vim.o.background = "dark"
-vim.o.colorcolumn = "120"
-vim.o.cursorline = true
-vim.o.smarttab = true
-vim.o.expandtab = false
-vim.o.softtabstop = 4
-vim.o.tabstop = 4
-vim.o.shiftwidth = 4
-vim.o.smartindent = true
-vim.o.autoindent = true
-vim.o.winblend = 0
-vim.o.pumblend = 0
-vim.o.scrolloff = 4
-vim.o.fixendofline = true
-vim.o.guicursor = "a:blinkon100"
-vim.o.virtualedit = "block"
-vim.o.mousemodel = "extend"
+vim.o.mousescroll = "ver:6,hor:6"
 
 require("lazy").setup("plugins", {
-	ui = {
-		border = "rounded",
-	},
+	ui = { border = "rounded" },
 })
 
 -- Fixed size help panel

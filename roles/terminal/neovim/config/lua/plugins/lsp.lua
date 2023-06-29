@@ -1,5 +1,6 @@
 local nmap = require("core.utils").nmap
 local xmap = require("core.utils").xmap
+local vmap = require("core.utils").vmap
 
 return {
 	-- Show icons for LSP completions
@@ -69,6 +70,9 @@ return {
 					function() vim.lsp.buf.inlay_hint(0) end,
 					"Toggle inlay hints for buffer",
 				},
+			}
+			vmap {
+				["<leader>a"] = { vim.lsp.buf.code_action, "Interactive list of code actions" },
 			}
 			vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
 			vim.lsp.handlers["textDocument/signatureHelp"] =

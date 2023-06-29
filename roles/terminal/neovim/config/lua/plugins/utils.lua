@@ -66,4 +66,11 @@ return {
 		enabled = true,
 		config = true,
 	},
+	-- Auto close buffers
+	{
+		"chrisgrieser/nvim-early-retirement",
+		opts = {
+			retirementAgeMins = 10,
+		},
+	},
 }
