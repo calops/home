@@ -4,24 +4,30 @@ local tmap = require("core.utils").tmap
 return {
 	-- Session management
 	{
-		"rmagatti/auto-session",
+		"olimorris/persisted.nvim",
 		lazy = false,
-		config = function()
-			require("auto-session").setup {
-				log_level = "error",
-				cwd_change_handling = false,
-				bypass_session_save_file_types = { "neo-tree", "Trouble" },
-				pre_save_cmds = {
-					function() require("neo-tree.sources.manager").close_all() end,
-				},
-			}
-			nmap {
-				["<C-s>"] = {
-					function() require("auto-session.session-lens").search_session() end,
-					"Search sessions",
-				},
-			}
+		init = function()
+			local group = vim.api.nvim_create_augroup("PersistedHooks", {})
+			local ignored_file_types = { "Trouble", "neo-tree" }
+			vim.api.nvim_create_autocmd({ "User" }, {
+				pattern = "PersistedSavePre",
+				group = group,
+				callback = function()
+					for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+						local file_type = vim.api.nvim_buf_get_option(buf, "filetype")
+						if vim.tbl_contains(ignored_file_types, file_type) then
+							vim.api.nvim_command("silent! bwipeout! " .. buf)
+						end
+					end
+				end,
+			})
 		end,
+		opts = {
+			use_git_branch = true,
+			autosave = true,
+			autoload = true,
+			follow_cwd = false,
+		},
 	},
 	-- Universal clipboard forwarding
 	{

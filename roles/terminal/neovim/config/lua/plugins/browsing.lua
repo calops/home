@@ -61,9 +61,12 @@ return {
 					mappings = { i = { ["<esc>"] = require("telescope.actions").close } },
 				},
 			}
+
 			telescope.load_extension("fzf")
 			telescope.load_extension("notify")
 			telescope.load_extension("media_files")
+			telescope.load_extension("persisted")
+
 			require("telescope-all-recent").setup {
 				default = {
 					sorting = "frecency",
