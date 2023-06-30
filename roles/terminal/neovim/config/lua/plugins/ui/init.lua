@@ -227,7 +227,7 @@ return {
 	-- Context-aware indentation lines
 	{
 		"lukas-reineke/indent-blankline.nvim",
-		event = "VeryLazy",
+		event = "BufRead",
 		opts = {
 			show_current_context = true,
 			show_current_context_start = false,

@@ -3,7 +3,7 @@ return {
 	-- Show rich inline diagnostics
 	{
 		url = "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-		event = "VeryLazy",
+		event = "LspAttach",
 		init = function()
 			local function toggle_virtual_lines()
 				local is_enabled = vim.diagnostic.config().virtual_lines
@@ -62,7 +62,7 @@ return {
 	-- Highlight symbols under cursor, LSP and treesitter-aware
 	{
 		"RRethy/vim-illuminate",
-		event = "VeryLazy",
+		event = "BufRead",
 	},
 	-- Diagnostics window
 	{

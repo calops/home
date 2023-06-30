@@ -21,7 +21,7 @@ return {
 	-- Git utilities, gutter signs
 	{
 		"lewis6991/gitsigns.nvim",
-		event = "VeryLazy",
+		event = "BufRead",
 		init = function()
 			nmap {
 				["<leader>g"] = {
@@ -56,16 +56,6 @@ return {
 		opts = {
 			use_local_fs = true,
 			enable_builtin = true,
-		},
-	},
-	-- WIP
-	{
-		dir = "~/github/gitroutine.nvim",
-		name = "gitroutine",
-		enabled = false,
-		event = "VeryLazy",
-		opts = {
-			foo = "bar",
 		},
 	},
 }

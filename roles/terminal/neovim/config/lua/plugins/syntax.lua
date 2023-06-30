@@ -74,7 +74,7 @@ return {
 	-- Show sticky context for off-screen scope beginnings
 	{
 		"nvim-treesitter/nvim-treesitter-context",
-		event = "VeryLazy",
+		event = "BufRead",
 		opts = {
 			enable = true,
 			max_lines = 5,
@@ -97,9 +97,18 @@ return {
 	-- Syntax-aware text objects and motions
 	{
 		"ziontee113/syntax-tree-surfer",
-		event = "VeryLazy",
+		cmd = {
+			"STSSwapPrevVisual",
+			"STSSwapNextVisual",
+			"STSSelectPrevSiblingNode",
+			"STSSelectNextSiblingNode",
+			"STSSelectParentNode",
+			"STSSelectChildNode",
+			"STSSwapOrHold",
+		},
 		init = function()
 			local function dot_repeatable(op)
+				require("syntax-tree-surfer")
 				return function()
 					vim.opt.opfunc = op
 					return "g@l"

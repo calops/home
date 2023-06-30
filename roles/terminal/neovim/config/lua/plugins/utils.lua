@@ -7,6 +7,7 @@ return {
 		"olimorris/persisted.nvim",
 		lazy = false,
 		init = function()
+			nmap { ["<leader>S"] = { ":Telescope persisted<CR>", "Browse sessions" } }
 			local group = vim.api.nvim_create_augroup("PersistedHooks", {})
 			local ignored_file_types = { "Trouble", "neo-tree" }
 			vim.api.nvim_create_autocmd({ "User" }, {
@@ -75,6 +76,7 @@ return {
 	-- Auto close buffers
 	{
 		"chrisgrieser/nvim-early-retirement",
+		event = "VeryLazy",
 		opts = {
 			retirementAgeMins = 10,
 		},

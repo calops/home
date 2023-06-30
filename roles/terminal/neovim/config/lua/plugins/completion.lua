@@ -2,7 +2,7 @@ return {
 	-- Auto-completion
 	{
 		"hrsh7th/nvim-cmp",
-		event = "VeryLazy",
+		event = "BufRead",
 		dependencies = {
 			"hrsh7th/cmp-nvim-lua",
 			"hrsh7th/cmp-nvim-lsp",
@@ -12,28 +12,27 @@ return {
 			"hrsh7th/cmp-git",
 			"saadparwaiz1/cmp_luasnip",
 			"davidsierradz/cmp-conventionalcommits",
+			"L3MON4D3/LuaSnip",
 		},
 		config = function()
 			local cmp = require("cmp")
 
-			cmp.setup({
-				mapping = cmp.mapping.preset.insert({
+			cmp.setup {
+				mapping = cmp.mapping.preset.insert {
 					["<C-b>"] = cmp.mapping.scroll_docs(-4),
 					["<C-f>"] = cmp.mapping.scroll_docs(4),
 					["<C-e>"] = cmp.mapping.abort(),
 					["<Tab>"] = cmp.mapping.select_next_item(),
 					["<S-Tab>"] = cmp.mapping.select_prev_item(),
-					["<CR>"] = cmp.mapping.confirm({ select = false }),
-				}),
+					["<CR>"] = cmp.mapping.confirm { select = false },
+				},
 				sources = cmp.config.sources({
 					{ name = "nvim_lsp" },
 					{ name = "nvim_lua" },
 					{ name = "luasnip" },
 				}, { { name = "buffer" } }),
 				snippet = {
-					expand = function(args)
-						require("luasnip").lsp_expand(args.body)
-					end,
+					expand = function(args) require("luasnip").lsp_expand(args.body) end,
 				},
 				formatting = {
 					format = require("lspkind").cmp_format(),
@@ -42,7 +41,7 @@ return {
 					completion = cmp.config.window.bordered(),
 					documentation = cmp.config.window.bordered(),
 				},
-			})
+			}
 
 			cmp.setup.filetype("gitcommit", {
 				sources = cmp.config.sources(
@@ -69,10 +68,5 @@ return {
 			})
 			require("cmp_git").setup()
 		end,
-	},
-	-- Snippet engine
-	{
-		"L3MON4D3/LuaSnip",
-		event = "VeryLazy",
 	},
 }

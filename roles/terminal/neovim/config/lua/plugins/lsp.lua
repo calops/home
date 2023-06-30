@@ -116,7 +116,7 @@ return {
 	-- LSP bridge for non-LSP utilities
 	{
 		"jose-elias-alvarez/null-ls.nvim",
-		event = "VeryLazy",
+		event = "BufRead",
 		config = function()
 			local nls = require("null-ls")
 			nls.setup {
