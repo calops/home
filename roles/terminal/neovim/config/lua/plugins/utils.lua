@@ -9,7 +9,7 @@ return {
 		init = function()
 			nmap { ["<leader>S"] = { ":Telescope persisted<CR>", "Browse sessions" } }
 			local group = vim.api.nvim_create_augroup("PersistedHooks", {})
-			local ignored_file_types = { "Trouble", "neo-tree" }
+			local ignored_file_types = { "Trouble", "neo-tree", "noice" }
 			vim.api.nvim_create_autocmd({ "User" }, {
 				pattern = "PersistedSavePre",
 				group = group,

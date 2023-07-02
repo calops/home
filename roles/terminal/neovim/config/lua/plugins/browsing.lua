@@ -9,7 +9,7 @@ return {
 			"nvim-telescope/telescope-symbols.nvim",
 			{
 				"nvim-telescope/telescope-fzf-native.nvim",
-				build = function() io.popen("make") end,
+				build = "make",
 			},
 			{
 				"prochri/telescope-all-recent.nvim",
