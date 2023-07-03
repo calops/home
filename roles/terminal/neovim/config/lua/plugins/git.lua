@@ -1,4 +1,4 @@
-local nmap = require("core.utils").nmap
+local map = require("core.utils").map
 
 return {
 	-- Diff viewer and merge tool
@@ -23,7 +23,7 @@ return {
 		"lewis6991/gitsigns.nvim",
 		event = "BufRead",
 		init = function()
-			nmap {
+			map {
 				["<leader>g"] = {
 					name = "git",
 					s = { function() require("gitsigns").stage_hunk() end, "Stage hunk" },

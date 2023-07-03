@@ -1,7 +1,7 @@
 local core_utils = require("core.utils")
 local utils = require("plugins.ui.utils")
 local palette = require("nix.palette")
-local nmap = core_utils.nmap
+local map = core_utils.map
 
 vim.fn.sign_define("DiagnosticSignError", { text = "", texthl = "DiagnosticSignError", numhl = "" })
 vim.fn.sign_define("DiagnosticSignWarn", { text = "", texthl = "DiagnosticSignWarn", numhl = "" })
@@ -33,7 +33,7 @@ return {
                 ]])
 			end
 
-			nmap {
+			map {
 				["<C-t>"] = { new_tab, "Open current buffer in new tab" },
 				["<C-g>"] = { ":tabclose<CR>", "Close current tab" },
 				["<C-Tab>"] = { ":tabnext<CR>", "View next tab" },
@@ -163,7 +163,7 @@ return {
 		},
 		enabled = true,
 		lazy = false,
-		init = function() nmap { ["<leader><leader>"] = { ":noh<CR>", "Hide search highlights" } } end,
+		init = function() map { ["<leader><leader>"] = { ":noh<CR>", "Hide search highlights" } } end,
 		opts = {
 			lsp = {
 				override = {
@@ -196,7 +196,7 @@ return {
 		"ldelossa/nvim-ide",
 		cmd = "Workspace",
 		init = function()
-			nmap {
+			map {
 				["<leader>w"] = {
 					name = "ide",
 					l = { ":Workspace LeftPanelToggle<CR>", "Toggle git panels" },

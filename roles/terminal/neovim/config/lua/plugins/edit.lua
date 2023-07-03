@@ -1,6 +1,4 @@
-local nmap = require("core.utils").nmap
-local xmap = require("core.utils").xmap
-local omap = require("core.utils").omap
+local map = require("core.utils").map
 
 return {
 	-- Comment commands
@@ -21,7 +19,7 @@ return {
 		"Wansmer/treesj",
 		lazy = true,
 		init = function()
-			nmap {
+			map {
 				["gs"] = {
 					function() require("treesj").toggle() end,
 					"Toggle split",
@@ -55,47 +53,31 @@ return {
 		"andrewferrier/debugprint.nvim",
 		lazy = true,
 		init = function()
-			nmap {
+			map {
 				["<leader>p"] = {
 					name = "debug print",
 					p = {
-						function() require("debugprint").debugprint() end,
+						function() return require("debugprint").debugprint() end,
 						"Add simple debug print below",
+						expr = true,
 					},
 					P = {
-						function() require("debugprint").debugprint { above = true } end,
+						function() return require("debugprint").debugprint { above = true } end,
 						"Add simple debug print above",
+						expr = true,
 					},
 					v = {
-						function() require("debugprint").debugprint { variable = true } end,
+						function() return require("debugprint").debugprint { variable = true } end,
 						"Add variable debug print below",
+						expr = true,
+						mode = { "n", "x", "o" },
 					},
 					V = {
-						function() require("debugprint").debugprint { variable = true, above = true } end,
+						function() return require("debugprint").debugprint { variable = true, above = true } end,
 						"Add variable debug print above",
+						expr = true,
+						mode = { "n", "x", "o" },
 					},
-				},
-			}
-
-			xmap {
-				["<leader>p"] = {
-					function() require("debugprint").debugprint { variable = true } end,
-					"Add variable debug print below",
-				},
-				["<leader>P"] = {
-					function() require("debugprint").debugprint { variable = true, above = true } end,
-					"Add variable debug print above",
-				},
-			}
-
-			omap {
-				["<leader>p"] = {
-					function() require("debugprint").debugprint { variable = true } end,
-					"Add variable debug print below",
-				},
-				["<leader>P"] = {
-					function() require("debugprint").debugprint { variable = true, above = true } end,
-					"Add variable debug print above",
 				},
 			}
 		end,

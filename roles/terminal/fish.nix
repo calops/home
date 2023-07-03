@@ -24,10 +24,10 @@ in {
         di = "git diff";
         rm = "rip";
         sd = "dev rust";
+        cp = "xcp";
       };
       shellAliases = {
         copy = "xclip -selection clipboard";
-        cp = "xcp";
         ls = "exa";
         ll = "ls -lH --time-style=long-iso";
         la = "ll -a";
@@ -43,6 +43,7 @@ in {
           end
         '';
         run = ''nix run nixpkgs#"$argv[1]" -- $argv[2..-1]'';
+        runi = ''nix run --impure nixpkgs#"$argv[1]" -- $argv[2..-1]'';
         cdr = ''
           if test (count $argv) -gt 0
             cd $STOCKLY_MAIN/$argv[1]

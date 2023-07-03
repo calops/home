@@ -1,4 +1,4 @@
-local nmap = require("core.utils").nmap
+local map = require("core.utils").map
 return {
 	-- Fuzzy finder
 	{
@@ -19,7 +19,7 @@ return {
 		cmd = "Telescope",
 		lazy = true,
 		init = function()
-			nmap {
+			map {
 				["<C-p>"] = {
 					function() require("telescope.builtin").find_files() end,
 					"Find files",
@@ -92,7 +92,7 @@ return {
 		},
 		cmd = "Neotree",
 		init = function()
-			nmap {
+			map {
 				["<leader>n"] = {
 					name = "file tree",
 					n = { ":Neotree toggle reveal_force_cwd<cr>", "Toggle file browser" },

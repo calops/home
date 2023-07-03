@@ -1,4 +1,4 @@
-local nmap = require("core.utils").nmap
+local map = require("core.utils").map
 return {
 	-- Show rich inline diagnostics
 	{
@@ -15,7 +15,7 @@ return {
 				}
 			end
 
-			nmap {
+			map {
 				["<leader>m"] = {
 					function()
 						require("lsp_lines")
@@ -40,7 +40,7 @@ return {
 		"dnlhc/glance.nvim",
 		cmd = "Glance",
 		init = function()
-			nmap {
+			map {
 				g = {
 					d = { "<CMD>Glance definitions<CR>", "Peek definition(s)" },
 					r = { "<CMD>Glance references<CR>", "Peek references" },
@@ -69,7 +69,7 @@ return {
 		"folke/trouble.nvim",
 		cmd = "Trouble",
 		init = function()
-			nmap {
+			map {
 				["<leader>t"] = {
 					function() require("trouble").toggle() end,
 					"Open diagnostics window",

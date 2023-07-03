@@ -1,5 +1,4 @@
-local nmap = require("core.utils").nmap
-local xmap = require("core.utils").xmap
+local map = require("core.utils").map
 
 return {
 	-- Universal language parser
@@ -11,7 +10,7 @@ return {
 			{ "JoosepAlviste/nvim-ts-context-commentstring" },
 		},
 		init = function()
-			nmap {
+			map {
 				["<leader>T"] = { ":Inspect<CR>", "Show highlighting groups and captures" },
 			}
 		end,
@@ -115,7 +114,7 @@ return {
 				end
 			end
 
-			nmap {
+			map {
 				["<M-Up>"] = { dot_repeatable("v:lua.STSSwapUpNormal_Dot"), "Swap node upwards", expr = true },
 				["<M-Down>"] = { dot_repeatable("v:lua.STSSwapDownNormal_Dot"), "Swap node downwards", expr = true },
 				["<M-Left>"] = {
@@ -152,7 +151,7 @@ return {
 				["<Cr>"] = { "<CMD>STSSelectCurrentNode<CR>", "Select current node" },
 			}
 
-			xmap {
+			map({
 				["<M-Up>"] = { "<CMD>STSSwapPrevVisual<CR>", "Swap with previous node" },
 				["<M-Down>"] = { "<CMD>STSSwapNextVisual<CR>", "Swap with next node" },
 				["<M-Left>"] = { "<CMD>STSSwapPrevVisual<CR>", "Swap with previous node" },
@@ -164,7 +163,7 @@ return {
 				["<Cr>"] = { "<CMD>STSSelectParentNode<CR>", "Select parent node" },
 				["<S-Cr>"] = { "<CMD>STSSelectChildNode<CR>", "Select child node" },
 				["gh"] = { "<CMD>STSSwapOrHold<CR>", "Hold or swap with held node" },
-			}
+			}, { mode = "x" })
 		end,
 		config = true,
 	},

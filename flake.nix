@@ -55,7 +55,10 @@
             ./roles
             ./colorschemes
             ./machines/${machine}.nix
-            {home.stateVersion = "23.11";}
+            {
+              home.stateVersion = "23.11";
+              # targets.genericLinux.enable = false;
+            }
           ];
         extraSpecialArgs = {
           inherit inputs;

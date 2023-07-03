@@ -1,6 +1,4 @@
-local nmap = require("core.utils").nmap
-local xmap = require("core.utils").xmap
-local vmap = require("core.utils").vmap
+local map = require("core.utils").map
 
 return {
 	-- Show icons for LSP completions
@@ -52,7 +50,7 @@ return {
 		"neovim/nvim-lspconfig",
 		lazy = true,
 		init = function()
-			nmap {
+			map {
 				K = { vim.lsp.buf.hover, "Show documentation" },
 				H = {
 					function() vim.diagnostic.open_float { border = "rounded" } end,
@@ -65,14 +63,15 @@ return {
 					n = { vim.lsp.buf.rename, "Interactive rename" },
 					f = { vim.lsp.buf.format, "Format code" },
 				},
-				["<leader>a"] = { vim.lsp.buf.code_action, "Interactive list of code actions" },
+				["<leader>a"] = {
+					vim.lsp.buf.code_action,
+					"Interactive list of code actions",
+					mode = { "n", "v" },
+				},
 				["<leader>i"] = {
 					function() vim.lsp.buf.inlay_hint(0) end,
 					"Toggle inlay hints for buffer",
 				},
-			}
-			vmap {
-				["<leader>a"] = { vim.lsp.buf.code_action, "Interactive list of code actions" },
 			}
 			vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
 			vim.lsp.handlers["textDocument/signatureHelp"] =
@@ -146,11 +145,9 @@ return {
 				standalone = false,
 				on_attach = function(_, bufnr)
 					local rt = require("rust-tools")
-					nmap {
+					map {
 						["<C-h>"] = { rt.hover_actions.hover_actions, "Hover actions", buffer = bufnr },
-					}
-					xmap {
-						K = { rt.hover_range.hover_range, "Hover information", buffer = bufnr },
+						K = { rt.hover_range.hover_range, "Hover information", buffer = bufnr, mode = "x" },
 					}
 				end,
 				["rust-analyzer"] = {
