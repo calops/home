@@ -46,7 +46,7 @@ return {
 		"Bekaboo/dropbar.nvim",
 		event = "UIEnter",
 		-- Wait for the plugin to become more stable
-		enabled = true,
+		version = "4",
 		config = function()
 			local bar = require("dropbar.bar")
 			local palette = utils.palette()
