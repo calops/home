@@ -108,11 +108,14 @@ in
                   }
                 }
               ],
-              "theme": "Catppuccin Mocha",
+              "default_theme": "Catppuccin Mocha",
               "useSystemFont": true,
               "systemFont": "${cfg.fonts.monospace.name}",
               "layout": "irc"
             },
+            "useSystemFont": true,
+            "systemFont": "${cfg.fonts.monospace.name}",
+            "default_theme": "Catppuccin Mocha",
             "show_labs_settings": true,
             "features": {
               "feature_spotlight": true,
