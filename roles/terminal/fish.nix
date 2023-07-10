@@ -20,8 +20,9 @@ in {
         gu = "git add -vu";
         gp = "git push";
         st = "git status";
-        cc = "cargo check";
         di = "git diff";
+        lg = "git lg";
+        cc = "cargo check";
         rm = "rip";
         sd = "dev rust";
         cp = "xcp";

@@ -115,6 +115,12 @@ return {
 					winbar = true,
 					statusline = false,
 				},
+				default_component_config = {
+					modified = {
+						symbol = "",
+						highlight = "NeoTreeModified",
+					},
+				},
 			}
 		end,
 	},

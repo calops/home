@@ -170,16 +170,6 @@ return {
 			},
 		},
 	},
-	-- LSP files operations
-	{
-		"antosha417/nvim-lsp-file-operations",
-		event = "LspAttach",
-		dependencies = {
-			{ "nvim-lua/plenary.nvim" },
-			{ "kyazdani42/nvim-tree.lua" },
-		},
-		config = true,
-	},
 	-- Neovim lua LSP utilities
 	{
 		"folke/neodev.nvim",
